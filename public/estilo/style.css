@@ -22,14 +22,22 @@ header nav a{
     text-decoration: none;
     color: var(--cor3);
 }
-nav{    
+.menu{
     text-align: right;
     display: contents;
+    color: var(--cor3);
 }
+
 header nav a:hover{
     color: #1c3a0c;
     text-decoration: underline;
 
+}
+
+body button{
+    margin: auto;
+    border-radius: 5px;
+    text-align: center;
 }
 
 header li{
@@ -48,6 +56,10 @@ p {
     text-align: center;
     padding: 30px;
 }
+
+button {
+    text-align: center;
+}
 form {
     text-align: center;
     padding: 30px;
@@ -60,6 +72,7 @@ footer{
     font-size: 10px;
     text-align: center;
     margin: -8px;
+    margin-top: 10px;
 }
 footer p{
     padding: 6px;

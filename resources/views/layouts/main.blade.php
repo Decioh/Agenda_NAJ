@@ -20,8 +20,8 @@
 <body>
     <header>
         <img src="/img/DP_DF-preto.png" alt="logo-defensoria" height="59px" width="225px">
-        <nav>
-        <a href="#">Home</a>
+        <nav class = 'menu'>
+        <a href="/">Home</a>
         <a href="#">Login</a>
         <a href="#">Sobre</a>
         </nav>
