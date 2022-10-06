@@ -1,25 +1,28 @@
+
 @extends('layouts.main')
 
-@section('title', 'Calendario')
+@section('title', 'Agendamentos')
 
 @section('content')
+
 <!DOCTYPE html>
 <html>
 <head>
     
-    <meta name="csrf-token" content="{{ csrf_token() }}" /> <!-- Hash code para envio seguro de dados -->
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
+    <script src="{{ asset('js/fullcalendar/pt-br.js') }}"></script>
 </head>
 <body>
   
 <div class="container">
     <br />
-    <h1 class="text-center text-primary"><u>Agendamentos</u></h1>
+    <h1 class="text-center text-primary"><u></u></h1>
     <br />
 
     <div id="calendar"></div>
@@ -41,14 +44,14 @@ $(document).ready(function () {
         header:{
             left:'prev,next today',
             center:'title',
-            right:'month,agendaWeek,agendaDay',
+            right:'month,agendaWeek,agendaDay'
         },
-        events:'/full-calendar',
+        events:'/full-calender',
         selectable:true,
         selectHelper: true,
         select:function(start, end, allDay)
         {
-            var title = prompt('Assunto a ser tratado:');
+            var title = prompt('Event Title:');
 
             if(title)
             {
@@ -57,7 +60,7 @@ $(document).ready(function () {
                 var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
 
                 $.ajax({
-                    url:"/full-calendar/action",
+                    url:"/full-calender/action",
                     type:"POST",
                     data:{
                         title: title,
@@ -68,7 +71,7 @@ $(document).ready(function () {
                     success:function(data)
                     {
                         calendar.fullCalendar('refetchEvents');
-                        alert("Horario criado com sucesso!");
+                        alert("Event Created Successfully");
                     }
                 })
             }
@@ -81,7 +84,7 @@ $(document).ready(function () {
             var title = event.title;
             var id = event.id;
             $.ajax({
-                url:"/full-calendar/action",
+                url:"/full-calender/action",
                 type:"POST",
                 data:{
                     title: title,
@@ -93,7 +96,7 @@ $(document).ready(function () {
                 success:function(response)
                 {
                     calendar.fullCalendar('refetchEvents');
-                    alert("A reunião foi reagendada");
+                    alert("Event Updated Successfully");
                 }
             })
         },
@@ -104,7 +107,7 @@ $(document).ready(function () {
             var title = event.title;
             var id = event.id;
             $.ajax({
-                url:"/full-calendar/action",
+                url:"/full-calender/action",
                 type:"POST",
                 data:{
                     title: title,
@@ -116,18 +119,18 @@ $(document).ready(function () {
                 success:function(response)
                 {
                     calendar.fullCalendar('refetchEvents');
-                    alert("A reunião foi reagendada");
+                    alert("Event Updated Successfully");
                 }
             })
         },
 
         eventClick:function(event)
         {
-            if(confirm("Você deseja remover o agendamento?"))
+            if(confirm("Are you sure you want to remove it?"))
             {
                 var id = event.id;
                 $.ajax({
-                    url:"/full-calendar/action",
+                    url:"/full-calender/action",
                     type:"POST",
                     data:{
                         id:id,
@@ -136,7 +139,7 @@ $(document).ready(function () {
                     success:function(response)
                     {
                         calendar.fullCalendar('refetchEvents');
-                        alert("Agendamento cancelado com sucesso!");
+                        alert("Event Deleted Successfully");
                     }
                 })
             }
@@ -149,6 +152,5 @@ $(document).ready(function () {
   
 </body>
 </html>
-
 
 @endsection  

@@ -1,15 +1,16 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\FullCalendarController;
+use App\Http\Controllers\FullCalenderController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('calendario', [FullCalendarController::class, 'index']);
+Route::get('full-calender', [FullCalenderController::class, 'index']);
 
-Route::post('calendario/action', [FullCalendarController::class, 'action']);
+Route::post('full-calender/action', [FullCalenderController::class, 'action']);
 
 ?>
