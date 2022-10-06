@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Event;
 
-class FullCalenderController extends Controller
+class FullCalendarController extends Controller 
 {
     public function index(Request $request)
     {
@@ -17,7 +17,7 @@ class FullCalenderController extends Controller
                        ->get(['id', 'title', 'start', 'end']);
             return response()->json($data);
     	}
-    	return view('full-calender');
+    	return view('full-calendar');
     }
 
     public function action(Request $request)

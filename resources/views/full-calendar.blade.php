@@ -46,12 +46,12 @@ $(document).ready(function () {
             center:'title',
             right:'month,agendaWeek,agendaDay'
         },
-        events:'/full-calender',
+        events:'/calendario',
         selectable:true,
         selectHelper: true,
         select:function(start, end, allDay)
         {
-            var title = prompt('Event Title:');
+            var title = prompt('Tipo de atendimento:');
 
             if(title)
             {
@@ -60,7 +60,7 @@ $(document).ready(function () {
                 var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
 
                 $.ajax({
-                    url:"/full-calender/action",
+                    url:"/calendario/action",
                     type:"POST",
                     data:{
                         title: title,
@@ -71,7 +71,7 @@ $(document).ready(function () {
                     success:function(data)
                     {
                         calendar.fullCalendar('refetchEvents');
-                        alert("Event Created Successfully");
+                        alert("Agendamento criado com sucesso!");
                     }
                 })
             }
@@ -84,7 +84,7 @@ $(document).ready(function () {
             var title = event.title;
             var id = event.id;
             $.ajax({
-                url:"/full-calender/action",
+                url:"/calendario/action",
                 type:"POST",
                 data:{
                     title: title,
@@ -96,7 +96,7 @@ $(document).ready(function () {
                 success:function(response)
                 {
                     calendar.fullCalendar('refetchEvents');
-                    alert("Event Updated Successfully");
+                    alert("Agendamentos atualizados!");
                 }
             })
         },
@@ -107,7 +107,7 @@ $(document).ready(function () {
             var title = event.title;
             var id = event.id;
             $.ajax({
-                url:"/full-calender/action",
+                url:"/calendario/action",
                 type:"POST",
                 data:{
                     title: title,
@@ -119,18 +119,18 @@ $(document).ready(function () {
                 success:function(response)
                 {
                     calendar.fullCalendar('refetchEvents');
-                    alert("Event Updated Successfully");
+                    alert("Agendamentos atualizados");
                 }
             })
         },
 
         eventClick:function(event)
         {
-            if(confirm("Are you sure you want to remove it?"))
+            if(confirm("Remover agendamento?"))
             {
                 var id = event.id;
                 $.ajax({
-                    url:"/full-calender/action",
+                    url:"/calendario/action",
                     type:"POST",
                     data:{
                         id:id,
@@ -139,7 +139,7 @@ $(document).ready(function () {
                     success:function(response)
                     {
                         calendar.fullCalendar('refetchEvents');
-                        alert("Event Deleted Successfully");
+                        alert("Agendamento cancelado com sucesso!");
                     }
                 })
             }
