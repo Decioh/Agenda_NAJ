@@ -34,6 +34,20 @@ header nav a:hover{
 
 }
 
+.form-control{
+    display: inline-block;
+    margin: 5px;
+    text-align: center;
+    max-width: 160px;
+    max-height: 40px;
+}
+.form-group{
+    display: inline-block;
+    margin: 5px;
+    max-width: 160px;
+    max-height: 20px;
+}
+
 body button{
     margin: auto;
     border-radius: 5px;

@@ -79,8 +79,8 @@ $(document).ready(function () {
         editable:true,
         eventResize: function(event, delta)
         {
-            var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
-            var end = $.fullCalendar.formatDate(event.end, 'Y-MM-DD HH:mm:ss');
+            var start = $.fullCalendar.formatDate(event.start, 'DD-MM-Y HH:mm:ss');
+            var end = $.fullCalendar.formatDate(event.end, 'DD-MM-Y HH:mm:ss');
             var title = event.title;
             var id = event.id;
             $.ajax({
@@ -102,8 +102,8 @@ $(document).ready(function () {
         },
         eventDrop: function(event, delta)
         {
-            var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
-            var end = $.fullCalendar.formatDate(event.end, 'Y-MM-DD HH:mm:ss');
+            var start = $.fullCalendar.formatDate(event.start, 'DD-MM-Y HH:mm:ss');
+            var end = $.fullCalendar.formatDate(event.end, 'DD-MM-Y HH:mm:ss');
             var title = event.title;
             var id = event.id;
             $.ajax({
