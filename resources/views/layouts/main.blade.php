@@ -32,7 +32,7 @@
     </header>
         @yield('content')
     <footer>
-        <p>Produzido por <a href="https://github.com/Decioh" target="_blank">Décio Carretta</a>, para a <a href="http://www.defensoria.df.gov.br/" target="_blank">Defensoria Pública</a></p>
+        <p>Produzido para a <a href="http://www.defensoria.df.gov.br/" target="_blank">Defensoria Pública - DF</a></p>
     </footer>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

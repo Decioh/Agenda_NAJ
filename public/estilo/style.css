@@ -97,4 +97,5 @@ footer a{
 }
 footer a:hover{
     text-decoration: underline;
+    color: rgb(112, 111, 111);
 }
