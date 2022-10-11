@@ -22,13 +22,13 @@
     </div>
 </form>-->
 
-<div id="event-create-container" class="col-md-6 offset-md-3"></div>
+<div id="event-create-container" class="formulario1">
 
     <form action="/novo" method="POST">
         @csrf
     <div class="form-group">
         <label for="title">Descrição</label>
-        <input type="text" class="form-control" id="title" name="title" placeholder="descricao">
+        <input type="text" class="form-control" id="title" name="title" placeholder="Título">
     </div> <br>
 
     <div class="form-group">
@@ -44,6 +44,6 @@
             <input type="submit" class="btn btn-primary" value="Criar" >
             <input type="reset" class="btn btn-primary" value="Limpar" >
         </p>
-    </div>
+</div>
     </form>
 @endsection  
