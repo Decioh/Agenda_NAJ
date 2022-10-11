@@ -7,5 +7,6 @@
     entre a escola e o NAJ. <br>
     <a href="/novo/create"><button>Novo agendamento</button></a> <a href="/calendario"><button>Visualizar agendamentos</button></a>    
     </p>
+    <h1>Cadastrar agenda</h1>
 
 @endsection  

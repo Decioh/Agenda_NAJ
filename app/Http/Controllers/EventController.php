@@ -14,6 +14,18 @@ class EventController extends Controller
     public function create(){
         return view('novo/novo-agendamento');
     }
+
+    public function calcular(Request $request){
+        
+        $dur = $_POST["dur"];
+        $vagas = $_POST["vagas"];
+        $vag_h = $_POST["vag_h"];
+
+        echo "digitou $dur, $vagas, $vag_h";
+        
+        return redirect('novo/create');
+    }
+
     public function store(Request $request){
         
         $event = new Event;
