@@ -3,24 +3,24 @@
 @section('title', 'Agendamentos')
 
 @section('content')
-<h1>Cadastrar agenda</h1>
-<!--
+<h1>Agenda por dia</h1>
+
 <form method="POST" action="/novo">
-    <div class="class form-group">
+    <div class="formulario1">
         @csrf
         <label for="dur">Duração desejada para cada atendimento:</label>
         <input type="number" min = "1" max="60" id="dur">
         <label for="vagas">Vagas:</label>
         <input type="number" min="1" max="40" id="vagas">
         <label for="vagas">Simultaneos:</label>
-        <input type="number" min="1" max="40" id="vag_hr"> /*value="" disabled=""*/
-    </div>
-    <div>
+        <input type="number" min="1" max="40" id="vag_hr"> <!--value="" disabled=""-->
         <p>
         <input type="submit" class="btn btn-primary" value="Criar" >
         </p>
     </div>
-</form>-->
+</form>
+
+<h1>Dias que serão disponibilizados</h1>
 
 <div id="event-create-container" class="formulario1">
 
@@ -37,7 +37,7 @@
     </div> <br>
     <div class="form-group">
         <label for="fim">Fim dos atendimentos: </label>
-        <input type="datetime" class="form-control" id="fim" name="end" placeholder="fim"> 
+        <input type="datetime" class="form-control" id="fim" name="end" placeholder="fim" value="$fim" disabled=""> 
     </div>
 
         <p>

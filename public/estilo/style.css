@@ -52,16 +52,16 @@ header nav a:hover{
     border: 1px solid rgba(0, 0, 0, 0.534);
     border-radius: 5px;
     text-align: center;
-    padding: 30px 0px 30px 0px;
+    margin: 10px;
+    padding: 20px;
     display: inline-block;
     min-width: 400px
 }
-
-body button{
-    margin: auto;
-    border-radius: 5px;
-    text-align: center;
+.formulario1 p{
+    padding-top: 15px;
 }
+
+
 
 header li{
     list-style: none;
@@ -74,17 +74,6 @@ h1 {
     text-align: center;
     padding: 30px;
 }
-
-p {
-    text-align: center;
-    padding: 30px;
-}
-
-button {
-    text-align: center;
-}
-
-
 
 footer{
     background-color: var(--cor3);

@@ -17,9 +17,9 @@ class EventController extends Controller
 
     public function calcular(Request $request){
         
-        $dur = $_POST["dur"];
-        $vagas = $_POST["vagas"];
-        $vag_h = $_POST["vag_h"];
+        $dur = $request -> dur;
+        $vagas = $request -> vagas;
+        $vag_h = $request ->vag_h;
 
         echo "digitou $dur, $vagas, $vag_h";
         
@@ -27,6 +27,13 @@ class EventController extends Controller
     }
 
     public function store(Request $request){
+
+       /* $dur = $request -> dur;
+        $vagas = $request -> vagas;
+        $vag_h = $request ->vag_h;
+
+
+        @for ($i = 0; $i< )*/
         
         $event = new Event;
         
