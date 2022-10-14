@@ -19,7 +19,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Abyssinica+SIL&family=Roboto:wght@300&display=swap" rel="stylesheet"> 
     <link rel="shortcut icon" href="../public/img/favicon.ico" type="image/x-icon">
 
-
 </head>
 <body>
     <header>
@@ -38,14 +37,25 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <!-- flatpickr -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script>
+    <script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
+        <!-- Mudar lingua do flatpickr -->
+        <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
+            <script>
+                flatpickr.localize(flatpickr.l10ns.pt)
+                flatpickr('.flatpickr-input')
+            </script>
+        <script>
         config = {
             enableTime: true,
-            dateFormat: "Y-m-d H:i",
+            dateFormat: "Y-m-d H:i:s",
             minDate: "today",
             time_24hr: true,
         }
         flatpickr("input[type=datetime]", config);
+        flatpickr(myElement, {
+    "locale": "pt_BR"  // locale for this instance only
+    });
     </script>
+    
 </body>
 </html>

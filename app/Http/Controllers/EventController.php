@@ -15,34 +15,28 @@ class EventController extends Controller
         return view('novo/novo-agendamento');
     }
 
-    public function calcular(Request $request){
-        
-        $dur = $request -> dur;
-        $vagas = $request -> vagas;
-        $vag_h = $request ->vag_h;
-
-        echo "digitou $dur, $vagas, $vag_h";
-        
-        return redirect('novo/create');
-    }
-
     public function store(Request $request){
 
-       /* $dur = $request -> dur;
+        $dur   = $request -> dur;
         $vagas = $request -> vagas;
-        $vag_h = $request ->vag_h;
+        $vag_h = $request -> vag_h;
 
-
-        @for ($i = 0; $i< )*/
+        for ($i = 0; $i< $vagas; $i++ ){
+        $end = $dur * $vag_h;
+        strtotime(sprintf("+%d hours", $end));
         
         $event = new Event;
         
         $event->title = $request-> title;
         $event->start = $request-> start;
-        $event->end   = $request-> end;
-
-    
+        $event->end   = $end;
         $event->save();
+        }
+
+
+        
+        
+        
     
         return redirect('/calendario');
     
