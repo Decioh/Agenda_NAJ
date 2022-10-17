@@ -18,6 +18,7 @@ class CreateEventsTable extends Migration
             $table->string('title');
             $table->dateTime('start');
             $table->dateTime('end');
+            $table->integer('vag_h');
             $table->timestamps();
         });
     }

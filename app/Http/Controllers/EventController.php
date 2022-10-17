@@ -19,28 +19,36 @@ class EventController extends Controller
 
         $dur   = $request -> dur;
         $vagas = $request -> vagas;
-        $vag_h = $request -> vag_h;
+        $start = $request-> start;
+        $end = 0;
 
-        for ($i = 0; $i< $vagas; $i++ ){
-        $end = $dur * $vag_h;
-        strtotime(sprintf("+%d hours", $end));
+        for ($i=0 ; $i<$vagas ; $i++){
+            if($i==0){
+                $end = $start;
+                $end = date('Y-m-d H:i', strtotime("+$dur minutes",strtotime($start)));
+                $event = new Event;
         
-        $event = new Event;
+                $event->title = 'Horário vago';
+                $event->start = $start;
+                $event->vag_h = $request-> vag_h;
+                $event->end   = $end;
+                $event->save();
+                }
+            else{
+                $start = $end;   
+                $end = date('Y-m-d H:i', strtotime("+$dur minutes",strtotime($start)));
+                $event = new Event;
         
-        $event->title = $request-> title;
-        $event->start = $request-> start;
-        $event->end   = $end;
-        $event->save();
+                $event->title = 'Horário vago';
+                $event->start = $start;
+                $event->vag_h = $request-> vag_h;
+                $event->end   = $end;
+                $event->save();
+                }
+            
         }
-
-
         
-        
-        
-    
         return redirect('/calendario');
-    
-}
-
+        }
 
 }

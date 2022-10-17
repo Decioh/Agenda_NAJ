@@ -11,13 +11,13 @@
 
     <form action="/novo" method="POST">
         @csrf
-    <div class="form-group">
-        <label for="title">Descrição</label>
+    <!--<div class="form-group">
+        <label for="title">Descrição</label><br>
         <input type="text" class="form-control" id="title" name="title" placeholder="Título">
-    </div> <br>
+    </div> <br>-->
 
     <div class="form-group">
-        <label for="começo">Começo dos atendimentos: </label>
+        <label for="começo">Começo dos atendimentos: </label><br>
         <input type="datetime" class="form-control" id="começo" name="start" placeholder="começo">
     </div> <br>
     <!--<div class="form-group">
@@ -25,16 +25,16 @@
         <input type="datetime" class="form-control" id="fim" name="end" placeholder="fim">value=$fim disabled=""
     </div>-->
     <div class="form-group">
-        <label for="dur">Tempo de cada atendimento:</label>
+        <label for="dur">Tempo para cada atendimento:</label><br>
         <input type="number" min = "1" max="60" id="dur" name="dur">
     </div><br>
     <div class="form-group">
-        <label for="vagas">Vagas:</label>
+        <label for="vagas">Vagas:</label><br>
         <input type="number" min="1" max="40" id="vagas" name="vagas">
     </div> <br>
-    <div class="form-group">
-        <label for="vagas">Simultaneos:</label>
-        <input type="number" min="1" max="40" id="vag_hr" name="vag_hr">
+    <div class="form-group"> 
+        <label for="vagas">Atendimentos simultaneos:</label><br>
+        <input type="number" min="1" max="40" id="vag_h" name="vag_h">
     </div> <br>
     <div class="form-group">
         <p>

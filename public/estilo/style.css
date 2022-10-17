@@ -34,6 +34,9 @@ header nav a:hover{
     text-decoration: underline;
 
 }
+body p{
+    margin: 20px;
+}
 
 .form-control{
     display: inline-block;
@@ -46,8 +49,8 @@ header nav a:hover{
     text-align: center;
     display: inline-block; 
     margin: 5px;
-    max-width: 160px;
-    max-height: 20px;
+    /*max-width: 160px;
+    max-height: 20px;*/
 }
 .formulario1{
     border: 1px solid rgba(0, 0, 0, 0.534);
@@ -75,23 +78,30 @@ h1 {
     text-align: center;
     padding: 30px;
 }
-
+#calendar{
+    margin-bottom: 50px;
+}
 footer{
     background-color: var(--cor3);
     color: rgb(75, 75, 75);
     font-size: 10px;
-    text-align: center;
-    margin: -8px;
-    margin-top: 10px;
+    width: 100%;
+    margin-bottom: 0px;
+    position: relative;
+    bottom: 0;
+    left: 0;
 }
 footer p{
     padding: 6px;
+    margin-bottom: 0px;
 }
 footer a{
     text-decoration: none;
     color: rgb(75, 75, 75);
+    margin-bottom: 0px;
 }
 footer a:hover{
     text-decoration: underline;
+    margin-bottom: 0px;
     color: rgb(112, 111, 111);
 }
