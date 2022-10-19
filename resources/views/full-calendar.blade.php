@@ -19,7 +19,7 @@
     <script src="{{ asset('js/fullcalendar/pt-br.js') }}"></script>
 </head>
 <body>
-  
+   
 <div class="container">
     <br />
     <h1 class="text-center text-primary"><u></u></h1>

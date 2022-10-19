@@ -20,10 +20,16 @@ class EventController extends Controller
         $dur   = $request -> dur;
         $vagas = $request -> vagas;
         $start = $request-> start;
+        $fim = $request -> fim;
         $end = 0;
 
+        $aux = date('Y-m-d', strtotime($start. ' - 1 days'));
+
+        while($start<$end){
         for ($i=0 ; $i<$vagas ; $i++){
             if($i==0){
+                $aux = date('Y-m-d', strtotime($aux. ' + 1 days'));
+                $start = $aux;
                 $end = $start;
                 $end = date('Y-m-d H:i', strtotime("+$dur minutes",strtotime($start)));
                 $event = new Event;
@@ -46,6 +52,7 @@ class EventController extends Controller
                 $event->save();
                 }
             
+        }
         }
         
         return redirect('/calendario');

@@ -11,6 +11,7 @@
 
     <form action="/novo" method="POST">
         @csrf
+    
     <div class="form-group">
         <label for="começo">Começo dos atendimentos:</label><br>
         <input type="datetime" class="form-control" id="começo" name="start" placeholder="começo">
@@ -27,8 +28,11 @@
         <label for="vagas">Atendimentos simultaneos:</label><br>
         <input type="number" min="1" max="40" id="vag_h" name="vag_h">
     </div> <br>
-    <div>
-        
+    <div> <br>
+    <div class="form-group">
+        <label for="fim">Data final</label>
+        <input type="date" id="fim" name="fim" placeholder="Data final">
+    </div> <br>
     </div> <br>
     <div class="form-group">
         <p>

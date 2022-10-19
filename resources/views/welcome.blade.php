@@ -4,9 +4,8 @@
 
 @section('content')    
     <p>Ferramenta para conciliação de horarios de agendamentos <br>
-    entre a escola e o NAJ. <br>
-    <a href="/novo/create"><button>Novo agendamento</button></a> <a href="/calendario"><button>Visualizar calendario</button></a><a href="/calendario"> <button>Bloquear dias</button></a>      
-    </p>
+    entre a escola e o NAJ. <br></p>
+    <a href="/novo/create"><button>Novo agendamento</button></a> <a href="/calendario"><button>Visualizar calendario</button></a>
     
     
 
