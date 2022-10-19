@@ -46,6 +46,18 @@ $(document).ready(function () {
             center:'title',
             right:'month,agendaWeek,agendaDay'
         },
+        /*Horarios disponíveis:*/
+        businessHours:[
+        {
+            start: '09:00', // Início dos atendimentos;
+            end: '12:00', // Fim dos atendimentos;
+            dow: [1, 2, 3, 4, 5] // dias da semana( começa no domingo[0] e vai até sabado[6]);
+        },
+        {
+            start: '13:00', //  Início dos atendimentos;
+            end: '18:00', // Fim dos atendimentos;
+            dow: [1, 2, 3, 4, 5] // dias da semana( começa no domingo[0] e vai até sabado[6]);
+        }],   
         events:'/calendario',
         selectable:true,
         selectHelper: true,
