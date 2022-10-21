@@ -39,6 +39,10 @@ class EventController extends Controller
 
         for($j=0; $j < $diff;$j++){ //for para ir para o próximo dia
             $start = date('Y-m-d H:i', strtotime("+$j days",strtotime($aux)));  // aumentar $j dias, 0 dias, 1 dia, 2 dias...;
+            $start = strtotime($start);                                         // Transforma $start em tempo Unix que pode ser manipulado;
+            $day = date('w',$start);                                            // iguala $day ao dia da semana atual;
+            $start = date('Y-m-d H:i', strtotime("+$j days",strtotime($aux)));  // retorna a variável $start para a date correta com ajuda da variavel auxiliar;
+            if($day==$dom || $day==$seg || $day==$ter || $day==$qua || $day==$qui || $day==$sex || $day==$sab){ //compara com todos os dias, só vai ser igual nos dias selecionados pelo usuário
             for ($i=0 ; $i<$vagas ; $i++){ //ir para o próximo agendamento;
                 if($i==0){  // o primeiro loop ajuda o horario para o começo dos agendamentos;
                     $end = date('Y-m-d H:i', strtotime("+$dur minutes",strtotime($start))); // o $end vai ser a data inicial + a duração de cada atendimento;
@@ -64,7 +68,7 @@ class EventController extends Controller
                     }
                 
             }
-        }
+        }}
         
         return redirect('/calendario');
         }

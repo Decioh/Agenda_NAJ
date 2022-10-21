@@ -41,10 +41,12 @@ $(document).ready(function () {
 
     var calendar = $('#calendar').fullCalendar({
         editable:true,
+        eventLimit:true,
         header:{
             left:'prev,next,today',
             center:'title',
-            right:'month,agendaWeek,agendaDay'
+            right:'month,agendaWeek,agendaDay',
+            weekends: false
         },
         /*Horarios disponíveis:*/
         businessHours:[
@@ -58,6 +60,7 @@ $(document).ready(function () {
             end: '18:00', // Fim dos atendimentos;
             dow: [1, 2, 3, 4, 5], // dias da semana( começa no domingo[0] e vai até sabado[6]);
         }],
+        
         events:'/calendario',
         selectable:true,
         selectHelper: true,
@@ -67,9 +70,9 @@ $(document).ready(function () {
 
             if(title)
             {
-                var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
+                var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm');
 
-                var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
+                var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm');
 
                 $.ajax({
                     url:"/calendario/action",
@@ -91,8 +94,8 @@ $(document).ready(function () {
         editable:true,
         eventResize: function(event, delta)
         {
-            var start = $.fullCalendar.formatDate(event.start, 'DD-MM-Y HH:mm:ss');
-            var end = $.fullCalendar.formatDate(event.end, 'DD-MM-Y HH:mm:ss');
+            var start = $.fullCalendar.formatDate(event.start, 'DD-MM-Y HH:mm');
+            var end = $.fullCalendar.formatDate(event.end, 'DD-MM-Y HH:mm');
             var title = event.title;
             var id = event.id;
             $.ajax({
@@ -114,8 +117,8 @@ $(document).ready(function () {
         },
         eventDrop: function(event, delta)
         {
-            var start = $.fullCalendar.formatDate(event.start, 'DD-MM-Y HH:mm:ss');
-            var end = $.fullCalendar.formatDate(event.end, 'DD-MM-Y HH:mm:ss');
+            var start = $.fullCalendar.formatDate(event.start, 'DD-MM-Y HH:mm');
+            var end = $.fullCalendar.formatDate(event.end, 'DD-MM-Y HH:mm');
             var title = event.title;
             var id = event.id;
             $.ajax({
