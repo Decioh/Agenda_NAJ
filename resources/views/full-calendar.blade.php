@@ -19,7 +19,14 @@
     <script src="{{ asset('js/fullcalendar/pt-br.js') }}"></script>
 </head>
 <body>
-   
+</div>
+<div class="container-fluid">
+     <div class="row">
+         @if(session('msg'))
+         <p class="msg"> {{session('msg')}}</p>
+         @endif
+     </div>
+</div>
 <div class="container">
     <br />
     <h1 class="text-center text-primary"><u></u></h1>
@@ -27,8 +34,7 @@
 
     <div id="calendar"></div>
 
-</div>
-   
+
 <script>
 
 $(document).ready(function () {

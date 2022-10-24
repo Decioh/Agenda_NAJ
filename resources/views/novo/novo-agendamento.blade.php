@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title', 'Agendamentos')
-<script src="../../../public/js/scripts.js"></script>
+
 @section('content')
 
 <h1>Agendamento</h1>

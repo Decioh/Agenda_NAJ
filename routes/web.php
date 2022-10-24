@@ -11,6 +11,8 @@ Route::get('/',[EventController::class, 'index']);
 
 Route::get('/novo/create', [EventController::class,'create']);
 
+//Route::get('/novo/{id}', [EventController::class,'show']);
+
 Route::post('/novo', [EventController::class,'store']);
 
 Route::get('calendario', [FullCalendarController::class, 'index']);

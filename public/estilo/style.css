@@ -11,6 +11,59 @@
     text-align: center;
 }
 
+.container-fluid {
+    width: 300px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+.msg{
+    background-color: #81db96;
+    border-color: #1c3a0c;
+    border: 1px solid black;
+    width: 50%;
+    text-align: center;
+    padding: 5px;
+    margin: auto;
+}
+.menu{
+    text-align: right;
+    display: contents;
+    color: var(--cor3);
+}
+.form-control{
+    display: inline-block;
+    margin: 5px;
+    text-align: center;
+    max-width: 160px;
+    max-height: 40px;
+}
+
+.form-group{
+    text-align: center;
+    display: inline-block; 
+    margin: 5px;
+}
+.formulario1{
+    /*border: 1px solid rgba(0, 0, 0, 0.534);
+    border-radius: 5px;*/
+    text-align: center;
+    margin: 10px;
+    padding: 20px;
+    display: inline-block;
+    min-width: 400px
+}
+.formulario1 p{
+    padding-top: 15px;
+}
+#calendar{
+    margin-bottom: 50px;
+}
+
+html, body{
+    min-height: 100%;
+}
 
 header{
     margin: -8px;
@@ -24,48 +77,13 @@ header nav a{
     text-decoration: none;
     color: var(--cor3);
 }
-.menu{
-    text-align: right;
-    display: contents;
-    color: var(--cor3);
-}
+
 
 header nav a:hover{
     color: #1c3a0c;
     text-decoration: underline;
 
 }
-body p{
-    margin: 20px;
-}
-
-.form-control{
-    display: inline-block;
-    margin: 5px;
-    text-align: center;
-    max-width: 160px;
-    max-height: 40px;
-}
-.form-group{
-    text-align: center;
-    display: inline-block; 
-    margin: 5px;
-    /*max-width: 160px;
-    max-height: 20px;*/
-}
-.formulario1{
-    border: 1px solid rgba(0, 0, 0, 0.534);
-    border-radius: 5px;
-    text-align: center;
-    margin: 10px;
-    padding: 20px;
-    display: inline-block;
-    min-width: 400px
-}
-.formulario1 p{
-    padding-top: 15px;
-}
-
 
 
 header li{
@@ -73,28 +91,35 @@ header li{
     display: inline-block;
     padding-left: 10px;
 }
+body{
+    padding: 0;
+    margin: 0;
+    padding-bottom: 70px;
+}
+body p{
+    margin: 20px;
+}
+h2{
+    padding: 50px;
+}
 
 
 h1 {
     text-align: center;
     padding: 30px;
 }
-#calendar{
-    margin-bottom: 50px;
-}
 footer{
+    bottom:0;
     background-color: var(--cor3);
     color: rgb(75, 75, 75);
     font-size: 10px;
     width: 100%;
-    margin-bottom: 0px;
-    position: relative;
-    bottom: 0;
-    left: 0;
+    line-height: 20px;
+    left:0;
 }
 footer p{
+    margin: 0px;
     padding: 6px;
-    margin-bottom: 0px;
 }
 footer a{
     text-decoration: none;

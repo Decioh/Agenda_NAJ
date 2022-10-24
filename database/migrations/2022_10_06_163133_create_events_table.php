@@ -20,6 +20,7 @@ class CreateEventsTable extends Migration
             $table->dateTime('end');
             $table->integer('vag_h');
             $table->timestamps();
+            $table->string('dia');
         });
     }
 
