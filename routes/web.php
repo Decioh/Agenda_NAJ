@@ -9,11 +9,11 @@ use App\Http\Controllers\EventController;
 
 Route::get('/',[EventController::class, 'index']);
 
-Route::get('/novo/create', [EventController::class,'create']);
+Route::get('/novo/create', [EventController::class, 'create']);
 
-//Route::get('/novo/{id}', [EventController::class,'show']);
+Route::get('/novo/{id}', [EventController::class, 'show']);
 
-Route::post('/novo', [EventController::class,'store']);
+Route::post('/novo', [EventController::class, 'store']);
 
 Route::get('calendario', [FullCalendarController::class, 'index']);
 

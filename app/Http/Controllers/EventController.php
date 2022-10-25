@@ -75,12 +75,13 @@ class EventController extends Controller
             }
         }}
         
-        return redirect('/calendario')->with('msg','Agendamento criado com sucesso!');
+        return redirect('calendario')->with('msg','Agendamento criado com sucesso!');
         }
-    
-      /*  public function show($id) {
+
+       public function show($id) {
+
             $event = Event::findOrFail($id);
 
-            return view('events.show', ['event' => $event]);
-        }*/
+            return view('novo/show', ['event' => $event]);
+        }
 }

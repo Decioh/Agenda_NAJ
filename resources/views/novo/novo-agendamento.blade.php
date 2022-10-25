@@ -43,8 +43,8 @@
     </div> <br>
     <div class="form-group">
         <p>
-            <input type="submit" class="btn btn-primary" value="Criar" >
-            <input type="reset" class="btn btn-primary" value="Limpar" >
+            <input type="submit" class="btn btn-secondary" value="Criar" >
+            <input type="reset" class="btn btn-secondary" value="Limpar" >
         </p>
     </div>
     </form>

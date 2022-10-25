@@ -57,13 +57,20 @@
 .formulario1 p{
     padding-top: 15px;
 }
+.info-cadastro{
+    margin: 20px;
+}
 #calendar{
     margin-bottom: 50px;
 }
-
+#events-container{
+    text-align: center;
+    
+}
+/*
 html, body{
     min-height: 100%;
-}
+}*/
 
 header{
     margin: -8px;
@@ -91,18 +98,13 @@ header li{
     display: inline-block;
     padding-left: 10px;
 }
-body{
-    padding: 0;
-    margin: 0;
-    padding-bottom: 70px;
-}
+
 body p{
     margin: 20px;
 }
 h2{
     padding: 50px;
 }
-
 
 h1 {
     text-align: center;
