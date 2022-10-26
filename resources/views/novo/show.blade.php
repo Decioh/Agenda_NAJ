@@ -6,20 +6,20 @@
 
 
         <div class="info-cadastro">
-            <p class="card-date">agendamento para {{$event -> dia}} dia {{$event -> start}} até {{$event -> end}}</p>
+            <p class="card-date">agendamento para {{$event -> dia}} dia {{date('d/m', strtotime($event -> start))}} <br> de {{date('H:i', strtotime($event -> start))}} até {{date('H:i', strtotime($event -> end))}}</p>
         </div>
-<form action="/novo" method="POST">
+<form action="/novo" method="">
 <div class="cadastro"><br>
     <div class="cadastron">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome">
+        <label for="assistido">Nome:</label>
+        <input type="text" id="assistido" name="assistido">
     </div><br>
     <div class="cadastrod">
-        <label for="vagas">data de nascimento: &nbsp;<input type="date"  id="nasc" name="nasc"></label>
+        <label for="nasc">data de nascimento: &nbsp;<input type="date"  id="nasc" name="nasc"></label>
         
     </div> <br>
     <div class="cadastrocpf"> 
-        <label for="vagas">cpf:</label>
+        <label for="cpf">cpf:</label>
         <input type="number" id="cpf" name="cpf">
     </div> <br>
     <div class="cadastrocep"> 
@@ -28,7 +28,7 @@
     </div> <br>
     <div> <br>
         <label for="info">Informações adicionais:</label><br><br>
-        <textarea id="msg"></textarea>
+        <textarea id="info" name="info"></textarea>
     </div> <br>
     <div class="form-group">
         <p>

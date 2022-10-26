@@ -72,9 +72,9 @@ $(document).ready(function () {
         selectHelper: true,
         select:function(start, end, allDay)
         {
-            var title = prompt('Tipo de atendimento:');
+            var assistido = prompt('Tipo de atendimento:');
 
-            if(title)
+            if(assistido)
             {
                 var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm');
 
@@ -84,7 +84,7 @@ $(document).ready(function () {
                     url:"/calendario/action",
                     type:"POST",
                     data:{
-                        title: title,
+                        assistido: assistido,
                         start: start,
                         end: end,
                         type: 'add'
@@ -102,13 +102,13 @@ $(document).ready(function () {
         {
             var start = $.fullCalendar.formatDate(event.start, 'DD-MM-Y HH:mm');
             var end = $.fullCalendar.formatDate(event.end, 'DD-MM-Y HH:mm');
-            var title = event.title;
+            var assistido = event.assistido;
             var id = event.id;
             $.ajax({
                 url:"/calendario/action",
                 type:"POST",
                 data:{
-                    title: title,
+                    assistido: assistido,
                     start: start,
                     end: end,
                     id: id,
@@ -125,13 +125,13 @@ $(document).ready(function () {
         {
             var start = $.fullCalendar.formatDate(event.start, 'DD-MM-Y HH:mm');
             var end = $.fullCalendar.formatDate(event.end, 'DD-MM-Y HH:mm');
-            var title = event.title;
+            var assistido = event.assistido;
             var id = event.id;
             $.ajax({
                 url:"/calendario/action",
                 type:"POST",
                 data:{
-                    title: title,
+                    assistido: assistido,
                     start: start,
                     end: end,
                     id: id,

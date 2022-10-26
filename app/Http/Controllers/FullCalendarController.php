@@ -14,7 +14,7 @@ class FullCalendarController extends Controller
     	{
     		$data = Event::whereDate('start', '>=', $request->start)
                        ->whereDate('end',   '<=', $request->end)
-                       ->get(['id', 'title', 'start', 'end']);
+                       ->get(['id', 'assistido', 'start', 'end']);
             return response()->json($data);
     	}
     	return view('full-calendar');
@@ -27,7 +27,7 @@ class FullCalendarController extends Controller
     		if($request->type == 'add')
     		{
     			$event = Event::create([
-    				'title'		=>	$request->title,
+    				'assistido'		=>	$request->assistido,
     				'start'		=>	$request->start,
     				'end'		=>	$request->end
     			]);
@@ -38,7 +38,7 @@ class FullCalendarController extends Controller
     		if($request->type == 'update')
     		{
     			$event = Event::find($request->id)->update([
-    				'title'		=>	$request->title,
+    				'assistido'		=>	$request->assistido,
     				'start'		=>	$request->start,
     				'end'		=>	$request->end
     			]);

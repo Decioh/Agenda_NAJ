@@ -9,13 +9,25 @@ class EventController extends Controller
 
     public function index(){
 
-        $events = Event::all(); //passando todos os eventos pra view '/'
-
         return view('welcome');
     }
     public function create(){
         return view('novo/novo-agendamento');
     }
+
+    /*public function agendar($id){
+        $assistido  = $request -> assistido;
+        $nasc       = $request -> nasc;
+        $cpf        = $request -> cpf;
+        $cep        = $request -> cep;
+        $info       = $request -> info;
+
+        $event = Event::findOrFail($id);
+
+        return view
+
+        
+    }*/
 
     public function store(Request $request){
 
@@ -52,7 +64,7 @@ class EventController extends Controller
 
                     /*Salvando dados no banco de dados */
                     $event = new Event;
-                    $event->title = 'Horário vago'; // Nome padrão é Horário vago, depois será o nome do Assistido;
+                    $event->assistido = 'Horário vago'; // Nome padrão é Horário vago, depois será o nome do Assistido;
                     $event->start = $start; 
                     $event->vag_h = $request-> vag_h;
                     $event->end   = $end;
@@ -64,7 +76,7 @@ class EventController extends Controller
                     $end = date('Y-m-d H:i', strtotime("+$dur minutes",strtotime($start)));
                     /*Salvando dados no banco*/
                     $event = new Event;            
-                    $event->title = 'Horário vago';
+                    $event->assistido = 'Horário vago';
                     $event->start = $start;
                     $event->vag_h = $request-> vag_h;
                     $event->end   = $end;

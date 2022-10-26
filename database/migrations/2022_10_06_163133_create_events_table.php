@@ -14,13 +14,17 @@ class CreateEventsTable extends Migration
     public function up()
     {
         Schema::create('events', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->dateTime('start');
-            $table->dateTime('end');
-            $table->integer('vag_h');
-            $table->timestamps();
-            $table->string('dia');
+            $table  ->  id();
+            $table  ->  string('assistido');
+            $table  ->  dateTime('start');
+            $table  ->  dateTime('end');
+            $table  ->  integer('vag_h');
+            $table  ->  date('nasc')->nullable();
+            $table  ->  integer('cpf')->nullable();
+            $table  ->  integer('cep')->nullable();
+            $table  ->  string('dia');
+            $table  ->  text('info')->nullable();
+            $table  ->  timestamps();
         });
     }
 

@@ -17,6 +17,8 @@ Route::get('/novo/{id}', [EventController::class, 'show']);
 
 Route::post('/novo', [EventController::class, 'store']);
 
+Route::get('/novo/show', [EventController::class, 'agendar']);/*->middleware('auth');*/
+
 Route::get('calendario', [FullCalendarController::class, 'index']);
 
 Route::post('calendario/action', [FullCalendarController::class, 'action']);

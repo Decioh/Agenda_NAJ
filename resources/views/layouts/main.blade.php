@@ -23,19 +23,19 @@
 </head>
 <body>
     <header>
-        <img src="/img/DP_DF-preto.png" alt="logo-defensoria" height="59px" width="225px">
+        <a href="/"><img src="/img/DP_DF-preto.png" alt="logo-defensoria" height="59px" width="225px"></a>
         <nav class = 'menu'>
         <a href="/">Home</a>
         <a href="#">Login</a>
-        <a href="#">Sobre</a>
+        <a href="#">Cadastrar</a>
         </nav>
     </header>
         @yield('content')
-    <div class="fixed-bottom">
-    <footer>
+
+    <footer class="fixed-bottom">
         <p>Produzido para a <a href="http://www.defensoria.df.gov.br/" target="_blank">Defensoria Pública - DF</a></p>
     </footer>
-    </div>
+
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <!-- flatpickr -->
