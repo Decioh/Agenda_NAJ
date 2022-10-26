@@ -11,7 +11,7 @@ class EventController extends Controller
 
         $events = Event::all(); //passando todos os eventos pra view '/'
 
-        return view('welcome',['events' => $events]);
+        return view('welcome');
     }
     public function create(){
         return view('novo/novo-agendamento');
@@ -83,5 +83,11 @@ class EventController extends Controller
             $event = Event::findOrFail($id);
 
             return view('novo/show', ['event' => $event]);
+        }
+
+        public function schedule(){
+            $events = Event::all(); //passando todos os eventos pra view '/'
+
+        return view('novo/agendar',['events' => $events]);
         }
 }
