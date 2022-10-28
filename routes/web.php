@@ -24,3 +24,12 @@ Route::get('calendario', [FullCalendarController::class, 'index']);
 Route::post('calendario/action', [FullCalendarController::class, 'action']);
 
 ?>
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});

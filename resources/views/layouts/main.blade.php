@@ -28,6 +28,8 @@
         <a href="/">Home</a>
         <a href="#">Login</a>
         <a href="#">Cadastrar</a>
+
+
         </nav>
     </header>
         @yield('content')
