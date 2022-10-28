@@ -29,9 +29,13 @@
 }
 .menu{
     text-align: right;
-    display: contents;
     color: var(--cor3);
+    display: inline-block;
 }
+nav.menu{
+    text-align: right;
+}
+
 .form-control{
     display: inline-block;
     margin: 5px;

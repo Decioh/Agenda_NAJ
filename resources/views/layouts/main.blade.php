@@ -26,10 +26,18 @@
         <a href="/"><img src="/img/DP_DF-preto.png" alt="logo-defensoria" height="59px" width="225px"></a>
         <nav class = 'menu'>
         <a href="/">Home</a>
-        <a href="#">Login</a>
-        <a href="#">Cadastrar</a>
-
-
+        @auth
+        <div class= 'menu'>
+        <form method="POST" name="logout" action="{{ route('logout') }}">
+        @csrf
+        <a href="javascript:document.logout.submit()">Logout</a>
+        </form>
+        </div>
+        @endauth
+        @guest
+        <a href="/login">Login</a>
+        <a href="/register">Cadastrar</a>
+        @endguest
         </nav>
     </header>
         @yield('content')

@@ -81,6 +81,8 @@ class EventController extends Controller
                     $event->vag_h = $request-> vag_h;
                     $event->end   = $end;
                     $event->dia   = $dia;
+                    $user = auth()->user();
+                    $event->user_id = $user->id;
                     $event->save();
                     }
                 else{ // Os outros loops só precisam igualar o start ao end do último evendo, e assim começar onde o último agendamento terminou;
@@ -93,10 +95,14 @@ class EventController extends Controller
                     $event->vag_h = $request-> vag_h;
                     $event->end   = $end;
                     $event->dia   = $dia;
+                    $user = auth()->user();
+                    $event->user_id = $user->id;
                     $event->save();
                     }
                 
             }
+            
+
         }}
         
         return redirect('calendario')->with('msg','Agendamento criado com sucesso!');
