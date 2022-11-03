@@ -23,6 +23,7 @@ class CreateEventsTable extends Migration
             $table  ->  integer('cpf')->nullable();
             $table  ->  integer('cep')->nullable();
             $table  ->  string('dia');
+            $table  ->  integer('dur')->nullable();
             $table  ->  text('info')->nullable();
             $table  ->  timestamps();
         });

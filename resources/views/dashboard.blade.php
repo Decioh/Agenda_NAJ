@@ -1,15 +1,36 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.main')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <x-jet-welcome />
-            </div>
-        </div>
-    </div>
-</x-app-layout>
+@section('title', 'Meus agendamentos')
+
+@section('content')    
+
+<div class="col-md10 offset-md-1 dashboard-title-container" style="margin-left: 0px">
+    <h2>Meus eventos</h2>
+</div>
+<div class="col-md10 offset-md-1 dashboard-title-container" style="margin-left: 0px">
+    @if(count($events)>0)
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Dia</th>
+                <th scope="col">Assistido</th>
+                <th scope="col">Horario</th>
+                <th scope="col">Duração</th>
+                <th scope="col">Vagas</th>
+            </tr>
+        </thead>
+    <tbody>
+        @foreach($event as $events)
+            <tr>
+                <th scope="row">{{ $loop->index + 1 }}</th>
+                <td><a href="/novo{{ $event->id }}">{{ $event-> assistido }}</a></td>
+            </tr>
+        @endforeach
+    </tbody>
+    @else
+    <p>Você ainda não criou um horario de atendimento. <a href="/novo/create">Criar novo agendamento</a></p>
+    @endif
+</div>
+
+@endsection

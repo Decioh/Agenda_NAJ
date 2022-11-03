@@ -33,6 +33,7 @@
         <a href="javascript:document.logout.submit()">Logout</a>
         </form>
         </div>
+        <a href="/dashboard">Meus atendimentos</a>
         @endauth
         @guest
         <a href="/login">Login</a>

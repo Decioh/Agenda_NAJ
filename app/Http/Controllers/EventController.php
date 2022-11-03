@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Event;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -81,11 +82,9 @@ class EventController extends Controller
                     $event->vag_h = $request-> vag_h;
                     $event->end   = $end;
                     $event->dia   = $dia;
-                    $user = auth()->user();
-                    $event->user_id = $user->id;
-                    $event->save();
+                    
                     }
-                else{ // Os outros loops só precisam igualar o start ao end do último evendo, e assim começar onde o último agendamento terminou;
+                else{ // Os outros loops só precisam igualar o start ao end do último evento, e assim começar onde o último agendamento terminou;
                     $start = $end;   
                     $end = date('Y-m-d H:i', strtotime("+$dur minutes",strtotime($start)));
                     /*Salvando dados no banco*/
@@ -95,11 +94,11 @@ class EventController extends Controller
                     $event->vag_h = $request-> vag_h;
                     $event->end   = $end;
                     $event->dia   = $dia;
-                    $user = auth()->user();
-                    $event->user_id = $user->id;
-                    $event->save();
                     }
-                
+                $event->dur = $dur;
+                $user = auth()->user();
+                $event->user_id = $user->id;
+                $event->save();                
             }
             
 
@@ -112,12 +111,24 @@ class EventController extends Controller
 
             $event = Event::findOrFail($id);
 
-            return view('novo/show', ['event' => $event]);
+            $eventOwner = User::where('id', $event->user_id)->first()->toArray();
+
+            return view('novo/show', ['event' => $event, 'eventOwner'=> $eventOwner]);
         }
 
         public function schedule(){
+
             $events = Event::all(); //passando todos os eventos pra view '/'
 
-        return view('novo/agendar',['events' => $events]);
+        return view('novo/agendar',['events' => $events]);   
+        }
+
+        public function dashboard(){
+
+            $user = auth()->user();
+
+            $events = $user->events;
+
+            return view('novo.dashboard', ['events' => $events]);
         }
 }
