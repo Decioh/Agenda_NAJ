@@ -97,7 +97,9 @@ $(document).ready(function () {
                 })
             }
         },
+    
         editable:true,
+        
         eventResize: function(event, delta)
         {
             var start = $.fullCalendar.formatDate(event.start, 'DD-MM-Y HH:mm');

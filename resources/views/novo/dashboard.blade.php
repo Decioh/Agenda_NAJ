@@ -7,7 +7,7 @@
 <div class="col-md10 offset-md-1 dashboard-title-container" style="margin-right: 160px">
     <h2>Meus agendamentos</h2>
 </div>
-<div class="col-md10 offset-md-1 dashboard-title-container" style="margin-right: 160px">
+<div class="col-md10 offset-md-1 dashboard-title-container pb-5" style="margin-right: 160px">
     @if(count($events) > 0)
     <table class="table">
         <thead>
@@ -30,7 +30,7 @@
                 <td>{{date('H:i', strtotime($event -> start))}}</td>
                 <td>{{ $event -> dur }} min</td>
                 <td>{{$event -> vag_h}}</td>
-                <td>@if(($event -> vag_h)>0)<a href="/novo/{{ $event -> id }}"> Agendar </a> @endif<a href="#"> Deletar </a></td>
+                <td>@if(($event -> vag_h)>0)<a href="/novo/{{ $event -> id }}" class="btn btn-success edit-btn"> Agendar </a> @endif
             </tr>
         @endforeach
     </tbody>

@@ -123,6 +123,19 @@ class EventController extends Controller
         return view('novo/agendar',['events' => $events]);   
         }
 
+        public function edit($id){
+            $event = Event::findOrFail($id);
+
+            return view('events.edit',['\event' => $edit]);
+        }
+/*
+        public function destroy($id){
+
+            Event::findOrFail($id)->delete();
+
+            return redirect('/dashboard')->with('msg', 'Agendamento excluído!');
+        }
+*/
         public function dashboard(){
 
             $user = auth()->user();
