@@ -24,7 +24,7 @@
         @foreach($event as $events)
             <tr>
                 <th scope="row">{{ $loop->index + 1 }}</th>
-                <td><a href="/novo/{{ $event->id }}">{{ $event-> assistido }}</a></td>
+                <td><a href="/novo/edit/{{ $event->id }}">{{ $event-> assistido }}</a></td>
             </tr>
         @endforeach
     </tbody>

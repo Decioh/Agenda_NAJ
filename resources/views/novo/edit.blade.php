@@ -1,14 +1,16 @@
 @extends('layouts.main')
 
-@section('tile', 'Cadastro')
+@section('tile', 'Agendando Assistido')
 
 @section('content')
 
 
         <div class="info-cadastro">
-            <p class="card-date">Agendamento para {{$event -> dia}} dia {{date('d/m', strtotime($event -> start))}} <br> de {{date('H:i', strtotime($event -> start))}} até {{date('H:i', strtotime($event -> end))}}</p>
+            <p class="card-date">Agendando para {{$event -> dia}} dia {{date('d/m', strtotime($event -> start))}} <br> de {{date('H:i', strtotime($event -> start))}} até {{date('H:i', strtotime($event -> end))}}</p>
         </div>
-<form action="/novo" method="">
+<form action="/novo/update/{{ $event -> id}}" method="POST">
+    @csfr
+    @method('PUT')
 <div class="cadastro"><br>
     <div class="cadastron">
         <label for="assistido">Nome:</label>

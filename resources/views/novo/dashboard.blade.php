@@ -30,12 +30,12 @@
                 <td>{{date('H:i', strtotime($event -> start))}}</td>
                 <td>{{ $event -> dur }} min</td>
                 <td>{{$event -> vag_h}}</td>
-                <td>@if(($event -> vag_h)>0)<a href="/novo/{{ $event -> id }}" class="btn btn-success edit-btn"> Agendar </a> @endif
+                <td>@if(($event -> vag_h)>0)<a href="/novo/edit/{{ $event -> id }}" class="btn btn-success edit-btn"> Agendar </a> @endif
             </tr>
         @endforeach
     </tbody>
     @else
-    <p>Você ainda não criou um horario de atendimento. <a href="/novo/create">Criar novo agendamento</a></p>
+    <p>Você ainda não criou um horario de atendimento. <a href="/novo/edit">Criar novo agendamento</a></p>
     @endif
 </div>
 

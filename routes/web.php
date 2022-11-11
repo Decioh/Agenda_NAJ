@@ -25,7 +25,9 @@ Route::get('/calendario', [FullCalendarController::class, 'index'])->middleware(
 
 Route::post('/calendario/action', [FullCalendarController::class, 'action']);
 
-Route::get('/novo/{id}',[EventController::class, 'edit'])->middleware('auth');
+Route::get('/novo/{id}',[EventController::class, 'destroy'])->middleware('auth');
+
+Route::get('/novo/edit/{id}',[EventController::class, 'edit'])->middleware('auth');
 
 //Route::delete('/novo/{id}', [EventController::class, 'destroy']);
 
