@@ -13,6 +13,8 @@ class Event extends Model
 		'title', 'start', 'end'
 	];
 
+	protected $guarded = [];
+
 	public function user(){
 		return $this->belongsTo('App\models\user');
 	}

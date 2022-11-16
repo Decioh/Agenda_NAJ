@@ -17,6 +17,8 @@ Route::get('/novo/agendar', [EventController::class, 'schedule'])->middleware('a
 
 Route::get('/novo/{id}', [EventController::class, 'show'])->middleware('auth');
 
+Route::put('/novo/update/{id}', [EventController::class, 'update'])->middleware('auth');
+
 Route::post('/novo', [EventController::class, 'store'])->middleware('auth');
 
 Route::get('/novo/show', [EventController::class, 'agendar'])->middleware('auth');
@@ -24,10 +26,6 @@ Route::get('/novo/show', [EventController::class, 'agendar'])->middleware('auth'
 Route::get('/calendario', [FullCalendarController::class, 'index'])->middleware('auth');
 
 Route::post('/calendario/action', [FullCalendarController::class, 'action']);
-
-Route::get('/novo/{id}',[EventController::class, 'destroy'])->middleware('auth');
-
-Route::get('/novo/edit/{id}',[EventController::class, 'edit'])->middleware('auth');
 
 //Route::delete('/novo/{id}', [EventController::class, 'destroy']);
 

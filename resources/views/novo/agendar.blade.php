@@ -16,7 +16,7 @@
                 <h5 class="card-date">{{$event -> dia}}<br>dia {{date('d/m', strtotime($event -> start))}}</h5>
                 <p class="datas"> de {{date('H:i', strtotime($event -> start))}} <br> até {{date('H:i', strtotime($event -> end))}}</p>
                 <p class="vagas">{{$event -> vag_h}} vagas</p>
-                <a href="/novo/{{ $event -> id }}" class="btn btn-secondary"> {{date('H:i', strtotime($event -> start))}} </a>
+                <a href="edit/{{ $event -> id }}" class="btn btn-secondary"> {{date('H:i', strtotime($event -> start))}} </a>
             </div>
         </div>
     </div>

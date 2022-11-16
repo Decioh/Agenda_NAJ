@@ -8,7 +8,9 @@
         <div class="info-cadastro">
             <p class="card-date">Agendamento para {{$event -> dia}} dia {{date('d/m', strtotime($event -> start))}} <br> de {{date('H:i', strtotime($event -> start))}} até {{date('H:i', strtotime($event -> end))}}</p>
         </div>
-<form action="/novo" method="">
+<form action="/novo/update/{{$event -> id}}" method="POST">
+    @csrf
+    @method('PUT')
 <div class="cadastro"><br>
     <div class="cadastron">
         <label for="assistido">Nome:</label>
@@ -32,7 +34,7 @@
     </div> <br>
     <div class="form-group">
         <p>
-            <input type="submit" class="btn btn-secondary" value="Criar" >
+            <input type="submit" class="btn btn-secondary" value="Agendar" >
             <input type="reset" class="btn btn-secondary" value="Limpar" >
         </p>
     </div>

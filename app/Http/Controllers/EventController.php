@@ -55,7 +55,8 @@ class EventController extends Controller
         $sex   = $request -> sex;
         $sab   = $request -> sab;
         $dom   = $request -> dom;
-        
+
+
         $end = 0;                   //Inicializando a variável pro laravel não reclamar;
         $aux = $start;              //Variável auxiliar, para resetar o $start depois de cada loop;
         $start = strtotime($start); //Retorna uma timestamp que pode ser trabalhada em contas;
@@ -123,11 +124,11 @@ class EventController extends Controller
         return view('novo/agendar',['events' => $events]);   
         }
 
-        public function edit($id){
+        public function update(Request $request){
 
-            $event = Event::findOrFail($id);
+            Event::findOrFail($request->id)->update($request->all());
 
-            return view('novo.edit',['event' => $event]);
+        return redirect('/dashboard')->with('msg', 'Agendamento realizado!'); 
         }
 /*
         public function destroy($id){

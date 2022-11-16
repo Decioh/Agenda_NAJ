@@ -4,7 +4,6 @@
 
 @section('content')
 
-<h1>Agendamento</h1>
 
 
 
@@ -14,7 +13,7 @@
         @csrf
     
     <div class="form-group">
-        <legend>Data dos atendimentos:</legend>
+        <legend>Criando horarios de atendimento:</legend>
         <label for="começo">Começo: <input type="datetime" class="form-control" id="começo" name="start" placeholder="começo"></label>
         
         <label for="fim" >final: <input type="datetime" class="form-control" id="fim" name="fim" placeholder="fim"></label>
