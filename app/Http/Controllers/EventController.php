@@ -27,21 +27,7 @@ class EventController extends Controller
     public function create(){
         return view('novo/novo-agendamento');
     }
-
-    /*public function agendar($id){
-        $assistido  = $request -> assistido;
-        $nasc       = $request -> nasc;
-        $cpf        = $request -> cpf;
-        $cep        = $request -> cep;
-        $info       = $request -> info;
-
-        $event = Event::findOrFail($id);
-
-        return view
-
-        
-    }*/
-
+    
     public function store(Request $request){
 
         $dur   = $request -> dur;
@@ -55,7 +41,6 @@ class EventController extends Controller
         $sex   = $request -> sex;
         $sab   = $request -> sab;
         $dom   = $request -> dom;
-
 
         $end = 0;                   //Inicializando a variável pro laravel não reclamar;
         $aux = $start;              //Variável auxiliar, para resetar o $start depois de cada loop;
@@ -124,11 +109,18 @@ class EventController extends Controller
         return view('novo/agendar',['events' => $events]);   
         }
 
-        public function update(Request $request){
+        public function update(Request $req){
 
-            Event::findOrFail($request->id)->update($request->all());
+            
+            $event=Event::find(($req->id));
+            $event-> assistido=$req->assistido;
+            $event-> nasc=$req->nasc;
+            $event-> cpf=$req->cpf;
+            $event-> cep=$req->cep;
+            $event-> info=$req->info;
 
-        return redirect('/dashboard')->with('msg', 'Agendamento realizado!'); 
+            $event-> save();
+        return redirect('/')->with('msg', 'Agendamento concluído!');
         }
 /*
         public function destroy($id){

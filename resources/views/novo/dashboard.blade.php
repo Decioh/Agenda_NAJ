@@ -30,7 +30,7 @@
                 <td>{{date('H:i', strtotime($event -> start))}}</td>
                 <td>{{ $event -> dur }} min</td>
                 <td>{{$event -> vag_h}}</td>
-                <td>@if(($event -> vag_h)>0)<a href="/novo/{{ $event -> id }}" class="btn btn-success edit-btn"> Agendar </a> @endif
+                <td>@if(($event -> assistido) == 'Horário vago')<a href="/novo/{{ $event -> id }}"class="btn btn-success edit-btn"> Agendar </a>@else <a href=""class="btn btn-danger edit-btn"> Editar </a> <a href=""class="btn btn-secondary edit-btn"> Info </a>@endif
             </tr>
         @endforeach
     </tbody>
