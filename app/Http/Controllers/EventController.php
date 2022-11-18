@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
 {
@@ -27,7 +28,7 @@ class EventController extends Controller
     public function create(){
         return view('novo/novo-agendamento');
     }
-    
+
     public function store(Request $request){
 
         $dur   = $request -> dur;
@@ -104,7 +105,7 @@ class EventController extends Controller
 
         public function schedule(){
 
-            $events = Event::all(); //passando todos os eventos pra view '/'
+            $events = Event::orderBy('start','asc')->get(); //passando todos os eventos pra view '/'
 
         return view('novo/agendar',['events' => $events]);   
         }
@@ -135,6 +136,8 @@ class EventController extends Controller
             $user = auth()->user();
 
             $events = $user->events;
+
+            $events = DB::table('events')->orderBy('start', 'asc')->get();
 
             return view('novo.dashboard', ['events' => $events]);
         }
