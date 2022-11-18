@@ -64,6 +64,9 @@ nav.menu{
 .info-cadastro{
     margin: 20px;
 }
+.datas{
+    display: inline-block;
+}
 #search-container{
     padding: 20px;
 }
