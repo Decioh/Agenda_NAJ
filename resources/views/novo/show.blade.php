@@ -33,6 +33,9 @@
         <label for="info">Informações adicionais:</label><br><br>
         <textarea id="info" name="info"></textarea>
     </div> <br>
+    <div>
+        <input type="hidden" value="{{$event -> vag_h}}" id="vag_h" name="vag_h">
+    </div>
     <div class="form-group">
         <p>
             <input type="submit" class="btn btn-secondary" value="Agendar" >

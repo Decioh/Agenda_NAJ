@@ -114,11 +114,16 @@ class EventController extends Controller
 
             
             $event=Event::find(($req->id));
-            $event-> assistido=$req->assistido;
-            $event-> nasc=$req->nasc;
-            $event-> cpf=$req->cpf;
-            $event-> cep=$req->cep;
-            $event-> info=$req->info;
+
+            $vag_h = $req -> vag_h; 
+            $vag_h = $vag_h -1;
+            
+            $event -> assistido=$req->assistido;
+            $event -> nasc=$req->nasc;
+            $event -> cpf=$req->cpf;
+            $event -> cep=$req->cep;
+            $event -> info=$req->info;
+            $event -> vag_h = $req-> vag_h;
 
             $event-> save();
         return redirect('/')->with('msg', 'Agendamento concluído!');
