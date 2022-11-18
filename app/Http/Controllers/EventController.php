@@ -42,6 +42,7 @@ class EventController extends Controller
         $sex   = $request -> sex;
         $sab   = $request -> sab;
         $dom   = $request -> dom;
+        $vag_h = $request -> vag_h;
 
         $end = 0;                   //Inicializando a variável pro laravel não reclamar;
         $aux = $start;              //Variável auxiliar, para resetar o $start depois de cada loop;
@@ -50,7 +51,8 @@ class EventController extends Controller
         $dow = array('Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado');
         $diff = $fim - $start;      //Vamos usar para delimitar os dias onde serão criadas as agendas;
         $diff = (($diff/60)/60)/24; //Convertendo de segundos para dias;
-
+        $k = $vag_h;
+        for($k>0;$k>=0;$k--){
         for($j=0; $j <= $diff;$j++){ //for para ir para o próximo dia
             $start = date('Y-m-d H:i', strtotime("+$j days",strtotime($aux)));  // aumentar $j dias, 0 dias, 1 dia, 2 dias...;
             $start = strtotime($start);                                         // Transforma $start em tempo Unix que pode ser manipulado;
@@ -66,7 +68,7 @@ class EventController extends Controller
                     $event = new Event;
                     $event->assistido = 'Horário vago'; // Nome padrão é Horário vago, depois será o nome do Assistido;
                     $event->start = $start; 
-                    $event->vag_h = $request-> vag_h;
+                    $event->vag_h = $vag_h;
                     $event->end   = $end;
                     $event->dia   = $dia;
                     
@@ -78,7 +80,7 @@ class EventController extends Controller
                     $event = new Event;            
                     $event->assistido = 'Horário vago';
                     $event->start = $start;
-                    $event->vag_h = $request-> vag_h;
+                    $event->vag_h = $vag_h;
                     $event->end   = $end;
                     $event->dia   = $dia;
                     }
@@ -89,7 +91,7 @@ class EventController extends Controller
             }
             
 
-        }}
+        }}}
         
         return redirect('calendario')->with('msg','Agendamento criado com sucesso!');
         }
@@ -117,13 +119,12 @@ class EventController extends Controller
 
             $vag_h = $req -> vag_h; 
             $vag_h = $vag_h -1;
-            
+
             $event -> assistido=$req->assistido;
             $event -> nasc=$req->nasc;
             $event -> cpf=$req->cpf;
             $event -> cep=$req->cep;
             $event -> info=$req->info;
-            $event -> vag_h = $req-> vag_h;
 
             $event-> save();
         return redirect('/')->with('msg', 'Agendamento concluído!');
