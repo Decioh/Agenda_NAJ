@@ -35,7 +35,7 @@
         @endforeach
     </tbody>
     @else
-    <p>Você ainda não criou um horario de atendimento. <a href="/novo/create">Criar novo agendamento</a></p>
+        <p>Você ainda não criou um horario de atendimento. <a href="/novo/create">Criar novo agendamento</a></p>
     @endif
 </div>
 

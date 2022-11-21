@@ -12,12 +12,16 @@
         @if($loop->first)                                                   <!-- Se for o primeiro loop, já criamos o card com o dia-->
             @php $day = date('d/m', strtotime($event -> start))@endphp      <!-- Igualando o primeiro dia com o dia atual, para comparar nos próximos loops-->
             <div id="cards-container">                                      <!-- Container para os cards-->
-            <div class="row d-flex justify-content-center">
-                <div class = "card col-md-4">
-                    <div class="card-body">
-                        <h5 class="card-date">{{$event -> dia}}<br>dia {{date('d/m', strtotime($event -> start))}}</h5><!-- Imprimindo o dia e mês-->
+                <div class="row d-flex justify-content-center">
+                    <div class = "card col-md-4">
+                        <div class="card-body">
+                            <h5 class="card-date">{{$event -> dia}}<br>dia {{date('d/m', strtotime($event -> start))}}</h5><!-- Imprimindo o dia e mês-->
         @endif
             @if($day != date('d/m', strtotime($event -> start)))    <!-- Se for um novo dia, criaremos outro card com o próximo dia-->
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="cards-container">
                 <div class="row d-flex justify-content-center">
                     <div class = "card col-md-4">
@@ -34,12 +38,9 @@
                 @endif
         
         
-                    </div>
+                    
                         @php $day = date('d/m', strtotime($event -> start))@endphp
-                    </div>
-                </div>
-            </div>
-            </div>
+
     @endforeach
     @if(count($events) == 0)
         <p>Não há agendamentos disponíveis</p>

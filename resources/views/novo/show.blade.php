@@ -15,7 +15,7 @@
 <div class="cadastro"><br>
     <div class="cadastron">
         <label for="assistido">Nome:</label>
-        <input type="text" id="assistido" name="assistido">
+        <input type="text" id="assistido" name="assistido" required>
     </div><br>
     <div class="cadastrod">
         <label for="nasc">data de nascimento: &nbsp;<input type="date"  id="nasc" name="nasc"></label>

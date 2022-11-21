@@ -52,46 +52,46 @@ class EventController extends Controller
         $diff = $fim - $start;      //Vamos usar para delimitar os dias onde serão criadas as agendas;
         $diff = (($diff/60)/60)/24; //Convertendo de segundos para dias;
         $k = $vag_h;
-        for($k>0;$k>=0;$k--){
-        for($j=0; $j <= $diff;$j++){ //for para ir para o próximo dia
-            $start = date('Y-m-d H:i', strtotime("+$j days",strtotime($aux)));  // aumentar $j dias, 0 dias, 1 dia, 2 dias...;
-            $start = strtotime($start);                                         // Transforma $start em tempo Unix que pode ser manipulado;
-            $day = date('w',$start);                                            // iguala $day ao dia da semana atual;
-            $dia = $dow[$day];
-            $start = date('Y-m-d H:i', strtotime("+$j days",strtotime($aux)));  // retorna a variável $start para a date correta com ajuda da variavel auxiliar;
-            if($day==$dom || $day==$seg || $day==$ter || $day==$qua || $day==$qui || $day==$sex || $day==$sab){ //compara com todos os dias, só vai ser igual nos dias selecionados pelo usuário
-            for ($i=0 ; $i<$vagas ; $i++){ //ir para o próximo agendamento;
-                if($i==0){  // o primeiro loop ajuda o horario para o começo dos agendamentos;
-                    $end = date('Y-m-d H:i', strtotime("+$dur minutes",strtotime($start))); // o $end vai ser a data inicial + a duração de cada atendimento;
+        for($k>0;$k>0;$k--){
+            for($j=0; $j <= $diff;$j++){ //for para ir para o próximo dia
+                $start = date('Y-m-d H:i', strtotime("+$j days",strtotime($aux)));  // aumentar $j dias, 0 dias, 1 dia, 2 dias...;
+                $start = strtotime($start);                                         // Transforma $start em tempo Unix que pode ser manipulado;
+                $day = date('w',$start);                                            // iguala $day ao dia da semana atual;
+                $dia = $dow[$day];
+                $start = date('Y-m-d H:i', strtotime("+$j days",strtotime($aux)));  // retorna a variável $start para a date correta com ajuda da variavel auxiliar;
+                if($day==$dom || $day==$seg || $day==$ter || $day==$qua || $day==$qui || $day==$sex || $day==$sab){ //compara com todos os dias, só vai ser igual nos dias selecionados pelo usuário
+                for ($i=0 ; $i<$vagas ; $i++){ //ir para o próximo agendamento;
+                    if($i==0){  // o primeiro loop ajuda o horario para o começo dos agendamentos;
+                        $end = date('Y-m-d H:i', strtotime("+$dur minutes",strtotime($start))); // o $end vai ser a data inicial + a duração de cada atendimento;
 
-                    /*Salvando dados no banco de dados */
-                    $event = new Event;
-                    $event->assistido = 'Horário vago'; // Nome padrão é Horário vago, depois será o nome do Assistido;
-                    $event->start = $start; 
-                    $event->vag_h = $vag_h;
-                    $event->end   = $end;
-                    $event->dia   = $dia;
-                    
-                    }
-                else{ // Os outros loops só precisam igualar o start ao end do último evento, e assim começar onde o último agendamento terminou;
-                    $start = $end;   
-                    $end = date('Y-m-d H:i', strtotime("+$dur minutes",strtotime($start)));
-                    /*Salvando dados no banco*/
-                    $event = new Event;            
-                    $event->assistido = 'Horário vago';
-                    $event->start = $start;
-                    $event->vag_h = $vag_h;
-                    $event->end   = $end;
-                    $event->dia   = $dia;
-                    }
-                $event->dur = $dur;
-                $user = auth()->user();
-                $event->user_id = $user->id;
-                $event->save();                
-            }
+                        /*Salvando dados no banco de dados */
+                        $event = new Event;
+                        $event->assistido = 'Horário vago'; // Nome padrão é Horário vago, depois será o nome do Assistido;
+                        $event->start = $start; 
+                        $event->vag_h = $vag_h;
+                        $event->end   = $end;
+                        $event->dia   = $dia;
+
+                        }
+                    else{ // Os outros loops só precisam igualar o start ao end do último evento, e assim começar onde o último agendamento terminou;
+                        $start = $end;   
+                        $end = date('Y-m-d H:i', strtotime("+$dur minutes",strtotime($start)));
+                        /*Salvando dados no banco*/
+                        $event = new Event;            
+                        $event->assistido = 'Horário vago';
+                        $event->start = $start;
+                        $event->vag_h = $vag_h;
+                        $event->end   = $end;
+                        $event->dia   = $dia;
+                        }
+                    $event->dur = $dur;
+                    $user = auth()->user();
+                    $event->user_id = $user->id;
+                    $event->save();                
+                }
             
 
-        }}}
+        }   }   }
         
         return redirect('calendario')->with('msg','Agendamento criado com sucesso!');
         }
