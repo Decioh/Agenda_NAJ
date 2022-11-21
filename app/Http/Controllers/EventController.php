@@ -51,9 +51,10 @@ class EventController extends Controller
         $dow = array('Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado');
         $diff = $fim - $start;      //Vamos usar para delimitar os dias onde serão criadas as agendas;
         $diff = (($diff/60)/60)/24; //Convertendo de segundos para dias;
-        $k = $vag_h;
+        $k = $vag_h;                //Variável k, para criar k agendamentos para o mesmo horario;
         for($k>0;$k>0;$k--){
-            for($j=0; $j <= $diff;$j++){ //for para ir para o próximo dia
+            
+            for($j=0; $j <= $diff;$j++){                                            //for para ir para o próximo dia
                 $start = date('Y-m-d H:i', strtotime("+$j days",strtotime($aux)));  // aumentar $j dias, 0 dias, 1 dia, 2 dias...;
                 $start = strtotime($start);                                         // Transforma $start em tempo Unix que pode ser manipulado;
                 $day = date('w',$start);                                            // iguala $day ao dia da semana atual;
@@ -61,9 +62,8 @@ class EventController extends Controller
                 $start = date('Y-m-d H:i', strtotime("+$j days",strtotime($aux)));  // retorna a variável $start para a date correta com ajuda da variavel auxiliar;
                 if($day==$dom || $day==$seg || $day==$ter || $day==$qua || $day==$qui || $day==$sex || $day==$sab){ //compara com todos os dias, só vai ser igual nos dias selecionados pelo usuário
                 for ($i=0 ; $i<$vagas ; $i++){ //ir para o próximo agendamento;
-                    if($i==0){  // o primeiro loop ajuda o horario para o começo dos agendamentos;
+                    if($i==0){  // o primeiro loop ajusta o horario para o começo dos agendamentos;
                         $end = date('Y-m-d H:i', strtotime("+$dur minutes",strtotime($start))); // o $end vai ser a data inicial + a duração de cada atendimento;
-
                         /*Salvando dados no banco de dados */
                         $event = new Event;
                         $event->assistido = 'Horário vago'; // Nome padrão é Horário vago, depois será o nome do Assistido;
@@ -91,7 +91,7 @@ class EventController extends Controller
                 }
             
 
-        }   }   }
+        }   } $vag_h = $vag_h-1;  }
         
         return redirect('calendario')->with('msg','Agendamento criado com sucesso!');
         }
@@ -116,10 +116,7 @@ class EventController extends Controller
 
             
             $event=Event::find(($req->id));
-
-            $vag_h = $req -> vag_h; 
-            $vag_h = $vag_h -1;
-
+            $event -> vag_h = 0;
             $event -> assistido=$req->assistido;
             $event -> nasc=$req->nasc;
             $event -> cpf=$req->cpf;

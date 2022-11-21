@@ -16,6 +16,7 @@
                     <div class = "card col-md-4">
                         <div class="card-body">
                             <h5 class="card-date">{{$event -> dia}}<br>dia {{date('d/m', strtotime($event -> start))}}</h5><!-- Imprimindo o dia e mês-->
+            
         @endif
             @if($day != date('d/m', strtotime($event -> start)))    <!-- Se for um novo dia, criaremos outro card com o próximo dia-->
                         </div>
