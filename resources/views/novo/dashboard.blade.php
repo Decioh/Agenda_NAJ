@@ -8,6 +8,9 @@
     <h2>Meus agendamentos</h2>
 </div>
 <div class="col-md10 offset-md-1 dashboard-title-container pb-5" style="margin-right: 160px">
+@php
+$i = 1;
+@endphp
     @if(count($events) > 0)
     <table class="table">
         <thead>
@@ -29,7 +32,7 @@
                     $l_assistido = $event -> assistido;
                 @endphp
                 <tr>
-                    <th scope="row">{{ $loop->index + 1 }}</th>
+                    <th scope="row">{{ $i }}</th>
                     <td>{{$event -> dia}} - {{date('d/m', strtotime($event -> start))}}</td>
                     <td>{{$event -> assistido}}</td>
                     <td>{{date('H:i', strtotime($event -> start))}}</td>
@@ -37,10 +40,11 @@
                     <td>{{$event -> vag_h}}</td>
                     <td>@if(($event -> assistido) == 'Horário vago')<a href="/novo/{{ $event -> id }}"class="btn btn-success edit-btn"> Agendar </a>@else <a href=""class="btn btn-danger edit-btn"> Editar </a> <a href=""class="btn btn-secondary edit-btn"> Info </a>@endif
                 </tr>
+                @php $i+=1;@endphp
             @endif
             @if($l_start != $event -> start || $l_assistido != $event -> assistido)
                 <tr>
-                    <th scope="row">{{ $loop->index + 1 }}</th>
+                    <th scope="row">{{ $i }}</th>
                     <td>{{$event -> dia}} - {{date('d/m', strtotime($event -> start))}}</td>
                     <td>{{$event -> assistido}}</td>
                     <td>{{date('H:i', strtotime($event -> start))}}</td>
@@ -48,6 +52,7 @@
                     <td>@if($event -> vag_h == 0) - @else{{$event -> vag_h}}@endif</td>
                     <td>@if(($event -> assistido) == 'Horário vago')<a href="/novo/{{ $event -> id }}"class="btn btn-success edit-btn"> Agendar </a>@else <a href=""class="btn btn-danger edit-btn"> Editar </a> <a href=""class="btn btn-secondary edit-btn"> Info </a>@endif
                 </tr>
+                @php $i+=1;@endphp
                 @php
                         $l_start = $event -> start;
                         $l_assistido = $event -> assistido;
