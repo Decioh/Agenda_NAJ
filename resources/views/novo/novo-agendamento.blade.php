@@ -9,7 +9,7 @@
 
 <div id="event-create-container" class="formulario1">
 
-    <form action="/novo" method="POST">
+    <form action="{{url('novo')}}" method="POST">
         @csrf
     
     <div class="form-group">

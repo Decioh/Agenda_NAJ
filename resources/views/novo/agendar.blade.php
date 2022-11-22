@@ -41,8 +41,7 @@
                 @if (($event -> assistido) == "Horário vago")                           <!-- Se o horario estiver vago, habilita link para cadastrar assistido -->
                     <p class="datas"> de {{date('H:i', strtotime($event -> start))}} <br> até {{date('H:i', strtotime($event -> end))}} <br>
                     <a href="/novo/{{ $event -> id }}" class="btn btn-success"> {{$event -> vag_h}} vaga(s) </a></p>
-                @else                                                                   <!-- Se o horario não estiver vago, habilita link para ver informações do agendamento -->
-                    <!--<a href="/{{ $event -> id }}" class="btn btn-primary">Ver</a></p>-->
+
                 @endif
         
                 @php $day = date('d/m', strtotime($event -> start))@endphp

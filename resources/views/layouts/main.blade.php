@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
     <!--CSS da aplicação-->
-    <link rel="stylesheet" href="/estilo/style.css">
+    <link rel="stylesheet" href={{asset('/estilo/style.css')}}>
     <!--CSS bootstrap-->
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!--Script-->
-    <script src="/public/js/scripts.js"></script>
+    <script src={{asset('/js/scripts.js')}}></script>
     <!--Flatpickr.js-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!--Fontes-->
@@ -33,11 +33,11 @@
         <a href="javascript:document.logout.submit()">Logout</a>
         </form>
         </div>
-        <a href="/dashboard">Meus atendimentos</a>
+        <a href="{{url ('dashboard')}}">Meus atendimentos</a>
         @endauth
         @guest
-        <a href="/login">Login</a>
-        <a href="/register">Cadastrar</a>
+        <a href="{{url ('login')}}">Login</a>
+        <a href="{{url ('register')}}">Cadastrar</a>
         @endguest
         </nav>
     </header>

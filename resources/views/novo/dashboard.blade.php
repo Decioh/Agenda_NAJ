@@ -38,7 +38,7 @@ $i = 1;
                     <td>{{date('H:i', strtotime($event -> start))}}</td>
                     <td>{{ $event -> dur }} min</td>
                     <td>{{$event -> vag_h}}</td>
-                    <td>@if(($event -> assistido) == 'Horário vago')<a href="/novo/{{ $event -> id }}"class="btn btn-success edit-btn"> Agendar </a>@else <a href=""class="btn btn-danger edit-btn"> Editar </a> <a href=""class="btn btn-secondary edit-btn"> Info </a>@endif
+                    <td>@if(($event -> assistido) == 'Horário vago')<a href="novo/{{ $event -> id }}" class="btn btn-success edit-btn"> Agendar </a>@else <a href=""class="btn btn-danger edit-btn"> Editar </a> <a href=""class="btn btn-secondary edit-btn"> Info </a>@endif
                 </tr>
                 @php $i+=1;@endphp
             @endif
@@ -50,7 +50,7 @@ $i = 1;
                     <td>{{date('H:i', strtotime($event -> start))}}</td>
                     <td>{{ $event -> dur }} min</td>
                     <td>@if($event -> vag_h == 0) - @else{{$event -> vag_h}}@endif</td>
-                    <td>@if(($event -> assistido) == 'Horário vago')<a href="/novo/{{ $event -> id }}"class="btn btn-success edit-btn"> Agendar </a>@else <a href=""class="btn btn-danger edit-btn"> Editar </a> <a href=""class="btn btn-secondary edit-btn"> Info </a>@endif
+                    <td>@if(($event -> assistido) == 'Horário vago')<a href="('novo/{{ $event -> id }}')" class="btn btn-success edit-btn"> Agendar </a>@else <a href=""class="btn btn-danger edit-btn"> Editar </a> <a href=""class="btn btn-secondary edit-btn"> Info </a>@endif
                 </tr>
                 @php $i+=1;@endphp
                 @php
@@ -61,7 +61,7 @@ $i = 1;
         @endforeach
     </tbody>
     @else
-        <p>Você ainda não criou um horario de atendimento. <a href="/novo/create">Criar novo agendamento</a></p>
+        <p>Você ainda não criou um horario de atendimento. <a href="{{url ('novo/create')}}">Criar novo agendamento</a></p>
     @endif
 </div>
 

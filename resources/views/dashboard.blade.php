@@ -24,12 +24,12 @@
         @foreach($event as $events)
             <tr>
                 <th scope="row">{{ $loop->index + 1 }}</th>
-                <td><a href="/novo/edit/{{ $event->id }}">{{ $event-> assistido }}</a></td>
+                <td><a href="{{url ('novo/edit{{ $event->id }}')}}">{{ $event-> assistido }}</a></td>
             </tr>
         @endforeach
     </tbody>
     @else
-    <p>Você ainda não criou um horario de atendimento. <a href="/novo/create">Criar novo agendamento</a></p>
+    <p>Você ainda não criou um horario de atendimento. <a href="{{url ('novo/create')}}">Criar novo agendamento</a></p>
     @endif
 </div>
 
