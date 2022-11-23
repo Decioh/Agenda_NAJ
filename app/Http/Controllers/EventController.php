@@ -26,7 +26,7 @@ class EventController extends Controller
     return view('welcome'/*,['events' => $events, 'search' => $search]*/);
     }
     public function create(){
-        return view('novo/novo-agendamento');
+        return view('mediacao/novo-agendamento');
     }
 
     public function store(Request $request){
@@ -102,14 +102,14 @@ class EventController extends Controller
 
             $eventOwner = User::where('id', $event->user_id)->first()->toArray();
 
-            return view('novo/show', ['event' => $event, 'eventOwner'=> $eventOwner]);
+            return view('/mediacao/cadastroassistido', ['event' => $event, 'eventOwner'=> $eventOwner]);
         }
 
         public function schedule(){
 
-            $events = Event::orderBy('start','asc')->get(); //passando todos os eventos pra view '/'
+            $events = Event::orderBy('start','asc')->get(); //passando todos os eventos pra view '/novo/agendar'
 
-        return view('novo/agendar',['events' => $events]);   
+        return view('mediacao/agendamentos',['events' => $events]);   
         }
 
         public function update(Request $req){
@@ -126,14 +126,7 @@ class EventController extends Controller
             $event-> save();
         return redirect('/')->with('msg', 'Agendamento concluído!');
         }
-/*
-        public function destroy($id){
 
-            Event::findOrFail($id)->delete();
-
-            return redirect('/dashboard')->with('msg', 'Agendamento excluído!');
-        }
-*/
         public function dashboard(){
 
             $user = auth()->user();

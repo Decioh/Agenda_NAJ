@@ -27,8 +27,21 @@ Route::get('/calendario', [FullCalendarController::class, 'index'])->middleware(
 
 Route::post('/calendario/action', [FullCalendarController::class, 'action']);
 
+Route::get('/dashboard', [EventController::class, 'dashboard'])->middleware('auth');
+
 //Route::delete('/novo/{id}', [EventController::class, 'destroy']);
 
-Route::get('/dashboard', [EventController::class, 'dashboard'])->middleware('auth');
+//Rotas organizadas
+Route::get('/mediacao/criar_agenda', [EventController::class, 'schedule' ])->middleware('auth');
+
+Route::get('/mediacao/agendar', [EventController::class, 'schedule'])->middleware('auth');
+
+Route::get('/mediacao/cadastroassistido/{id}', [EventController::class, 'show'])->middleware('auth');
+
+Route::get('/mediacao/novo-agendamento', [EventController::class, 'create'])->middleware('auth');
+
+Route::post('/cadastroassistido', [EventController::class, 'store'])->middleware('auth');
+
+
 
 
