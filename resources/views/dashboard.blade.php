@@ -5,7 +5,7 @@
 @section('content')    
 
 <div class="col-md10 offset-md-1 dashboard-title-container" style="margin-left: 0px">
-    <h2>Meus eventos</h2>
+    <h2>Meus agendamentos</h2>
 </div>
 <div class="col-md10 offset-md-1 dashboard-title-container" style="margin-left: 0px">
     @if(count($events)>0)
