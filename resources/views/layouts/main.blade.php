@@ -33,7 +33,7 @@
         <a href="javascript:document.logout.submit()">Logout</a>
         </form>
         </div>
-        <a href="{{url ('dashboard')}}">Meus atendimentos</a>
+        <a href="{{url ('/mediacao/agendamentos')}}">Meus atendimentos</a>
         @endauth
         @guest
         <a href="{{url ('login')}}">Login</a>

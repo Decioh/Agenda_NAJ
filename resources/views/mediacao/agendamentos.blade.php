@@ -8,7 +8,7 @@
     <h2>Meus agendamentos</h2>
 </div>
 <div style="margin-bottom: 50px">
-<a  href="{{url ('/mediacao/criar_agenda')}}"><button class="btn btn-secondary">Criar agenda</button></a>
+<a  href="{{url ('/mediacao/criar_agenda')}}"><button class="btn btn-dark">Criar horario na agenda</button></a>
 </div>
 <div class="col-md10 offset-md-1 dashboard-title-container pb-5" style="margin-right: 160px">
 @php
@@ -64,7 +64,7 @@ $i = 1;
         @endforeach
     </tbody>
     @else
-        <p>Você ainda não criou um horario de atendimento. <a href="{{url ('novo/create')}}">Criar novo agendamento</a></p>
+        <p>Você ainda não criou um horario de atendimento. <a href="{{url ('/mediacao/criar_agenda')}}">Criar novo agendamento</a></p>
     @endif
 </div>
 

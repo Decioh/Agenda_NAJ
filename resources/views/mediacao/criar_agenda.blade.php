@@ -9,7 +9,7 @@
 
 <div id="event-create-container" class="formulario1">
 
-    <form action="{{url('/cadastroassistido')}}" method="POST">
+    <form action="{{url('/mediacao/criar_agenda/novo')}}" method="POST">
         @csrf
     
     <div class="form-group">

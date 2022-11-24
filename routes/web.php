@@ -35,11 +35,11 @@ Route::get('/dashboard', [EventController::class, 'dashboard'])->middleware('aut
 
 Route::get('/mediacao/criar_agenda', [EventController::class, 'create' ])->middleware('auth');
 
-Route::get('/mediacao/agendar', [EventController::class, 'schedule'])->middleware('auth');
+Route::get('/mediacao/agendamentos', [EventController::class, 'schedule'])->middleware('auth');
 
 Route::get('/cadastroassistido/{id}', [EventController::class, 'show'])->middleware('auth');
 
-Route::post('/cadastroassistido', [EventController::class, 'store'])->middleware('auth');
+Route::post('/mediacao/criar_agenda/novo', [EventController::class, 'store'])->middleware('auth');
 
 
 

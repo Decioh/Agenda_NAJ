@@ -96,7 +96,15 @@ class EventController extends Controller
         return redirect('calendario')->with('msg','Agendamento criado com sucesso!');
         }
 
-       public function show($id) {
+       public function listar($id) {
+
+            $event = Event::findOrFail($id);
+
+            $eventOwner = User::where('id', $event->user_id)->first()->toArray();
+
+            return view('/cadastroassistido', ['event' => $event, 'eventOwner'=> $eventOwner]);
+        }
+        public function show($id) {
 
             $event = Event::findOrFail($id);
 
