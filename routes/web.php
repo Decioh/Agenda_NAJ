@@ -32,13 +32,12 @@ Route::get('/dashboard', [EventController::class, 'dashboard'])->middleware('aut
 //Route::delete('/novo/{id}', [EventController::class, 'destroy']);
 
 //Rotas organizadas
-Route::get('/mediacao/criar_agenda', [EventController::class, 'schedule' ])->middleware('auth');
+
+Route::get('/mediacao/criar_agenda', [EventController::class, 'create' ])->middleware('auth');
 
 Route::get('/mediacao/agendar', [EventController::class, 'schedule'])->middleware('auth');
 
-Route::get('/mediacao/cadastroassistido/{id}', [EventController::class, 'show'])->middleware('auth');
-
-Route::get('/mediacao/novo-agendamento', [EventController::class, 'create'])->middleware('auth');
+Route::get('/cadastroassistido/{id}', [EventController::class, 'show'])->middleware('auth');
 
 Route::post('/cadastroassistido', [EventController::class, 'store'])->middleware('auth');
 

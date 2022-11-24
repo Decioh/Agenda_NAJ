@@ -26,7 +26,7 @@ class EventController extends Controller
     return view('welcome'/*,['events' => $events, 'search' => $search]*/);
     }
     public function create(){
-        return view('mediacao/novo-agendamento');
+        return view('/mediacao/criar_agenda');
     }
 
     public function store(Request $request){
@@ -102,7 +102,7 @@ class EventController extends Controller
 
             $eventOwner = User::where('id', $event->user_id)->first()->toArray();
 
-            return view('/mediacao/cadastroassistido', ['event' => $event, 'eventOwner'=> $eventOwner]);
+            return view('/cadastroassistido', ['event' => $event, 'eventOwner'=> $eventOwner]);
         }
 
         public function schedule(){

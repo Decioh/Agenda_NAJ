@@ -44,11 +44,11 @@
 
                 @endif
         
-                @php $day = date('d/m', strtotime($event -> start))@endphp
-            @php 
-                $l_start = $event -> start;
-                $l_assistido = $event -> assistido;
-            @endphp 
+                @php 
+                    $day = date('d/m', strtotime($event -> start))
+                    $l_start = $event -> start;
+                    $l_assistido = $event -> assistido;
+                @endphp 
         @endif
     @endforeach
     @if(count($events) == 0)
