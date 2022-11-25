@@ -44,7 +44,7 @@
         @yield('content')
 
     <footer class="fixed-bottom">
-        <p>Produzido para a <a href="http://www.defensoria.df.gov.br/" target="_blank">Defensoria Pública - DF</a></p>
+        <p>Produzido para a<a href="http://www.defensoria.df.gov.br/" target="_blank">Defensoria Pública - DF</a></p>
     </footer>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

@@ -93,7 +93,7 @@ class EventController extends Controller
 
         }   } $vag_h = $vag_h-1;  }
         
-        return redirect('calendario')->with('msg','Agendamento criado com sucesso!');
+        return redirect('mediacao/agendamentos')->with('msg','Agendamento criado com sucesso!');
         }
 
        public function listar($id) {
@@ -132,7 +132,7 @@ class EventController extends Controller
             $event -> info=$req->info;
 
             $event-> save();
-        return redirect('/')->with('msg', 'Agendamento concluído!');
+        return redirect('/mediacao/agendamentos')->with('msg', 'Agendamento concluído!');
         }
 
         public function dashboard(){

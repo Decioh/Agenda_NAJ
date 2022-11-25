@@ -4,11 +4,21 @@
 
 @section('content')    
 
+<div class="container-fluid">
+    <div class="row">
+        @if(session('msg'))
+        <p class="msg"> {{session('msg')}}</p>
+        @endif
+    </div>
+</div>
+
+
+<div style="margin: 50px">
+<a  href="{{url ('/mediacao/criar_agenda')}}"><button class="btn btn-dark">Disponibilizar novo horario na agenda</button></a>
+</div>
+
 <div class="col-md10 offset-md-1 dashboard-title-container" style="margin-right: 160px">
     <h2>Meus agendamentos</h2>
-</div>
-<div style="margin-bottom: 50px">
-<a  href="{{url ('/mediacao/criar_agenda')}}"><button class="btn btn-dark">Criar horario na agenda</button></a>
 </div>
 <div class="col-md10 offset-md-1 dashboard-title-container pb-5" style="margin-right: 160px">
 @php
@@ -40,8 +50,8 @@ $i = 1;
                     <td>{{$event -> assistido}}</td>
                     <td>{{date('H:i', strtotime($event -> start))}}</td>
                     <td>{{ $event -> dur }} min</td>
-                    <td>{{$event -> vag_h}}</td>
-                    <td>@if(($event -> assistido) == 'Horário vago')<a href="/mediacao/cadastroassistido/{{ $event -> id }}" class="btn btn-success edit-btn"> Agendar </a>@else <a href=""class="btn btn-danger edit-btn"> Editar </a> <a href=""class="btn btn-secondary edit-btn"> Info </a>@endif
+                    <td>@if($event -> vag_h == 0) - @else{{$event -> vag_h}}@endif</td>
+                    <td>@if(($event -> assistido) == 'Horário vago')<a href="/cadastroassistido/{{ $event -> id }}" class="btn btn-success edit-btn"> Agendar </a>@else <a href=""class="btn btn-danger edit-btn"> Editar </a> <a href=""class="btn btn-secondary edit-btn"> Info </a>@endif
                 </tr>
                 @php $i+=1;@endphp
             @endif
@@ -53,7 +63,7 @@ $i = 1;
                     <td>{{date('H:i', strtotime($event -> start))}}</td>
                     <td>{{ $event -> dur }} min</td>
                     <td>@if($event -> vag_h == 0) - @else{{$event -> vag_h}}@endif</td>
-                    <td>@if(($event -> assistido) == 'Horário vago')<a href="/mediacao/cadastroassistido/{{ $event -> id }}" class="btn btn-success edit-btn"> Agendar </a>@else <a href=""class="btn btn-danger edit-btn"> Editar </a> <a href=""class="btn btn-secondary edit-btn"> Info </a>@endif
+                    <td>@if(($event -> assistido) == 'Horário vago')<a href="/cadastroassistido/{{ $event -> id }}" class="btn btn-success edit-btn"> Agendar </a>@else <a href=""class="btn btn-danger edit-btn"> Editar </a> <a href=""class="btn btn-secondary edit-btn"> Info </a>@endif
                 </tr>
                 @php $i+=1;@endphp
                 @php
@@ -64,7 +74,7 @@ $i = 1;
         @endforeach
     </tbody>
     @else
-        <p>Você ainda não criou um horario de atendimento. <a href="{{url ('/mediacao/criar_agenda')}}">Criar novo agendamento</a></p>
+        <p>Você ainda não criou um horario de atendimento.</p>
     @endif
 </div>
 

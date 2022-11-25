@@ -37,9 +37,7 @@ Route::get('/mediacao/criar_agenda', [EventController::class, 'create' ])->middl
 
 Route::get('/mediacao/agendamentos', [EventController::class, 'schedule'])->middleware('auth');
 
-Route::get('/cadastroassistido/{id}', [EventController::class, 'show'])->middleware('auth');
-
-Route::put('/mediacao/cadastroassistido/{id}', [EventController::class, 'update'])->middleware('auth');
+Route::put('/cadastroassistido/{id}', [EventController::class, 'update'])->middleware('auth');
 
 Route::post('/mediacao/criar_agenda/novo', [EventController::class, 'store'])->middleware('auth');
 

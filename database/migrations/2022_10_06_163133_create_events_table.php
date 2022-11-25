@@ -20,8 +20,8 @@ class CreateEventsTable extends Migration
             $table  ->  dateTime('end');
             $table  ->  integer('vag_h');
             $table  ->  date('nasc')->nullable();
-            $table  ->  integer('cpf')->nullable();
-            $table  ->  integer('cep')->nullable();
+            $table  ->  char('cpf',11)->nullable();
+            $table  ->  char('cep',8)->nullable();
             $table  ->  string('dia');
             $table  ->  integer('dur')->nullable();
             $table  ->  text('info')->nullable();

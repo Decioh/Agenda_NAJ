@@ -8,7 +8,7 @@
         <div class="info-cadastro">
             <p class="card-date">Agendamento para {{$event -> dia}} dia {{date('d/m', strtotime($event -> start))}} <br> de {{date('H:i', strtotime($event -> start))}} até {{date('H:i', strtotime($event -> end))}}</p>
         </div>
-<form action="/cadastroassistido/{{ $event -> id }}" method="POST">
+<form action="/mediacao/cadastroassistido/{{ $event -> id }}" method="POST">
     @csrf
     @method("PUT")
     <input type="hidden" name="id" value="{{$event['id']}}">
@@ -23,11 +23,11 @@
     </div> <br>
     <div class="cadastrocpf"> 
         <label for="cpf">cpf:</label>
-        <input type="number" id="cpf" name="cpf" minlength="11" maxlength="11">
+        <input type="text" id="cpf" name="cpf" maxlength="11">
     </div> <br>
     <div class="cadastrocep"> 
         <label for="cep">cep:</label>
-        <input type="number" id="cep" name="cep" minlength="8" maxlength="8">
+        <input type="text" id="cep" name="cep" maxlength="8">
     </div> <br>
     <div> <br>
         <label for="info">Informações adicionais:</label><br><br>
