@@ -11,19 +11,9 @@ class EventController extends Controller
 
     public function index(){
 
-        /*$search = request('search');
+        $events = Event::orderBy('start','asc')->get(); //passando todos os eventos pra view '/agendar', e ordenando.
 
-        if($search){
-            
-            $events = Event::where([
-                ['assistido','like','%'.$search.'%']
-            ])->get();
-        }
-        else{
-            $events = Event::all();
-        }
-*/
-    return view('welcome'/*,['events' => $events, 'search' => $search]*/);
+    return view('agendar', ['events' => $events]);
     }
     public function create(){
         return view('/mediacao/criar_agenda');
@@ -119,7 +109,7 @@ class EventController extends Controller
 
         return view('mediacao/agendamentos',['events' => $events]);   
         }
-
+        
         public function update(Request $req){
 
             
@@ -143,6 +133,6 @@ class EventController extends Controller
 
             $events = DB::table('events')->orderBy('start', 'asc')->get();
 
-            return view('novo.dashboard', ['events' => $events]);
+            return view('dashboard', ['events' => $events]);
         }
 }

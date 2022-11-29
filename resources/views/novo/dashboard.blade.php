@@ -61,7 +61,7 @@ $i = 1;
         @endforeach
     </tbody>
     @else
-        <p>Você ainda não criou um horario de atendimento. <a href="{{url ('novo/create')}}">Criar novo agendamento</a></p>
+        <p>Você ainda não criou um horario de atendimento. <a href="{{url('/mediacao/criar_agenda')}}">Criar novo agendamento</a></p>
     @endif
 </div>
 

@@ -9,7 +9,7 @@
 
 <div id="event-create-container" class="formulario1">
 
-    <form action="{{url('/mediacao/criar_agenda/novo')}}" method="POST">
+    <form action="{{ route('agenda.create') }}" method="POST">
         @csrf
     
     <div class="form-group">

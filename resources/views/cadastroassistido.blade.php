@@ -8,7 +8,7 @@
         <div class="info-cadastro">
             <p class="card-date">Agendamento para {{$event -> dia}} dia {{date('d/m', strtotime($event -> start))}} <br> de {{date('H:i', strtotime($event -> start))}} até {{date('H:i', strtotime($event -> end))}}</p>
         </div>
-<form action="/mediacao/cadastroassistido/{{ $event -> id }}" method="POST">
+<form action="{{ route('form.put',$event -> id) }}" method="POST">
     @csrf
     @method("PUT")
     <input type="hidden" name="id" value="{{$event['id']}}">
