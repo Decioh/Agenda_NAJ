@@ -23,7 +23,7 @@
 </head>
 <body>
     <header>
-        <a href="/"><img src="/img/DP_DF-preto.png" alt="logo-defensoria" height="59px" width="225px"></a>
+        <a href="/"><img src="{{asset('/img/DP_DF-preto.png')}}" alt="logo-defensoria" height="59px" width="225px"></a>
         <nav class = 'menu'>
         <a href="/">Home</a>
         @auth
@@ -33,13 +33,15 @@
         <a href="javascript:document.logout.submit()">Logout</a>
         </form>
         </div>
-        <a href="{{url ('/mediacao/agendamentos')}}">Meus atendimentos</a>
+        <a href="{{ route('mediacao.agendamentos') }}">Meus atendimentos</a>
         @endauth
         @guest
-        <a href="{{url ('login')}}">Login</a>
-        <a href="{{url ('register')}}">Cadastrar</a>
+        <a href="{{ route('login') }}">Login</a>
+        <a href="{{ route('register') }}">Cadastrar</a>
         @endguest
+        <a href="{{ route('calendario.get') }}">Calendario</a>
         </nav>
+        
     </header>
         @yield('content')
 

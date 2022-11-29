@@ -27,7 +27,7 @@ Route::get('/novo/show', [EventController::class, 'agendar'])->middleware('auth'
 
 Route::get('/mediacao/criar_agenda', [EventController::class, 'create' ])->middleware('auth');
 
-Route::get('/mediacao/agendamentos', [EventController::class, 'schedule'])->middleware('auth');
+Route::get('/mediacao/agendamentos', [EventController::class, 'schedule'])->middleware('auth')->name('mediacao.agendamentos');
 
 Route::put('/cadastroassistido/{id}/novo', [EventController::class, 'update'])->middleware('auth')->name('form.put');
 
@@ -35,7 +35,7 @@ Route::get('/cadastroassistido/{id}', [EventController::class, 'listar'])->name(
 
 Route::post('/mediacao/criar_agenda/novo', [EventController::class, 'store'])->middleware('auth')->name('agenda.create');
 
-Route::get('/calendario', [FullCalendarController::class, 'index'])->middleware('auth');
+Route::get('/calendario', [FullCalendarController::class, 'index'])->middleware('auth')->name('calendario.get');
 
 Route::post('/calendario/action', [FullCalendarController::class, 'action']);
 
