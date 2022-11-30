@@ -27,7 +27,7 @@
                             @endif
             
         @endif
-        @if($l_start != $event -> start || $l_assistido != $event -> assistido)
+        @if($l_start != $event -> start || $l_assistido != $event -> assistido) <!-- Para mostrar apenas um evento por horario-->
             @if($day != date('d/m', strtotime($event -> start)))    <!-- Se for um novo dia, criaremos outro card com o próximo dia-->
                         </div>
                     </div>
