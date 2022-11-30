@@ -15,17 +15,17 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table  ->  id();
+            $table  ->  string('assistido');
             $table  ->  dateTime('start');
             $table  ->  dateTime('end');
-            $table  ->  string('dia');
-            $table  ->  integer('dur')->nullable();
             $table  ->  integer('vag_h');
-            $table  ->  timestamps();
-            $table  ->  string('assistido');
             $table  ->  date('nasc')->nullable();
             $table  ->  char('cpf',11)->nullable();
             $table  ->  char('cep',8)->nullable();
+            $table  ->  string('dia');
+            $table  ->  integer('dur')->nullable();
             $table  ->  text('info')->nullable();
+            $table  ->  timestamps();
         });
     }
 
