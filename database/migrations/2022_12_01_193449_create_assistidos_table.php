@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAssistidoTable extends Migration
+class CreateAssistidosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAssistidoTable extends Migration
      */
     public function up()
     {
-        Schema::create('assistido', function (Blueprint $table) {
+        Schema::create('assistidos', function (Blueprint $table) {
             $table  ->  id();
             $table  ->  string('nome');
             $table  ->  date('nasc')->nullable();
@@ -32,6 +32,6 @@ class CreateAssistidoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assistido');
+        Schema::dropIfExists('assistidos');
     }
 }

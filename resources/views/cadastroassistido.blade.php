@@ -6,12 +6,12 @@
 
 
         <div class="info-cadastro">
-            <p class="card-date">Agendamento para {{$event -> dia}} dia {{date('d/m', strtotime($event -> start))}} <br> de {{date('H:i', strtotime($event -> start))}} até {{date('H:i', strtotime($event -> end))}}</p>
+            <p class="card-date">Agendamento para {{$agenda -> dia}} dia {{date('d/m', strtotime($agenda -> start))}} <br> de {{date('H:i', strtotime($agenda -> start))}} até {{date('H:i', strtotime($agenda -> end))}}</p>
         </div>
-<form action="{{ route('form.put',$event -> id) }}" method="POST">
+<form action="{{ route('form.put',$agenda -> id) }}" method="POST">
     @csrf
     @method("PUT")
-    <input type="hidden" name="id" value="{{$event['id']}}">
+    <input type="hidden" name="id" value="{{$agenda['id']}}">
 <div class="cadastro"><br>
     <div class="cadastron">
         <label for="assistido">Nome:</label>
@@ -34,7 +34,7 @@
         <textarea id="info" name="info"></textarea>
     </div> <br>
     <div>
-        <input type="hidden" value="{{$event -> vag_h}}" id="vag_h" name="vag_h">
+        <input type="hidden" value="{{$agenda -> vag_h}}" id="vag_h" name="vag_h">
     </div>
     <div class="form-group">
         <p>

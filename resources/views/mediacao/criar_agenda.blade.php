@@ -9,7 +9,7 @@
 
 <div id="event-create-container" class="formulario1">
 
-    <form action="{{ route('agenda.create') }}" method="POST">
+    <form action="{{ route('agenda.store') }}" method="POST">
         @csrf
     
     <div class="form-group">
