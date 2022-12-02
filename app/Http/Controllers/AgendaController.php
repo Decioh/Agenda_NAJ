@@ -69,8 +69,8 @@ class AgendaController extends Controller
                         $agenda->vag_h = $vag_h;
                         }
                     $agenda->dur = $dur;
-                    $user = auth()->user();
-                    $agenda->user_id = $user->id;
+                    /*$user = auth()->user();
+                    $agenda->user_id = $user->id;*/
                     $agenda->save();                
                 }
             

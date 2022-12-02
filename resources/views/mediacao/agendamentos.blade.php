@@ -51,7 +51,7 @@ $i = 1;
                     <td>{{date('H:i', strtotime($agenda -> start))}}</td>
                     <td>{{ $agenda -> dur }} min</td>
                     <td>@if($agenda -> vag_h == 0) - @else{{$agenda -> vag_h}}@endif</td>
-                    <td>@if(($agenda -> id_assistido) == null)<a class="btn btn-success edit-btn" href="{{ route('assistido.get', $agenda -> id) }}" > Agendar </a>@else <a href="#" class="btn btn-danger edit-btn"> Editar </a> <a href=""class="btn btn-secondary edit-btn"> Info </a>@endif
+                    <td>@if(($agenda -> id_assistido) == null)<a class="btn btn-success edit-btn" href="{{ route('assistido.create', $agenda -> id) }}" > Agendar </a>@else <a href="#" class="btn btn-danger edit-btn"> Editar </a> <a href=""class="btn btn-secondary edit-btn"> Info </a>@endif
                 </tr>
                 @php $i+=1;@endphp
             @endif
@@ -63,7 +63,7 @@ $i = 1;
                     <td>{{date('H:i', strtotime($agenda -> start))}}</td>
                     <td>{{ $agenda -> dur }} min</td>
                     <td>@if($agenda -> vag_h == 0) - @else{{$agenda -> vag_h}}@endif</td>
-                    <td>@if(($agenda -> id_assistido) == null)<a href="{{ route('assistido.get', $agenda -> id) }}" class="btn btn-success edit-btn"> Agendar </a>@else <a href="#"class="btn btn-danger edit-btn"> Editar </a> <a href=""class="btn btn-secondary edit-btn"> Info </a>@endif
+                    <td>@if(($agenda -> id_assistido) == null)<a href="{{ route('assistido.create', $agenda -> id) }}" class="btn btn-success edit-btn"> Agendar </a>@else <a href="#"class="btn btn-danger edit-btn"> Editar </a> <a href=""class="btn btn-secondary edit-btn"> Info </a>@endif
                 </tr>
                 @php $i+=1;@endphp
                 @php

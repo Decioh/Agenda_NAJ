@@ -113,7 +113,7 @@ class EventController extends Controller
         public function update(Request $req){
 
             
-            $event=Event::find(($req->id));
+            $event  =   Event::find(($req->id));
             $event -> vag_h = 0;
             $event -> assistido=$req->assistido;
             $event -> nasc=$req->nasc;

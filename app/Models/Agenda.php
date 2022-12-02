@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Agenda extends Model
 {
     use HasFactory;
+
+    public function agendamento(){
+        return $this->hasOne('App\Models\Agendamento');
+    }
 }
+

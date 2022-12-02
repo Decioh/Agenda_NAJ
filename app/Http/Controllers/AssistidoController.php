@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
 use App\Models\Agenda;
+use App\Models\Agendamento;
+use App\Models\Assistido;
 use Illuminate\Http\Request;
 
 class AssistidoController extends Controller
@@ -11,8 +13,36 @@ class AssistidoController extends Controller
 
         $agenda = Agenda::findOrFail($id);
 
-        $eventOwner = User::where('id', $agent->user_id)->first()->toArray();
+        //$eventOwner = User::where('id', $users->user_id)->first()->toArray();
 
-        return view('/cadastroassistido', ['event' => $event, 'eventOwner'=> $eventOwner]);
+    return view('/cadastroassistido', ['agenda' => $agenda/*, 'eventOwner'=> $eventOwner*/]);
+    }
+    public function store(Request $req){
+
+        $assistido=Assistido::find(($req->id));
+
+        $nome = $req -> nome;
+        $nasc = $req -> nasc;
+        $cpf = $req -> cpf;
+        $email = $req -> email;
+        $telefone = $req -> telefone;
+        $info = $req -> info;
+
+        $assistido = new Assistido;
+
+        $assistido->nome = $nome;
+        $assistido->nasc = $nasc;
+        $assistido->cpf = $cpf;
+        $assistido->email = $email;
+        $assistido->telefone = $telefone;
+        $assistido->info = $info;
+
+        $assistido-> save();
+
+        $agendamentos = new Agendamento;
+
+        $id_assistido = $req->id;
+
+    return redirect('/mediacao/agendamentos')->with('msg', 'Agendamento concluído!');
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\FullCalendarController;
 
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\AssistidoController;
 use App\Models\Event;
 use GuzzleHttp\Middleware;
 
@@ -37,5 +38,5 @@ Route::get('/',[AgendaController::class, 'index']);
 /*Rotas Assistido*/
 
 Route::get('/cadastroassistido/{id}', [AssistidoController::class, 'create'])->name('assistido.create')->middleware('auth');
-Route::put('/cadastroassistido/{id}/novo', [AssistidoController::class, 'store'])->name('assistido.store')->middleware('auth');
+Route::post('/cadastroassistido/{id}/novo', [AssistidoController::class, 'store'])->name('assistido.store')->middleware('auth');
 

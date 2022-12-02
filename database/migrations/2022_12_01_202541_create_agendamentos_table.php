@@ -16,6 +16,7 @@ class CreateAgendamentosTable extends Migration
         Schema::create('agendamentos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->boolean('Status')->default('0');
 
             $table  ->  foreignId('id_assistido')->nullable()->constrained('assistidos');
             $table  ->  foreignId('id_agendamento')->nullable()->constrained('agendas');
