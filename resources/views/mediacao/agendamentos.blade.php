@@ -30,7 +30,7 @@ $i = 1;
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Dia</th>
-                <th scope="col">Assistido</th>
+                <!--<th scope="col">Assistido</th>-->
                 <th scope="col">Horario</th>
                 <th scope="col">Duração</th>
                 <th scope="col">Vagas</th>
@@ -47,7 +47,7 @@ $i = 1;
                 <tr>
                     <th scope="row">{{ $i }}</th>
                     <td>{{$agenda -> dia}} - {{date('d/m', strtotime($agenda -> start))}}</td>
-                    <td>{{$agenda -> assistido}}</td>
+                    <!--<td>{{$agenda -> assistido}}</td>-->
                     <td>{{date('H:i', strtotime($agenda -> start))}}</td>
                     <td>{{ $agenda -> dur }} min</td>
                     <td>@if($agenda -> vag_h == 0) - @else{{$agenda -> vag_h}}@endif</td>
@@ -59,7 +59,7 @@ $i = 1;
                 <tr>
                     <th scope="row">{{ $i }}</th>
                     <td>{{$agenda -> dia}} - {{date('d/m', strtotime($agenda -> start))}}</td>
-                    <td><!--{{$agenda -> assistido}}--></td>
+                    <!--<td>{{$agenda -> assistido}}</td>-->
                     <td>{{date('H:i', strtotime($agenda -> start))}}</td>
                     <td>{{ $agenda -> dur }} min</td>
                     <td>@if($agenda -> vag_h == 0) - @else{{$agenda -> vag_h}}@endif</td>

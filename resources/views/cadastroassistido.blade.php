@@ -11,7 +11,7 @@
 <form action="{{ route('assistido.store',$agenda -> id) }}" method="POST">
     @csrf
 
-    <!--<input type="hidden" name="id" value="{{$agenda['id']}}">-->
+    <input type="hidden" name="id" value="{{$agenda['id']}}">
 <div class="cadastro"><br>
     <div class="cadastron">
         <label for="nome">Nome:</label>
@@ -28,6 +28,10 @@
     <div class="cadastrotel"> 
         <label for="telefone">telefone:</label>
         <input type="text" id="telefone" name="telefone" maxlength="11">
+    </div> <br>
+    <div class="cadastroemail"> 
+        <label for="email">e-mail:</label>
+        <input type="text" id="email" name="email">
     </div> <br>
     <div> <br>
         <label for="info">Informações adicionais:</label><br><br>

@@ -24,7 +24,7 @@
                             <h5 class="card-date">{{$agenda -> dia}}<br>dia {{date('d/m', strtotime($agenda -> start))}}</h5><!-- Imprimindo o dia e mês-->
                             @if (($agenda -> assistido) == null)
                             <p class="datas"> de {{date('H:i', strtotime($agenda -> start))}} <br> até {{date('H:i', strtotime($agenda -> end))}} <br>  
-                                <a href="{{ route('assistido.get', $agenda -> id) }}" class="btn btn-success"> {{$agenda -> vag_h}} vaga(s) </a></p>
+                                <a href="{{ route('assistido.create', $agenda -> id) }}" class="btn btn-success"> {{$agenda -> vag_h}} vaga(s) </a></p>
                             @endif
             
         @endif
@@ -44,7 +44,7 @@
             
                 @if (($agenda -> assistido) == null)                           <!-- Se o horario estiver vago, habilita link para cadastrar assistido -->
                     <p class="datas"> de {{date('H:i', strtotime($agenda -> start))}} <br> até {{date('H:i', strtotime($agenda -> end))}} <br>
-                    <a href="{{ route('assistido.get', $agenda -> id) }}" class="btn btn-success"> {{$agenda -> vag_h}} vaga(s) </a></p>
+                    <a href="{{ route('assistido.create', $agenda -> id) }}" class="btn btn-success"> {{$agenda -> vag_h}} vaga(s) </a></p>
 
                 @endif
         

@@ -20,7 +20,7 @@ class AssistidoController extends Controller
     public function store(Request $req){
 
         $assistido=Assistido::find(($req->id));
-
+    
         $nome = $req -> nome;
         $nasc = $req -> nasc;
         $cpf = $req -> cpf;
@@ -37,11 +37,7 @@ class AssistidoController extends Controller
         $assistido->telefone = $telefone;
         $assistido->info = $info;
 
-        $assistido-> save();
-
-        $agendamentos = new Agendamento;
-
-        $id_assistido = $req->id;
+        $assistido->save();     
 
     return redirect('/mediacao/agendamentos')->with('msg', 'Agendamento concluído!');
     }
