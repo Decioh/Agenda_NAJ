@@ -47,22 +47,22 @@ $i = 1;
                 <tr>
                     <th scope="row">{{ $i }}</th>
                     <td>{{$agenda -> dia}} - {{date('d/m', strtotime($agenda -> start))}}</td>
-                    <td>{{$agenda-> assistido_id }}</td>
+                    <td>@if($agenda-> assistido_id != null){{$agenda->Assistido->nome }}@else - @endif</td>
                     <td>{{date('H:i', strtotime($agenda -> start))}}</td>
                     <td>{{ $agenda -> dur }} min</td>
-                    <td>@if($agenda -> vag_h == 0) - @else{{$agenda -> vag_h}}@endif</td>
+                    <td>@if($agenda-> assistido_id != null) - @else{{$agenda -> vag_h}}@endif</td>
                     <td>@if(($agenda -> assistido_id) == null)<a class="btn btn-success edit-btn" href="{{ route('assistido.create', $agenda -> id) }}" > Agendar </a>@else <a href="#" class="btn btn-danger edit-btn"> Editar </a> <a href=""class="btn btn-secondary edit-btn"> Info </a>@endif
                 </tr>
                 @php $i+=1;@endphp
             @endif
-            @if($l_start != $agenda -> start || $l_assistido != $agenda -> assistido_id)
+            @if($l_start != $agenda -> start || $l_assistido != null)
                 <tr>
                     <th scope="row">{{ $i }}</th>
                     <td>{{$agenda -> dia}} - {{date('d/m', strtotime($agenda -> start))}}</td>
-                    <td>{{$agenda -> assistido_id}}</td>
+                    <td>@if($agenda-> assistido_id != null){{$agenda->Assistido->nome }}@else - @endif</td>
                     <td>{{date('H:i', strtotime($agenda -> start))}}</td>
                     <td>{{ $agenda -> dur }} min</td>
-                    <td>@if($agenda -> vag_h == 0) - @else{{$agenda -> vag_h}}@endif</td>
+                    <td>@if($agenda -> assistido_id != null) - @else{{$agenda -> vag_h}}@endif</td>
                     <td>@if(($agenda -> assistido_id) == null)<a href="{{ route('assistido.create', $agenda -> id) }}" class="btn btn-success edit-btn"> Agendar </a>@else <a href="#"class="btn btn-danger edit-btn"> Editar </a> <a href=""class="btn btn-secondary edit-btn"> Info </a>@endif
                 </tr>
                 @php $i+=1;@endphp

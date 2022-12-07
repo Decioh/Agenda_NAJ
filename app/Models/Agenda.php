@@ -9,8 +9,8 @@ class Agenda extends Model
 {
     use HasFactory;
 
-    public function agendamento(){
-        return $this->hasOne('App\Models\Agendamento');
+    public function assistido(){
+        return $this->belongsTo('App\Models\Assistido');
     }
 }
 

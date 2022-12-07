@@ -20,4 +20,7 @@ class Agendamento extends Model
     public function agenda(){
 		return $this->belongsTo('App\Models\Agenda');
 	}
+  public function assistido(){
+		return $this->belongsTo('App\Models\Assistido');
+	}
 }

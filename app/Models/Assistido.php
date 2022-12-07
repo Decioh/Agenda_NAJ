@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Assistido extends Model
 {
     use HasFactory;
-    public function agendamento(){
-    return $this->hasMany('App\Models\Agendamento');
+    public function agenda(){
+    return $this->hasMany('App\Models\Agenda');
     }
 }
