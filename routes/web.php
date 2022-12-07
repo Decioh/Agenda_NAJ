@@ -18,6 +18,7 @@ Route::post('/calendario/action', [FullCalendarController::class, 'action']);
 //Route::get('/dashboard', [EventController::class, 'schedule'])->middleware('auth');
 /*Rotas Agenda*/
 
+Route::get('/mediacao/criar_agenda', [AgendaController::class, 'create'])->name('mediacao.create')->middleware('auth');
 Route::post('/mediacao/criar_agenda/novo', [AgendaController::class, 'store'])->name('agenda.store')->middleware('auth');
 Route::get('/mediacao/agendamentos', [AgendaController::class, 'show'])->name('mediacao.agendamentos')->middleware('auth');
 

@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\DB;
 
 class AgendaController extends Controller
 {
+    public function create(){
+        return view('/mediacao/criar_agenda');
+    }
 
     public function index(){
 
@@ -38,8 +41,8 @@ class AgendaController extends Controller
         $dow = array('Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado');
         $diff = $fim - $start;      //Vamos usar para delimitar os dias onde serão criadas as agendas;
         $diff = (($diff/60)/60)/24; //Convertendo de segundos para dias;
-        $k = $vag_h;                //Variável k, para criar k agendamentos para o mesmo horario;
-        for($k>0;$k>0;$k--){
+        /*$k = $vag_h;                //Variável k, para criar k agendamentos para o mesmo horario;
+        for($k>0;$k>0;$k--){*/
             
             for($j=0; $j <= $diff;$j++){                                            //for para ir para o próximo dia
                 $start = date('Y-m-d H:i', strtotime("+$j days",strtotime($aux)));  // aumentar $j dias, 0 dias, 1 dia, 2 dias...;
@@ -81,7 +84,7 @@ class AgendaController extends Controller
                 }
             
 
-        }   } $vag_h = $vag_h-1;  }
+        }   } //$vag_h = $vag_h-1; }
         return redirect('mediacao/agendamentos')->with('msg','Agendamento criado com sucesso!');
     }
 

@@ -18,9 +18,18 @@ class AssistidoController extends Controller
     return view('/cadastroassistido', ['agenda' => $agenda/*, 'eventOwner'=> $eventOwner*/]);
     }
     public function store(Request $req){
+        /* Criando o próximo espaço na tabela para agendamentos!*/
+        $vag_h = $req-> vag_h;
+        $agenda=Agenda::find(($req->id));
+        $newAgenda = $agenda->replicate();
+        $newAgenda->vag_h -= 1;
+        $newAgenda->save();
+        $agendamento = new Agendamento();
+        $agendamento->id_agenda = $agenda->id;
+        $user = auth()->user();
+        $agendamento->user_id = $user->id;
+        $agendamento->save();
 
-        $agenda=Assistido::find(($req->id));
-    
         $nome = $req -> nome;
         $nasc = $req -> nasc;
         $cpf = $req -> cpf;
@@ -51,6 +60,8 @@ class AssistidoController extends Controller
         $agendamento->Status = '1';
 
         $agendamento->save();
+
+        
 
     return redirect('/mediacao/agendamentos')->with('msg', 'Agendamento concluído!');
     }

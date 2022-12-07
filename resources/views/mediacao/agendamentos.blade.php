@@ -39,11 +39,11 @@ $i = 1;
         </thead>
     <tbody>
         @foreach($agendas as $agenda)
-            @if($loop -> first)
+                @if($loop -> first)
                 @php
                     $l_start = $agenda -> start;
                     $l_assistido = $agenda -> assistido_id;
-                @endphp
+                @endphp{{--  
                 <tr>
                     <th scope="row">{{ $i }}</th>
                     <td>{{$agenda -> dia}} - {{date('d/m', strtotime($agenda -> start))}}</td>
@@ -53,7 +53,7 @@ $i = 1;
                     <td>@if($agenda-> assistido_id != null) - @else{{$agenda -> vag_h}}@endif</td>
                     <td>@if(($agenda -> assistido_id) == null)<a class="btn btn-success edit-btn" href="{{ route('assistido.create', $agenda -> id) }}" > Agendar </a>@else <a href="#" class="btn btn-danger edit-btn"> Editar </a> <a href=""class="btn btn-secondary edit-btn"> Info </a>@endif
                 </tr>
-                @php $i+=1;@endphp
+                @php $i+=1;@endphp--}}
             @endif
             @if($l_start != $agenda -> start || $l_assistido != null)
                 <tr>
