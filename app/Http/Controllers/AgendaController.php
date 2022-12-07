@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Agenda;
+use App\Models\Agendamento;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -69,9 +70,14 @@ class AgendaController extends Controller
                         $agenda->vag_h = $vag_h;
                         }
                     $agenda->dur = $dur;
-                    /*$user = auth()->user();
-                    $agenda->user_id = $user->id;*/
-                    $agenda->save();                
+                    
+                    $agenda->save();
+
+                    $agendamento = new Agendamento();
+                    $agendamento->id_agenda = $agenda->id;
+                    $user = auth()->user();
+                    $agendamento->user_id = $user->id;
+                    $agendamento->save();
                 }
             
 

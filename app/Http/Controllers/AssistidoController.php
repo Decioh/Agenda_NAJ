@@ -19,7 +19,7 @@ class AssistidoController extends Controller
     }
     public function store(Request $req){
 
-        $assistido=Assistido::find(($req->id));
+        $agenda=Assistido::find(($req->id));
     
         $nome = $req -> nome;
         $nasc = $req -> nasc;
@@ -27,8 +27,8 @@ class AssistidoController extends Controller
         $email = $req -> email;
         $telefone = $req -> telefone;
         $info = $req -> info;
-
-        $assistido = new Assistido;
+        $agenda_id = $req->id;
+        $assistido = new Assistido();
 
         $assistido->nome = $nome;
         $assistido->nasc = $nasc;
@@ -37,7 +37,20 @@ class AssistidoController extends Controller
         $assistido->telefone = $telefone;
         $assistido->info = $info;
 
-        $assistido->save();     
+        $assistido->save();
+
+        $agenda = Agenda::find($req->id);
+
+        $agenda->assistido_id = $assistido->id;
+
+        $agenda->save();
+
+        $agendamento = Agendamento::find($agenda_id);
+
+        $agendamento->id_assistido = $agenda->assistido_id;
+        $agendamento->Status = '1';
+
+        $agendamento->save();
 
     return redirect('/mediacao/agendamentos')->with('msg', 'Agendamento concluído!');
     }
