@@ -13,7 +13,7 @@ Route::get('/calendario', [FullCalendarController::class, 'index'])->name('calen
 
 Route::post('/calendario/action', [FullCalendarController::class, 'action']);
 
-Route::get('/dashboard', [EventController::class, 'schedule'])->middleware('auth');
+//Route::get('/dashboard', [EventController::class, 'schedule'])->middleware('auth');
 
 Route::get('/', [AssistidoController::class, 'index']);
 /*Rotas Agenda*/
