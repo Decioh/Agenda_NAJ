@@ -12,13 +12,6 @@ class AgendaController extends Controller
     public function create(){
         return view('/mediacao/criar_agenda');
     }
-
-    public function index(){
-
-        $agendas = Agenda::orderBy('start','asc')->get(); //passando todos os eventos pra view '/agendar', e ordenando.
-
-    return view('agendar', ['agendas' => $agendas]);
-    }
     public function store(Request $request)
     {
         $dur   = $request -> dur;

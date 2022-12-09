@@ -72,9 +72,9 @@ $(document).ready(function () {
         selectHelper: true,
         select:function(start, end, allDay)
         {
-            var assistido = prompt('Tipo de atendimento:');
+            var agenda = prompt('Tipo de atendimento:');
 
-            if(assistido)
+            if(agenda)
             {
                 var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm');
 
@@ -84,7 +84,7 @@ $(document).ready(function () {
                     url:"/calendario/action",
                     type:"POST",
                     data:{
-                        assistido: assistido,
+                        agenda: $agenda->Assistido->nome,
                         start: start,
                         end: end,
                         type: 'add'

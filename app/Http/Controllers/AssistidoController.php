@@ -9,28 +9,56 @@ use Illuminate\Http\Request;
 
 class AssistidoController extends Controller
 {
+    public function index(){
+
+        $agendas = Agenda::orderBy('start','asc')->get(); //passando todos os eventos pra view '/agendar', e ordenando.
+
+    return view('agendar', ['agendas' => $agendas]);
+    }
     public function create($id) {
 
         $agenda = Agenda::findOrFail($id);
 
-        //$eventOwner = User::where('id', $users->user_id)->first()->toArray();
+    return view('/cadastroassistido', ['agenda' => $agenda]);
+    }
 
-    return view('/cadastroassistido', ['agenda' => $agenda/*, 'eventOwner'=> $eventOwner*/]);
+    public function edit($id){
+
+        $assistido = Assistido::find($id);
+
+        return view ('editassistido',['assistido'=>$assistido]);
+    }
+    public function update(Request $req){
+
+        $assistido = Assistido::find($req -> id);
+
+        $assistido  -> nome=$req->nome;
+        $assistido  -> nasc=$req->nasc;
+        $assistido  -> cpf = $req->cpf;
+        $assistido  -> email = $req->email;
+        $assistido  -> telefone = $req->telefone;
+        $assistido  -> info = $req->info;
+
+            $assistido->save();
+
+        return redirect('/mediacao/agendamentos')->with('msg', 'Dados Atualizados!');
     }
     public function store(Request $req){
         
         $agenda=Agenda::find(($req->id));                                                   
         $vag_h = $req-> vag_h;
-                                                                                                      
+        if($vag_h>1):                                                                                              
             $newAgenda = $agenda->replicate();                                              
-            $newAgenda->vag_h -= 1;                                                         
-            $newAgenda->save();                                                             
+            $newAgenda->vag_h -= 1; 
+
+            $newAgenda->save();
         
             $agendamento = new Agendamento();
             $agendamento->id_agenda = $newAgenda->id;
             $user = auth()->user();
             $agendamento->user_id = $user->id;
             $agendamento->save();
+        endif;
             $nome      = $req->nome;
             $nasc      = $req->nasc;
             $cpf       = $req->cpf;
@@ -63,7 +91,7 @@ class AssistidoController extends Controller
 
             $agendamento->save();
             return redirect('/mediacao/agendamentos')->with('msg', 'Agendamento concluído!');
-   
+
         }
         
     

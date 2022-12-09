@@ -42,6 +42,7 @@
                 <x-jet-button class="ml-4">
                     {{ __('Entrar') }}
                 </x-jet-button>
+                
             </div>
         </form>
     </x-jet-authentication-card>

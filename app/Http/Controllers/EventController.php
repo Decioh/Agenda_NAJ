@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Assistido;
 use App\Models\Event;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -113,15 +115,14 @@ class EventController extends Controller
         public function update(Request $req){
 
             
-            $event  =   Event::find(($req->id));
-            $event -> vag_h = 0;
-            $event -> assistido=$req->assistido;
-            $event -> nasc=$req->nasc;
-            $event -> cpf=$req->cpf;
-            $event -> cep=$req->cep;
-            $event -> info=$req->info;
+            $assistido  =   Assistido::find(($req->id));
+            $assistido -> assistido=$req->assistido;
+            $assistido -> nasc=$req->nasc;
+            $assistido -> cpf=$req->cpf;
+            $assistido -> cep=$req->cep;
+            $assistido -> info=$req->info;
 
-            $event-> save();
+            $assistido-> save();
         return redirect('/mediacao/agendamentos')->with('msg', 'Agendamento concluído!');
         }
 
