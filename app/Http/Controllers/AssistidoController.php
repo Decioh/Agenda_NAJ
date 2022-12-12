@@ -6,6 +6,7 @@ use App\Models\Agenda;
 use App\Models\Agendamento;
 use App\Models\Assistido;
 use Illuminate\Http\Request;
+use Jenssegers\Agent\Facades\Agent;
 
 class AssistidoController extends Controller
 {
@@ -47,34 +48,24 @@ class AssistidoController extends Controller
         
         $agenda=Agenda::find(($req->id));                                                   
         $vag_h = $req-> vag_h;
-        if($vag_h>1):                                                                                              
-            $newAgenda = $agenda->replicate();                                              
-            $newAgenda->vag_h -= 1; 
-
-            $newAgenda->save();
-        
-            $agendamento = new Agendamento();
-            $agendamento->id_agenda = $newAgenda->id;
-            $user = auth()->user();
-            $agendamento->user_id = $user->id;
-            $agendamento->save();
-        endif;
-            $nome      = $req->nome;
-            $nasc      = $req->nasc;
-            $cpf       = $req->cpf;
-            $email     = $req->email;
-            $telefone  = $req->telefone;
-            $info      = $req->info;
+        if( $vag_h == 1 ){                                                                                           
+            
+            $nome = $req->nome;
+            $nasc = $req->nasc;
+            $cpf = $req->cpf;
+            $email = $req->email;
+            $telefone = $req->telefone;
+            $info = $req->info;
             $agenda_id = $req->id;
 
             $assistido = new Assistido();
 
-            $assistido->nome    = $nome;
-            $assistido->nasc    = $nasc;
-            $assistido->cpf     = $cpf;
-            $assistido->email   = $email;
+            $assistido->nome = $nome;
+            $assistido->nasc = $nasc;
+            $assistido->cpf = $cpf;
+            $assistido->email = $email;
             $assistido->telefone = $telefone;
-            $assistido->info    = $info;
+            $assistido->info = $info;
 
             $assistido->save();
 
@@ -90,8 +81,77 @@ class AssistidoController extends Controller
             $agendamento->Status = '1';
 
             $agendamento->save();
+        
             return redirect('/mediacao/agendamentos')->with('msg', 'Agendamento concluído!');
 
+        } else {
+            $newAgenda = $agenda->replicate();                                              
+            $newAgenda->vag_h -= 1; 
+            $newAgenda->save();
+        
+            $agendamento = new Agendamento();
+            $agendamento->id_agenda = $newAgenda->id;
+            $user = auth()->user();
+            $agendamento->user_id = $user->id;
+            $agendamento->save();
+
+            $nome = $req->nome;
+            $nasc = $req->nasc;
+            $cpf = $req->cpf;
+            $email = $req->email;
+            $telefone = $req->telefone;
+            $info = $req->info;
+            $agenda_id = $req->id;
+
+            $assistido = new Assistido();
+
+            $assistido->nome = $nome;
+            $assistido->nasc = $nasc;
+            $assistido->cpf = $cpf;
+            $assistido->email = $email;
+            $assistido->telefone = $telefone;
+            $assistido->info = $info;
+
+            $assistido->save();
+
+            $agenda = Agenda::find($req->id);
+
+            $agenda->assistido_id = $assistido->id;
+
+            $agenda->save();
+
+            $agendamento = Agendamento::find($agenda_id);
+
+            $agendamento->id_assistido = $agenda->assistido_id;
+            $agendamento->Status = '1';
+
+            $agendamento->save();
+
+            return redirect('/mediacao/agendamentos')->with('msg', 'Agendamento concluído!');
+        }
+        }
+
+        public function destroy($id){
+
+   
+            
+        $agendamento = Agendamento::where('id_assistido', $id)->with(['id_assistido','Status'])->first();
+
+        $agendamento->id_assistido = null;
+
+        $agendamento    ->Status = 0;
+
+        $agendamento->save();
+
+                 
+        $agenda = Agenda::find('assistido_id', $id)->with(['assistido_id'])->first();
+
+        $agenda ->  assistido_id = null;
+
+        $agenda->save();
+
+
+        return redirect('/')->with('msg', 'Agendamento cancelado!');
         }
         
     

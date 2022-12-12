@@ -21,6 +21,7 @@ Route::get('/', [AssistidoController::class, 'index']);
 Route::get('/mediacao/criar_agenda', [AgendaController::class, 'create'])->name('mediacao.create')->middleware('auth');
 Route::post('/mediacao/criar_agenda/novo', [AgendaController::class, 'store'])->name('agenda.store')->middleware('auth');
 Route::get('/mediacao/agendamentos', [AgendaController::class, 'show'])->name('mediacao.agendamentos')->middleware('auth');
+Route::delete('/mediacao/agendamentos/{id}', [AgendaController::class, 'destroy'])->name('agenda.destroy')->middleware('auth');
 
 /*Rotas Assistido*/
 
@@ -28,4 +29,4 @@ Route::get('/cadastroassistido/{id}', [AssistidoController::class, 'create'])->n
 Route::post('/cadastroassistido/{id}/novo', [AssistidoController::class, 'store'])->name('assistido.store')->middleware('auth');
 Route::get('/cadastroassistido/{id}/edit', [AssistidoController::class, 'edit'])->name('assistido.edit')->middleware('auth');
 Route::post('/cadastroassistido/{id}/update', [AssistidoController::class, 'update'])->name('assistido.update')->middleware('auth');
-
+Route::delete('/cadastroassistido/{id}', [AssistidoController::class, 'destroy'])->name('assistido.destroy')->middleware('auth');

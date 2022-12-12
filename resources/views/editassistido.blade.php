@@ -5,12 +5,11 @@
 @section('content')
 
 
-        <div class="info-cadastro">
-            <p class="card-date">Atualizando dados do Assistido {{$assistido->nome }}</p>
-        </div>
-<form action="{{ route('assistido.update',$assistido -> id) }}" method="POST">
+    <div class="info-cadastro">
+        <p class="card-date">Atualizando dados do Assistido {{$assistido->nome }}</p>
+    </div>
+    <form action="{{ route('assistido.update',$assistido -> id) }}" method="POST">
     @csrf
-    <input type="hidden" name = "id" value="{{$assistido->id}}">
 <div class="cadastro"><br>
     <div class="cadastron">
         <label for="nome">Nome:</label>
@@ -43,6 +42,11 @@
         </p>
     </div>
 </div>
+</form>
+<form action="{{ route('assistido.destroy', $assistido -> id) }}" method="POST">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-danger delete-btn">Deletar assistido</button>
 </form>
 
 

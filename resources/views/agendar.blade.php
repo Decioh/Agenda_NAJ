@@ -24,7 +24,7 @@
                             <h5 class="card-date">{{$agenda -> dia}}<br>dia {{date('d/m', strtotime($agenda -> start))}}</h5><!-- Imprimindo o dia e mês-->
                             @if (isset($agenda -> assistido))
                                 <p class="datas">Agendamento: {{date('H:i', strtotime($agenda -> start))}}<br>Assistido: {{$agenda->Assistido->nome }} <br>  
-                                    <a href="{{ route('assistido.edit', $agenda -> id) }}" class="btn btn-primary"> editar </a>
+                                    <a href="{{ route('assistido.edit', $agenda->Assistido-> id) }}" class="btn btn-primary"> editar </a>
                                     <a href="#" class="btn btn-secondary"> info </a>
                                 </p>
                             @else
@@ -33,7 +33,7 @@
                                 </p>
                             @endif
             
-        @endif
+        @else
        {{--  @if($l_start != $agenda -> start || $l_assistido != $agenda -> assistido)  Para mostrar apenas um evento por horario-->--}}
             @if($day != date('d/m', strtotime($agenda -> start)))    <!-- Se for um novo dia, criaremos outro card com o próximo dia-->
                         </div>
@@ -47,19 +47,25 @@
                             <h5 class="card-date">{{$agenda -> dia}}<br>dia {{date('d/m', strtotime($agenda -> start))}}</h5>
                             @endif
                            <!-- <p class="datas"> de {{date('H:i', strtotime($agenda -> start))}} <br> até {{date('H:i', strtotime($agenda -> end))}} <br>  Imprimindo o horario de atendimento-->
-            
-                @if (($agenda -> assistido) == null)                           <!-- Se o horario estiver vago, habilita link para cadastrar assistido -->
-                    <p class="datas"> de {{date('H:i', strtotime($agenda -> start))}} <br> até {{date('H:i', strtotime($agenda -> end))}} <br>
-                    <a href="{{ route('assistido.create', $agenda -> id) }}" class="btn btn-success"> {{$agenda -> vag_h}} vaga(s) </a></p>
-
-                @endif
+                        @if($agenda->vag_h>0)
+                            @if (isset($agenda -> assistido))
+                            <p class="datas">Agendamento: {{date('H:i', strtotime($agenda -> start))}}<br>Assistido: {{$agenda->Assistido->nome }} <br>  
+                                <a href="{{ route('assistido.edit', $agenda->Assistido-> id) }}" class="btn btn-primary"> editar </a>
+                                <a href="#" class="btn btn-secondary"> info </a>
+                            </p>
+                            @else
+                            <p class="datas"> de {{date('H:i', strtotime($agenda -> start))}} <br> até {{date('H:i', strtotime($agenda -> end))}} <br>  
+                                <a href="{{ route('assistido.create', $agenda -> id) }}" class="btn btn-success"> {{$agenda -> vag_h}} vaga(s) </a>
+                            </p>
+                            @endif
+                        @endif
         
                 @php $day = date('d/m', strtotime($agenda -> start))@endphp
             @php 
                 $l_start = $agenda -> start;
                 $l_assistido = $agenda -> assistido;
             @endphp 
-       {{--  @endif--}}
+       @endif
     @endforeach
     @if(count($agendas) == 0)
         <p>Não há agendamentos disponíveis</p>
