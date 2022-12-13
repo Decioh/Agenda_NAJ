@@ -12,7 +12,7 @@ use Jenssegers\Agent\Facades\Agent;
 class AssistidoController extends Controller
 {
     public function index(){
-        
+
         $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->get();//passando todos os eventos pra view '/agendar', e ordenando.
 
     return view('agendar', ['agendas' => $agendas]);
@@ -88,9 +88,9 @@ class AssistidoController extends Controller
 
             $assistido = Assistido::findOrFail($id);
 
-            $agenda = Agenda::where('id', $assistido->assistido_id)->first()->toArray();
+            //$agenda = Agenda::where('id', $assistido->assistido_id)->first()->toArray();
 
-            return view('/info_assistido', ['assistido' => $assistido, 'agenda'=> $agenda]);
+        return view('/info_assistido', ['assistido' => $assistido/*, 'agenda'=> $agenda*/]);
         }
         public function destroy($id){
 

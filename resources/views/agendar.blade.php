@@ -51,7 +51,7 @@
                     @if (isset($agenda -> assistido_id))
                     <p class="datas">Agendamento: {{date('H:i', strtotime($agenda -> start))}}<br>Assistido: {{$agenda->Assistido->nome }} <br>  
                         <a href="{{ route('assistido.edit', $agenda->Assistido-> id) }}" class="btn btn-primary"> editar </a>
-                        <a href="#" class="btn btn-secondary"> info </a>
+                        <a href="{{route('assistido.info',$agenda->Assistido-> id)}}" class="btn btn-secondary"> info </a>
                     </p>
                     @else
                     <p class="datas"> de {{date('H:i', strtotime($agenda -> start))}} <br> até {{date('H:i', strtotime($agenda -> end))}} <br>  
