@@ -6,13 +6,14 @@ use App\Models\Agenda;
 use App\Models\Agendamento;
 use App\Models\Assistido;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Jenssegers\Agent\Facades\Agent;
 
 class AssistidoController extends Controller
 {
     public function index(){
-
-        $agendas = Agenda::orderBy('start','asc')->get(); //passando todos os eventos pra view '/agendar', e ordenando.
+        
+        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->get();//passando todos os eventos pra view '/agendar', e ordenando.
 
     return view('agendar', ['agendas' => $agendas]);
     }
@@ -46,9 +47,7 @@ class AssistidoController extends Controller
     }
     public function store(Request $req){
         
-        $agenda=Agenda::find(($req->id));                                                   
-        $vag_h = $req-> vag_h;
-        if( $vag_h == 1 ){                                                                                           
+        $agenda=Agenda::find(($req->id));                                                                                                                                            
             
             $nome = $req->nome;
             $nasc = $req->nasc;
@@ -83,73 +82,23 @@ class AssistidoController extends Controller
             $agendamento->save();
         
             return redirect('/mediacao/agendamentos')->with('msg', 'Agendamento concluído!');
-
-        } else {
-            $newAgenda = $agenda->replicate();                                              
-            $newAgenda->vag_h -= 1; 
-            $newAgenda->save();
         
-            $agendamento = new Agendamento();
-            $agendamento->id_agenda = $newAgenda->id;
-            $user = auth()->user();
-            $agendamento->user_id = $user->id;
-            $agendamento->save();
-
-            $nome = $req->nome;
-            $nasc = $req->nasc;
-            $cpf = $req->cpf;
-            $email = $req->email;
-            $telefone = $req->telefone;
-            $info = $req->info;
-            $agenda_id = $req->id;
-
-            $assistido = new Assistido();
-
-            $assistido->nome = $nome;
-            $assistido->nasc = $nasc;
-            $assistido->cpf = $cpf;
-            $assistido->email = $email;
-            $assistido->telefone = $telefone;
-            $assistido->info = $info;
-
-            $assistido->save();
-
-            $agenda = Agenda::find($req->id);
-
-            $agenda->assistido_id = $assistido->id;
-
-            $agenda->save();
-
-            $agendamento = Agendamento::find($agenda_id);
-
-            $agendamento->id_assistido = $agenda->assistido_id;
-            $agendamento->Status = '1';
-
-            $agendamento->save();
-
-            return redirect('/mediacao/agendamentos')->with('msg', 'Agendamento concluído!');
         }
-        }
+        public function show($id) {
 
+            $assistido = Assistido::findOrFail($id);
+
+            $agenda = Agenda::where('id', $assistido->assistido_id)->first()->toArray();
+
+            return view('/info_assistido', ['assistido' => $assistido, 'agenda'=> $agenda]);
+        }
         public function destroy($id){
 
-   
-            
-        $agendamento = Agendamento::where('id_assistido', $id)->with(['id_assistido','Status'])->first();
+        DB::table('agendamentos')->where('id_assistido', $id)
+        ->update(['Status' => 0, 'id_assistido'=> null]);
 
-        $agendamento->id_assistido = null;
-
-        $agendamento    ->Status = 0;
-
-        $agendamento->save();
-
-                 
-        $agenda = Agenda::find('assistido_id', $id)->with(['assistido_id'])->first();
-
-        $agenda ->  assistido_id = null;
-
-        $agenda->save();
-
+        DB::table('agendas')->where('assistido_id', $id)
+            ->update(['assistido_id' => null]);
 
         return redirect('/')->with('msg', 'Agendamento cancelado!');
         }

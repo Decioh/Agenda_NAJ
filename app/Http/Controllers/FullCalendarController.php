@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agendamento;
+use App\models\Assistido;
 use App\Models\Agenda;
 use Illuminate\Http\Request;
 
@@ -15,12 +17,12 @@ class FullCalendarController extends Controller
     	{
     		$data = Agenda::whereDate('start', '>=', $request->start)
                        ->whereDate('end',   '<=', $request->end)
-                       ->get(['id', 'assistido', 'start', 'end']);
+                       ->get(['id', 'assistido_id', 'start', 'end']);
             return response()->json($data);
     	}
     	return view('full-calendar');
     }
-	/*
+
     public function action(Request $request)
     {
     	if($request->ajax())
@@ -55,7 +57,7 @@ class FullCalendarController extends Controller
     		}
     	}
     }
-*/
+
 	
 }
 ?>

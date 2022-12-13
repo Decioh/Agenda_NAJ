@@ -38,20 +38,44 @@ $i = 1;
             </tr>
         </thead>
     <tbody>
-        @foreach($agendas as $agenda)
-        @if($agenda->vag_h>0)
-                <tr>
-                    <th scope="row">{{ $i }}</th>
-                    <td>{{$agenda -> dia}} - {{date('d/m', strtotime($agenda -> start))}}</td>
-                    <td>@if($agenda-> assistido_id != null){{$agenda->Assistido->nome }}@else - @endif</td>
-                    <td>{{date('H:i', strtotime($agenda -> start))}}</td>
-                    <td>{{ $agenda -> dur }} min</td>
-                    <td>@if($agenda -> assistido_id != null) - @else{{$agenda -> vag_h}}@endif</td>
-                    <td>@if(($agenda -> assistido_id) == null)<a href="{{ route('assistido.create', $agenda -> id) }}" class="btn btn-success edit-btn"> Agendar </a>@else <a href="{{ route('assistido.edit', $agenda->Assistido-> id) }}"class="btn btn-warning btn-sm"> Editar </a> <a href=""class="btn btn-secondary btn-sm"> Info </a>@endif
-                </tr>
-                @php $i+=1;@endphp
+    @foreach($agendas as $agenda)
+        @if($loop->first)
+            @php 
+                $l_start = $agenda -> start;
+                $l_assistido = $agenda -> assistido_id;
+            @endphp
+            @if($agenda->vag_h>0)
+            <tr>
+                <th scope="row">{{ $i }}</th>
+                <td>{{$agenda -> dia}} - {{date('d/m', strtotime($agenda -> start))}}</td>
+                <td>@if($agenda-> assistido_id != null){{$agenda->Assistido->nome }}@else - @endif</td>
+                <td>{{date('H:i', strtotime($agenda -> start))}}</td>
+                <td>{{ $agenda -> dur }} min</td>
+                <td>@if($agenda -> assistido_id != null) - @else{{$agenda -> vag_h}}@endif</td>
+                <td>@if(($agenda -> assistido_id) == null)<a href="{{ route('assistido.create', $agenda -> id) }}" class="btn btn-success edit-btn"> Agendar </a>@else <a href="{{ route('assistido.edit', $agenda->Assistido-> id) }}"class="btn btn-warning btn-sm"> Editar </a> <a href=""class="btn btn-secondary btn-sm"> Info </a>@endif
+            </tr>
+            @php $i+=1;@endphp
+            @endif
         @endif
-        @endforeach
+        @if($l_start != $agenda -> start || $l_assistido != $agenda -> assistido_id)  <!--Para mostrar apenas um evento por horario-->
+            @if($agenda->vag_h>0)
+                    <tr>
+                        <th scope="row">{{ $i }}</th>
+                        <td>{{$agenda -> dia}} - {{date('d/m', strtotime($agenda -> start))}}</td>
+                        <td>@if($agenda-> assistido_id != null){{$agenda->Assistido->nome }}@else - @endif</td>
+                        <td>{{date('H:i', strtotime($agenda -> start))}}</td>
+                        <td>{{ $agenda -> dur }} min</td>
+                        <td>@if($agenda -> assistido_id != null) - @else{{$agenda -> vag_h}}@endif</td>
+                        <td>@if(($agenda -> assistido_id) == null)<a href="{{ route('assistido.create', $agenda -> id) }}" class="btn btn-success edit-btn"> Agendar </a>@else <a href="{{ route('assistido.edit', $agenda->Assistido-> id) }}"class="btn btn-warning btn-sm"> Editar </a> <a href=""class="btn btn-secondary btn-sm"> Info </a>@endif
+                    </tr>
+                    @php $i+=1;@endphp
+            @endif
+            @php 
+                $l_start = $agenda -> start;
+                $l_assistido = $agenda -> assistido_id;
+            @endphp
+        @endif
+    @endforeach
     </tbody>
     @else
         <p>Você ainda não criou um horario de atendimento.</p>
