@@ -13,7 +13,7 @@ class AssistidoController extends Controller
 {
     public function index(){
 
-        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->get();//passando todos os eventos pra view '/agendar', e ordenando.
+        $agendas = Agenda::orderBy('start', 'asc')->orderBy('vag_h', 'desc')->get(); //passando todos os eventos pra view '/agendar', e ordenando.
 
     return view('agendar', ['agendas' => $agendas]);
     }
@@ -27,8 +27,9 @@ class AssistidoController extends Controller
     public function edit($id){
 
         $assistido = Assistido::find($id);
+        $agenda = DB::table('agendas')->where('assistido_id',$id)->get();
 
-        return view ('editassistido',['assistido'=>$assistido]);
+        return view ('editassistido',['assistido'=>$assistido, 'agenda'=> $agenda]);
     }
     public function update(Request $req){
 
@@ -88,13 +89,13 @@ class AssistidoController extends Controller
 
             $assistido = Assistido::findOrFail($id);
 
-            //$agenda = Agenda::where('id', $assistido->assistido_id)->first()->toArray();
+            $agenda = DB::table('agendas')->where('assistido_id',$id)->get();
 
-        return view('/info_assistido', ['assistido' => $assistido/*, 'agenda'=> $agenda*/]);
+        return view('/info_assistido', ['assistido' => $assistido, 'agenda'=> $agenda]);
         }
         public function destroy($id){
 
-        DB::table('agendamentos')->where('id_assistido', $id)
+        DB::table('agendamentos')->where([['id_assistido', $id]])
         ->update(['Status' => 0, 'id_assistido'=> null]);
 
         DB::table('agendas')->where('assistido_id', $id)

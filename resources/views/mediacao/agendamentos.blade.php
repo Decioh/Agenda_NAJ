@@ -52,7 +52,7 @@ $i = 1;
                 <td>{{date('H:i', strtotime($agenda -> start))}}</td>
                 <td>{{ $agenda -> dur }} min</td>
                 <td>@if($agenda -> assistido_id != null) - @else{{$agenda -> vag_h}}@endif</td>
-                <td>@if(($agenda -> assistido_id) == null)<a href="{{ route('assistido.create', $agenda -> id) }}" class="btn btn-success edit-btn"> Agendar </a>@else <a href="{{ route('assistido.edit', $agenda->Assistido-> id) }}"class="btn btn-warning btn-sm"> Editar </a> <a href=""class="btn btn-secondary btn-sm"> Info </a>@endif
+                <td>@if(($agenda -> assistido_id) == null)<a href="{{ route('assistido.create', $agenda -> id) }}" class="btn btn-success edit-btn"> Agendar </a>@else <a href="{{ route('assistido.edit', $agenda->Assistido-> id) }}"class="btn btn-warning btn-sm"> Editar </a> <a href="{{route('assistido.info',$agenda->Assistido-> id)}}"class="btn btn-secondary btn-sm"> Info </a>@endif
             </tr>
             @php $i+=1;@endphp
             @endif

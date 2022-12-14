@@ -15,7 +15,21 @@
     cpf: {{$cpf}}<br>
     email: {{$assistido -> email}}<br>
     telefone: {{$tel}}<br>
-    Info: {{$assistido -> info}}
+    Informações adicionais: {{$assistido -> info}}
 </p>
+<h2>Agendamentos do assistido</h2>
+@if(count($agenda)>0)    
+    @foreach( $agenda as $agenda)
+        @if($loop->first)
+        {{$agenda->dia}} -
+        {{date('d/m/y H:i', strtotime($agenda -> start))}}<br>
+        @else
+        {{$agenda->dia}} -
+        {{date('d/m/y H:i', strtotime($agenda -> start))}}<br>
+        @endif
+    @endforeach
+@else
+<p>Assistido sem agendamentos</p>
+@endif
 
 @endsection

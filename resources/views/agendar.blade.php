@@ -2,11 +2,11 @@
 
 @section('title', 'Agendar')
 
-@section('content')    
+@section('content')  
 
+    
     <div id="events-container" class="col-md-12">
         <h2>Próximas vagas livres</h2>
-
     
     @foreach($agendas as $agenda)
         @if($loop->first)                                                   <!-- Se for o primeiro loop, já criamos o card com o dia-->
@@ -25,7 +25,7 @@
                             @if (isset($agenda -> assistido_id))
                                 <p class="datas">Agendamento: {{date('H:i', strtotime($agenda -> start))}}<br>Assistido: {{$agenda->Assistido->nome }} <br>  
                                     <a href="{{ route('assistido.edit', $agenda->Assistido-> id) }}" class="btn btn-primary"> editar </a>
-                                    <a href="#" class="btn btn-secondary"> info </a>
+                                    <a href="{{route('assistido.info',$agenda->Assistido-> id)}}" class="btn btn-secondary"> info </a>
                                 </p>
                             @else
                                 <p class="datas"> de {{date('H:i', strtotime($agenda -> start))}} <br> até {{date('H:i', strtotime($agenda -> end))}} <br>  
