@@ -31,6 +31,7 @@ class AssistidoController extends Controller
 
         return view ('editassistido',['assistido'=>$assistido, 'agenda'=> $agenda]);
     }
+
     public function update(Request $req){
 
         $assistido = Assistido::find($req -> id);
@@ -45,6 +46,24 @@ class AssistidoController extends Controller
             $assistido->save();
 
         return redirect('/mediacao/agendamentos')->with('msg', 'Dados Atualizados!');
+    }
+    public function show($id) {
+
+        $assistido = Assistido::findOrFail($id);
+
+        $agenda = DB::table('agendas')->where('assistido_id',$id)->get();
+
+    return view('/info_assistido', ['assistido' => $assistido, 'agenda'=> $agenda]);
+    }
+    public function destroy($id){
+
+    DB::table('agendamentos')->where([['id_assistido', $id]])
+    ->update(['Status' => 0, 'id_assistido'=> null]);
+
+    DB::table('agendas')->where('assistido_id', $id)
+        ->update(['assistido_id' => null]);
+
+    return redirect('/')->with('msg', 'Agendamento cancelado!');
     }
     public function store(Request $req){
         
@@ -84,24 +103,6 @@ class AssistidoController extends Controller
         
             return redirect('/mediacao/agendamentos')->with('msg', 'Agendamento concluído!');
         
-        }
-        public function show($id) {
-
-            $assistido = Assistido::findOrFail($id);
-
-            $agenda = DB::table('agendas')->where('assistido_id',$id)->get();
-
-        return view('/info_assistido', ['assistido' => $assistido, 'agenda'=> $agenda]);
-        }
-        public function destroy($id){
-
-        DB::table('agendamentos')->where([['id_assistido', $id]])
-        ->update(['Status' => 0, 'id_assistido'=> null]);
-
-        DB::table('agendas')->where('assistido_id', $id)
-            ->update(['assistido_id' => null]);
-
-        return redirect('/')->with('msg', 'Agendamento cancelado!');
         }
         
     
