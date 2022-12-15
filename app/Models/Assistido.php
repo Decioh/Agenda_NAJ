@@ -11,4 +11,8 @@ class Assistido extends Model
     public function agenda(){
     return $this->hasMany('App\Models\Agenda');
     }
+    public function agendamento(){
+        return $this->hasMany('App\Models\Agendamento');
+        }
+    
 }

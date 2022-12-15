@@ -69,7 +69,7 @@ class AgendaController extends Controller
                         $agenda->save();
 
                         $agendamento = new Agendamento();
-                        $agendamento->id_agenda = $agenda->id;
+                        $agendamento->agenda_id = $agenda->id;
                         $user = auth()->user();
                         $agendamento->user_id = $user->id;
                         $agendamento->save();

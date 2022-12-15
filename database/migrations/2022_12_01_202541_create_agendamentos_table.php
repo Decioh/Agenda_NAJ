@@ -18,8 +18,8 @@ class CreateAgendamentosTable extends Migration
             $table->timestamps();
             $table->boolean('Status')->default('0');
 
-            $table  ->  foreignId('id_assistido')->nullable()->constrained('assistidos');
-            $table  ->  foreignId('id_agenda')->nullable()->constrained('agendas');
+            $table  ->  foreignId('assistido_id')->nullable()->constrained('assistidos');
+            $table  ->  foreignId('agenda_id')->nullable()->constrained('agendas');
             $table  ->  foreignId('user_id')->constrained();
         });
     }

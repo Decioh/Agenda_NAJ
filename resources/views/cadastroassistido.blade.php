@@ -8,9 +8,9 @@
         <div class="info-cadastro">
             <p class="card-date">Agendamento para {{$agenda -> dia}} dia {{date('d/m', strtotime($agenda -> start))}} <br> de {{date('H:i', strtotime($agenda -> start))}} até {{date('H:i', strtotime($agenda -> end))}}</p>
         </div>
+
 <form action="{{ route('assistido.store',$agenda -> id) }}" method="POST">
     @csrf
-
     <input type="hidden" name="id" value="{{$agenda['id']}}">
 <div class="cadastro"><br>
     <div class="cadastron">

@@ -13,8 +13,14 @@ class AssistidoController extends Controller
 {
     public function index(){
 
-        $agendas = Agenda::orderBy('start', 'asc')->orderBy('vag_h', 'desc')->get(); //passando todos os eventos pra view '/agendar', e ordenando.
-
+        $search = request('search');
+        if (isset($search)) {            
+            $assistidos = Assistido::where('nome', 'like', '%'.$search.'%')->orWhere('cpf', 'like', '%'.$search.'%')->get();
+            $agendas = Agenda::orderBy('start', 'asc')->orderBy('vag_h', 'desc')->get(); //passando todos os eventos pra view '/agendar', e ordenando.
+        return view('agendar', ['agendas' => $agendas, 'assistidos' => $assistidos]);
+        } else {
+            $agendas = Agenda::orderBy('start', 'asc')->orderBy('vag_h', 'desc')->get(); //passando todos os eventos pra view '/agendar', e ordenando.
+        }
     return view('agendar', ['agendas' => $agendas]);
     }
     public function create($id) {
@@ -29,7 +35,7 @@ class AssistidoController extends Controller
         $assistido = Assistido::find($id);
         $agenda = DB::table('agendas')->where('assistido_id',$id)->get();
 
-        return view ('editassistido',['assistido'=>$assistido, 'agenda'=> $agenda]);
+    return view ('editassistido',['assistido'=>$assistido, 'agenda'=> $agenda]);
     }
 
     public function update(Request $req){
@@ -57,10 +63,10 @@ class AssistidoController extends Controller
     }
     public function destroy($id){
 
-    DB::table('agendamentos')->where([['id_assistido', $id]])
-    ->update(['Status' => 0, 'id_assistido'=> null]);
+    DB::table('agendamentos')->where([['assistido_id', $id]])->orderBy('updated_at','asc')->take(1)
+    ->update(['Status' => 0, 'assistido_id'=> null]);
 
-    DB::table('agendas')->where('assistido_id', $id)
+    DB::table('agendas')->where('assistido_id', $id)->orderBy('updated_at','asc')->take(1)
         ->update(['assistido_id' => null]);
 
     return redirect('/')->with('msg', 'Agendamento cancelado!');
@@ -96,7 +102,7 @@ class AssistidoController extends Controller
 
             $agendamento = Agendamento::find($agenda_id);
 
-            $agendamento->id_assistido = $agenda->assistido_id;
+            $agendamento->assistido_id = $agenda->assistido_id;
             $agendamento->Status = '1';
 
             $agendamento->save();
@@ -104,6 +110,5 @@ class AssistidoController extends Controller
             return redirect('/mediacao/agendamentos')->with('msg', 'Agendamento concluído!');
         
         }
-        
     
     }

@@ -29,7 +29,7 @@ class FullCalendarController extends Controller
     	{
     		if($request->type == 'add')
     		{
-    			$event = Event::create([
+    			$event = Agenda::create([
     				'assistido'		=>	$request->assistido,
     				'start'		=>	$request->start,
     				'end'		=>	$request->end
@@ -40,7 +40,7 @@ class FullCalendarController extends Controller
 
     		if($request->type == 'update')
     		{
-    			$event = Event::find($request->id)->update([
+    			$event = Agenda::find($request->id)->update([
     				'assistido'		=>	$request->assistido,
     				'start'		=>	$request->start,
     				'end'		=>	$request->end
@@ -51,7 +51,7 @@ class FullCalendarController extends Controller
 
     		if($request->type == 'delete')
     		{
-    			$event = Event::find($request->id)->delete();
+    			$event = Agenda::find($request->id)->delete();
 
     			return response()->json($event);
     		}

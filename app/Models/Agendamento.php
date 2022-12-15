@@ -11,7 +11,7 @@ class Agendamento extends Model
 	protected $table = 'agendamentos';
 
     protected $fillable = [
-        'id_assistido', 'id_agendamento', 'descricao', 'user_id'
+        'assistido_id', 'agendamento_id', 'descricao', 'user_id'
     ];
     use HasFactory;
     public function user(){

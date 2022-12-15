@@ -26,7 +26,7 @@ class AddAssistidoIdToAgendasTable extends Migration
     public function down()
     {
         Schema::table('agendas', function (Blueprint $table) {
-            $table->foreignId('assistido_id')->constrained()->onDelete('cascade');
+            $table->foreignId('iassistido_id')->constrained()->onDelete('cascade');
         });
     }  
 }

@@ -37,6 +37,7 @@ $i = 1;
                 <th scope="col">Ação</th>
             </tr>
         </thead>
+    
     <tbody>
     @foreach($agendas as $agenda)
         @if($loop->first)
