@@ -86,7 +86,8 @@ class AgendaController extends Controller
     public function index(){
 
         $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->get(); //passando todos os eventos pra view '/novo/agendar'
+        $agendamentos = Agendamento::all();
 
-    return view('mediacao/agendamentos',['agendas' => $agendas]);   
+    return view('mediacao/agendamentos',['agendas' => $agendas,'agendamentos' => $agendamentos]);   
     }
 }
