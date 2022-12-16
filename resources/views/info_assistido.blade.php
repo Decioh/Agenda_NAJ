@@ -20,13 +20,8 @@
 <h2>Agendamentos do assistido</h2>
 @if(count($agenda)>0)    
     @foreach( $agenda as $agenda)
-        @if($loop->first)
-        {{$agenda->dia}} -
-        {{date('d/m/y H:i', strtotime($agenda -> start))}}<br>
-        @else
-        {{$agenda->dia}} -
-        {{date('d/m/y H:i', strtotime($agenda -> start))}}<br>
-        @endif
+    <a href="{{ route('assistido.edit', $assistido -> id) }}" class="btn btn-success edit-btn">{{$agenda->dia}} -
+        {{date('d/m/y H:i', strtotime($agenda -> start))}}</a>
     @endforeach
 @else
 <p>Assistido sem agendamentos</p>

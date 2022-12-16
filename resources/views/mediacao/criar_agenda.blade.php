@@ -5,7 +5,9 @@
 @section('content')
 
 
-
+@if ((Auth::user()->user_type) == 2)
+    <h1>Usuario não autorizado</h1>
+@else
 
 <div id="event-create-container" class="formulario1">
 
@@ -51,5 +53,5 @@
 </div>
 
 
-
+@endif
 @endsection  

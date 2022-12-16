@@ -33,7 +33,9 @@
         <a href="javascript:document.logout.submit()">Logout</a>
         </form>
         </div>
-        <a href="{{ route('mediacao.agendamentos') }}">Meus atendimentos</a>
+        @if ((Auth::user()->user_type) == 1)
+            <a href="{{ route('mediacao.agendamentos') }}">Meus atendimentos</a>
+        @endif
         @endauth
         @guest
         <a href="{{ route('login') }}">Login</a>

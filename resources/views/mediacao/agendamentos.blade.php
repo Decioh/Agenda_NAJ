@@ -12,7 +12,9 @@
     </div>
 </div>
 
-
+@if ((Auth::user()->user_type) == 2)
+    <h1>Usuario não autorizado</h1>
+@else
 <div style="margin: 50px">
 <a  href="{{url ('/mediacao/criar_agenda')}}"><button class="btn btn-dark">Disponibilizar novo horario na agenda</button></a>
 </div>
@@ -82,5 +84,5 @@ $i = 1;
         <p>Você ainda não criou um horario de atendimento.</p>
     @endif
 </div>
-
+@endif
 @endsection
