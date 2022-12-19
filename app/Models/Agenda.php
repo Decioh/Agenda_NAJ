@@ -10,7 +10,10 @@ class Agenda extends Model
     use HasFactory;
 
     public function assistido(){
-        return $this->belongsTo('App\Models\Assistido');
+        return $this->belongsTo('App\Models\Assistido','assistido_id');
+    }
+    public function agendamento(){
+        return $this->belongsTo('App\Models\Agendamento','agenda_id');
     }
 }
 

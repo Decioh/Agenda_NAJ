@@ -22,7 +22,7 @@ Route::get('/mediacao/criar_agenda', [AgendaController::class, 'create'])->name(
 Route::post('/mediacao/criar_agenda/novo', [AgendaController::class, 'store'])->name('agenda.store')->middleware('auth');
 Route::get('/mediacao/agendamentos', [AgendaController::class, 'index'])->name('mediacao.agendamentos')->middleware('auth');
 Route::delete('/mediacao/agendamentos/{id}', [AgendaController::class, 'destroy'])->name('agenda.destroy')->middleware('auth');
-
+Route::get  ('/mediacao/agendamentos/{id}/edit', [AgendaController::class, 'edit'])->name('agenda.edit')->middleware('auth');
 /*Rotas Assistido*/
 
 Route::get  ('/assistido/{id}', [AssistidoController::class, 'create'])->name('assistido.create')->middleware('auth');

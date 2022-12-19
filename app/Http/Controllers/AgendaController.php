@@ -12,6 +12,31 @@ class AgendaController extends Controller
     public function create(){
         return view('/mediacao/criar_agenda');
     }
+    public function index(){
+
+        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->get(); //passando todos os eventos pra view '/meadiacao/agendamentos'
+        $agendamentos = DB::table('agendamentos')->get();
+
+    return view('/mediacao/agendamentos',['agendas' => $agendas,'agendamentos' => $agendamentos]);   
+    }
+    public function edit($id){
+        $agendamento = Agendamento::where('agenda_id',$id)->first();
+        if($agendamento->Status==1){
+            DB::table('agendamentos')->where([['agenda_id', $id]])->update(['Status' => 2]);
+            $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->get(); //passando todos os eventos pra view '/mediacao/agendamentos'
+            $agendamentos = DB::table('agendamentos')->get();
+            return view('mediacao/agendamentos',['agendas' => $agendas,'agendamentos' => $agendamentos]);
+        }
+        elseif($agendamento->Status==2){
+            DB::table('agendamentos')->where([['agenda_id', $id]])->update(['Status' => 1]);
+            $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->get(); //passando todos os eventos pra view '/mediacao/agendamentos'
+            $agendamentos = DB::table('agendamentos')->get();
+            return view('mediacao/agendamentos',['agendas' => $agendas,'agendamentos' => $agendamentos]);
+        }        
+        
+    return back();
+    }
+
     public function store(Request $request)
     {
         $dur = $request->dur;
@@ -83,11 +108,5 @@ class AgendaController extends Controller
         return redirect('mediacao/agendamentos')->with('msg', 'Agendamento criado com sucesso!');
     }
 
-    public function index(){
 
-        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->get(); //passando todos os eventos pra view '/novo/agendar'
-        $agendamentos = Agendamento::all();
-
-    return view('mediacao/agendamentos',['agendas' => $agendas,'agendamentos' => $agendamentos]);   
-    }
 }
