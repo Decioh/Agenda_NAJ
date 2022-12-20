@@ -4,47 +4,8 @@
 
 @section('content')  
 
-    
-    
-    <div id="search-container" class="col-md-12 justify-content-center">
-        <h2>Buscar assistido</h2>
-        <form action="/" method="GET">
-            <input type="text" id="search" name="search" placeholder="Procure pelo Nome ou CPF"> <br>
-            <button type="submit" class="btn btn-secondary btn-sm mt-1">Pesquisar</button>
-        </form>
-    @if(isset($search)){
-        <p>Buscando por {{$search}}</p>
-        @forelse ($assistidos as $assistidos)
+    <a class="btn btn-dark mt-5" href="{{route('assistido.list')}}">Pesquisar/Cadastrar assistido</a>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Nascimento</th>
-                    <th scope="col">Cpf</th>
-                    <th scope="col">E-mail</th>
-                    <th scope="col">Telefone</th>
-                    <th scope="col">Ação</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">{{ $loop }}</th>
-                    <td>{{$assistido -> nome}}</td>
-                    <td>{{$assistido -> nasc}}</td>
-                    <td>{{$assistido -> cpf}}</td>
-                    <td>{{$assistido -> email}}</td>
-                    <td>{{$assistido -> telefone}}</td>
-                    <td><a href="{{ route('assistido.edit', $assistido-> id) }}"class="btn btn-warning btn-sm"> Editar </a></td>
-                </tr>
-            </tbody>
-        @empty
-            <p>Não foi encontrado um assistido com esse nome/cpf, <a href="#"class="btn btn-warning btn-sm"> Cadastrar assistido </a></p>
-        @endforelse
-    }   
-    @endif
-    </div>
     <div id="events-container" class="col-md-12">
         <h2>Próximas vagas livres</h2>
     

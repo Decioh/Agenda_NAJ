@@ -36,6 +36,16 @@ class AgendaController extends Controller
         
     return back();
     }
+    public function destroy($id){
+
+        DB::table('agendamentos')->where([['assistido_id', $id]])->orderBy('updated_at','asc')->take(1)
+        ->update(['Status' => 0, 'assistido_id'=> null]);
+    
+        DB::table('agendas')->where('assistido_id', $id)->orderBy('updated_at','asc')->take(1)
+            ->update(['assistido_id' => null, 'info' => null]);
+    
+        return redirect('/')->with('msg', 'Agendamento cancelado!');
+        }
 
     public function store(Request $request)
     {

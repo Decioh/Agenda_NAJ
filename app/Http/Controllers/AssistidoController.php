@@ -7,22 +7,32 @@ use App\Models\Agendamento;
 use App\Models\Assistido;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\facades\Auth;
 use Jenssegers\Agent\Facades\Agent;
 
 class AssistidoController extends Controller
 {
     public function index(){
 
-        $search = request('search');
-        if (isset($search)) {            
-            $assistidos = Assistido::where('nome', 'like', '%'.$search.'%')->orWhere('cpf', 'like', '%'.$search.'%')->get();
-            $agendas = Agenda::orderBy('start', 'asc')->orderBy('vag_h', 'desc')->get(); //passando todos os eventos pra view '/agendar', e ordenando.
-        return view('agendar', ['agendas' => $agendas, 'assistidos' => $assistidos]);
-        } else {
-            $agendas = Agenda::orderBy('start', 'asc')->orderBy('vag_h', 'desc')->get(); //passando todos os eventos pra view '/agendar', e ordenando.
-        }
-    return view('agendar', ['agendas' => $agendas]);
+        $assistidos = DB::table('assistidos');
+        $agendas = Agenda::orderBy('start', 'asc')->orderBy('vag_h', 'desc')->get(); //passando todos os eventos pra view '/agendar', e ordenando.
+
+    return view('agendar', ['agendas' => $agendas,'assistidos'=>$assistidos]);
     }
+
+    public function list()
+    {
+        $search = request('search');
+        if($search){
+            $assistidos = Assistido::where(['nome', 'like', '%'.$search.'%'])->get();
+        }
+        else{
+            $assistidos = Assistido::orderBy('nome', 'asc')->get();
+        }
+
+    return view ('assistido', ['assistidos'=>$assistidos, 'search'=>$search]);
+    }
+
     public function create($id) {
 
         $agenda = Agenda::findOrFail($id);
@@ -63,25 +73,24 @@ class AssistidoController extends Controller
     }
     public function destroy($id){
 
-    DB::table('agendamentos')->where([['assistido_id', $id]])->orderBy('updated_at','asc')->take(1)
-    ->update(['Status' => 0, 'assistido_id'=> null]);
+        DB::table('agendamentos')->where([['assistido_id', $id]])
+        ->update(['Status' => 0, 'assistido_id'=> null]);
 
-    DB::table('agendas')->where('assistido_id', $id)->orderBy('updated_at','asc')->take(1)
+        DB::table('agendas')->where('assistido_id', $id)
         ->update(['assistido_id' => null]);
+        Assistido::destroy('id', $id);
 
-    return redirect('/')->with('msg', 'Agendamento cancelado!');
+    return redirect('/')->with('msg', 'Assistido deletado!');
     }
-    public function store(Request $req){
-        
-        $agenda=Agenda::find(($req->id));                                                                                                                                            
+    public function store(Request $req){                                                                                                                                          
             
             $nome = $req->nome;
             $nasc = $req->nasc;
             $cpf = $req->cpf;
             $email = $req->email;
             $telefone = $req->telefone;
-            $info = $req->info;
             $agenda_id = $req->id;
+            $info = $req->info;
 
             $assistido = new Assistido();
 
@@ -90,13 +99,13 @@ class AssistidoController extends Controller
             $assistido->cpf = $cpf;
             $assistido->email = $email;
             $assistido->telefone = $telefone;
-            $assistido->info = $info;
 
             $assistido->save();
 
             $agenda = Agenda::find($req->id);
 
             $agenda->assistido_id = $assistido->id;
+            $agenda->info = $info;
 
             $agenda->save();
 
@@ -106,8 +115,13 @@ class AssistidoController extends Controller
             $agendamento->Status = '1';
 
             $agendamento->save();
+
+        if ((Auth::user()->user_type) == 2){
+            return redirect('assistido')->with('msg', 'Assistido Cadastrado!');
+        }
         
-            return redirect('/mediacao/agendamentos')->with('msg', 'Agendamento concluído!');
+        elseif((Auth::user()->user_type) == 1)
+            return redirect('/mediacao/agendamentos')->with('msg', 'Assistido Cadastrado!');
         
         }
     

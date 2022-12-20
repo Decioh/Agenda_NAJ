@@ -20,6 +20,7 @@ class CreateAgendasTable extends Migration
             $table  ->  string('dia');
             $table  ->  integer('dur')->nullable();
             $table  ->  integer('vag_h');
+            $table  ->  text('info')->nullable();
             $table  ->  timestamps();
         });
     }

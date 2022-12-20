@@ -9,6 +9,8 @@ class Agenda extends Model
 {
     use HasFactory;
 
+    protected $table = 'agendas';
+    
     public function assistido(){
         return $this->belongsTo('App\Models\Assistido','assistido_id');
     }

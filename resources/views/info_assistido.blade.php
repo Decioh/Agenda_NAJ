@@ -16,8 +16,16 @@
     email: {{$assistido -> email}}<br>
     telefone: {{$tel}}<br>
     Informações adicionais: {{$assistido -> info}}
+    
 </p>
+<form action="{{ route('assistido.destroy', $assistido->id) }}" method="POST">
+    @csrf
+    @method('DELETE')
+    
+    <button type="submit" class="btn btn-danger delete-btn">Deletar assistido</button>
+    </form>
 <h2>Agendamentos do assistido</h2>
+
 @if(count($agenda)>0)    
     @foreach( $agenda as $agenda)
     <a href="{{ route('assistido.edit', $assistido -> id) }}" class="btn btn-success edit-btn">{{$agenda->dia}} -

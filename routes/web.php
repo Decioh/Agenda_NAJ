@@ -25,6 +25,7 @@ Route::delete('/mediacao/agendamentos/{id}', [AgendaController::class, 'destroy'
 Route::get  ('/mediacao/agendamentos/{id}/edit', [AgendaController::class, 'edit'])->name('agenda.edit')->middleware('auth');
 /*Rotas Assistido*/
 
+Route::get  ('/assistido', [AssistidoController::class, 'list'])->name('assistido.list')->middleware('auth');
 Route::get  ('/assistido/{id}', [AssistidoController::class, 'create'])->name('assistido.create')->middleware('auth');
 Route::post ('/assistido/{id}/novo', [AssistidoController::class, 'store'])->name('assistido.store')->middleware('auth');
 Route::get  ('/assistido/{id}/edit', [AssistidoController::class, 'edit'])->name('assistido.edit')->middleware('auth');

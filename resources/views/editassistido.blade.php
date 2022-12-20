@@ -33,7 +33,7 @@
     </div> <br>
     <div> <br>
         <label for="info">Informações adicionais:</label><br><br>
-        <textarea  id="info" name="info" value="{{$assistido->info}}"></textarea>
+        <input type="text"  id="info" name="info" value="{{$assistido->info}}">
     </div> <br>
         <div class="form-group">
         <p>
@@ -43,11 +43,12 @@
     </div>
 </div>
 </form>
-<form action="{{ route('assistido.destroy', $assistido -> id) }}" method="POST">
+    <form action="{{ route('agenda.destroy', $assistido->id) }}" method="POST">
     @csrf
     @method('DELETE')
 
-    <button type="submit" class="btn btn-danger delete-btn">Deletar agendamento</button>
+    <button type="submit" class="btn btn-danger delete-btn">Cancelar agendamento</button>
+</form>
 </form>
 
 

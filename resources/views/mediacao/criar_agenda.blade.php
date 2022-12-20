@@ -16,11 +16,14 @@
     
     <div class="form-group">
         <legend>Criando horarios de atendimento:</legend>
+        <p>criar horario de intervalo: <input type="checkbox" name="int" id="1" value="1"> <label for="1"></label></p>
         <label for="começo">Começo: <input type="datetime" class="form-control" id="começo" name="start" placeholder="começo"></label>
         
         <label for="fim" >final: <input type="datetime" class="form-control" id="fim" name="fim" placeholder="fim"></label>
         
     </div> <br>
+    <div> <br>
+        
     <div class="form-group">
         <label for="dura">Tempo para cada atendimento:</label><br>
         <input type="number" min = "1" max="60" id="dur" name="dur">
