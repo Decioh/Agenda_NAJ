@@ -7,7 +7,7 @@
 
 <div id="search-container" class="col-md-12 justify-content-center">
     <h2>Buscar assistido</h2>
-    <form action="/assistido" method="GET">
+    <form action="{{route('assistido.list')}}" method="GET">
         <input type="text" id="search" name="search" placeholder="Procure pelo Nome ou CPF"> <br>
         <button type="submit" class="btn btn-secondary btn-sm mt-1">Pesquisar</button>
     </form>
@@ -42,15 +42,16 @@
                 <td>
                     <a href="{{ route('assistido.edit', $assistido-> id) }}"class="btn btn-warning btn-sm"> Editar </a>
                     <a href="{{route('assistido.info', $assistido-> id)}}"class="btn btn-secondary btn-sm"> info </a>
+                    <a href="{{ route('agenda.list', $assistido-> id)}}"class="btn btn-success btn-sm"> Agendar </a>
                 </td>
             </tr>
         </tbody>
     
 @endforeach
     @if((count($assistidos)==0))
-        <p>Não foi encontrado um assistido cadastrado com esse nome</p>
-        <a href="{{route('assistido.create', $id=1)}}"class="btn btn-warning btn-sm"> Cadastrar </a>  
+        <p>Não foi encontrado um assistido cadastrado com esse nome</p> 
     @endif
+    <a href="{{route('assistido.novo')}}"class="btn btn-warning btn-sm"> Cadastrar </a>  
 </div>
 
 @endsection

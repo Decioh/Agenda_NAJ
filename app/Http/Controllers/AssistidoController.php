@@ -20,11 +20,12 @@ class AssistidoController extends Controller
     return view('agendar', ['agendas' => $agendas,'assistidos'=>$assistidos]);
     }
 
-    public function list()
-    {
+    public function list(){
+        
         $search = request('search');
         if($search){
-            $assistidos = Assistido::where(['nome', 'like', '%'.$search.'%'])->get();
+            $assistidos = DB::table('assistidos')
+                ->where('nome', 'like', '%'.$search.'%')->get();
         }
         else{
             $assistidos = Assistido::orderBy('nome', 'asc')->get();
@@ -38,6 +39,30 @@ class AssistidoController extends Controller
         $agenda = Agenda::findOrFail($id);
 
     return view('/cadastroassistido', ['agenda' => $agenda]);
+    }
+    public function novo() {
+
+        return view('/cadastroassistido_semagendamento');
+    }
+    public function criar(Request $req){
+        
+            $nome = $req->nome;
+            $nasc = $req->nasc;
+            $cpf = $req->cpf;
+            $email = $req->email;
+            $telefone = $req->telefone;
+
+            $assistido = new Assistido();
+
+            $assistido->nome = $nome;
+            $assistido->nasc = $nasc;
+            $assistido->cpf = $cpf;
+            $assistido->email = $email;
+            $assistido->telefone = $telefone;
+
+            $assistido->save();
+        
+    return redirect ('/assistido');
     }
 
     public function edit($id){
@@ -84,13 +109,13 @@ class AssistidoController extends Controller
     }
     public function store(Request $req){                                                                                                                                          
             
-            $nome = $req->nome;
-            $nasc = $req->nasc;
-            $cpf = $req->cpf;
-            $email = $req->email;
-            $telefone = $req->telefone;
+            $nome      = $req->nome;
+            $nasc      = $req->nasc;
+            $cpf       = $req->cpf;
+            $email     = $req->email;
+            $telefone  = $req->telefone;
             $agenda_id = $req->id;
-            $info = $req->info;
+            $info      = $req->info;
 
             $assistido = new Assistido();
 

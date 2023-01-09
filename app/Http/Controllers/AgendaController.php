@@ -6,6 +6,7 @@ use App\Models\Agendamento;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\facades\Auth;
 
 class AgendaController extends Controller
 {
@@ -116,6 +117,40 @@ class AgendaController extends Controller
             $vag_h = $vag_h - 1;
             }
         return redirect('mediacao/agendamentos')->with('msg', 'Agendamento criado com sucesso!');
+    }
+
+    public function list($id){
+        $id;
+        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->get(); //passando todos os eventos pra view '/meadiacao/agendamentos'
+        $agendamentos = DB::table('agendamentos')->get();
+    
+    return view ('agendar_assistido', ['agendas' => $agendas,'agendamentos' => $agendamentos,'assistido_id'=>$id]);
+    }
+
+    public function criar($assistido_id, $agenda_id){
+
+
+        $agenda = Agenda::find($agenda_id);
+
+        $agenda->assistido_id = $assistido_id;
+
+        $agenda->save();
+
+        $agendamento = Agendamento::find($agenda_id);
+
+        $agendamento->assistido_id = $agenda->assistido_id;
+        $agendamento->Status = '1';
+
+        $agendamento->save();
+
+    if ((Auth::user()->user_type) == 2){
+        return redirect('assistido')->with('msg', 'Assistido cadastrado com sucesso!');
+    }
+    
+    elseif((Auth::user()->user_type) == 1){
+        return redirect('/mediacao/agendamentos')->with('msg', 'Assistido cadastrado com sucesso!');
+    
+    }
     }
 
 

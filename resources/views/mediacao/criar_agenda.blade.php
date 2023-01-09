@@ -3,6 +3,7 @@
 @section('title', 'Agendamentos')
 
 @section('content')
+<!--Esconder campo de texto-->
 
 
 @if ((Auth::user()->user_type) == 2)
@@ -16,7 +17,9 @@
     
     <div class="form-group">
         <legend>Criando horarios de atendimento:</legend>
-        <p>criar horario de intervalo: <input type="checkbox" name="int" id="1" value="1"> <label for="1"></label></p>
+        <div class="form-group">
+         
+        
         <label for="começo">Começo: <input type="datetime" class="form-control" id="começo" name="start" placeholder="começo"></label>
         
         <label for="fim" >final: <input type="datetime" class="form-control" id="fim" name="fim" placeholder="fim"></label>
