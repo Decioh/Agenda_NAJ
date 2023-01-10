@@ -17,8 +17,8 @@ class CreateAssistidosTable extends Migration
             $table  ->  id();
             $table  ->  string('nome');
             $table  ->  date('nasc')->nullable();
-            $table  ->  char('cpf',11)->nullable();
-            $table  ->  char('email',45)->nullable();
+            $table  ->  char('cpf',11);
+            $table  ->  char('email',45);
             $table  ->  char('telefone',11);
             $table  ->  timestamps();
         });

@@ -7,7 +7,7 @@
     <a class="btn btn-dark mt-5" href="{{ route('assistido.list')}}">Pesquisar/Cadastrar assistido</a>
 
     <div id="events-container" class="col-md-12">
-        <h2>Próximas vagas livres</h2>
+        <h2>Próximas vagas e horários</h2>
     
     @foreach($agendas as $agenda)
         @if($loop->first)                                                   <!-- Se for o primeiro loop, já criamos o card com o dia-->
@@ -24,7 +24,7 @@
                         <div class="card-body">
                             <h5 class="card-date">{{$agenda -> dia}}<br>dia {{date('d/m', strtotime($agenda -> start))}}</h5><!-- Imprimindo o dia e mês-->
                             @if (isset($agenda -> assistido_id))
-                                <p class="datas">Agendamento: {{date('H:i', strtotime($agenda -> start))}}<br>Assistido: {{$agenda->Assistido->nome }} <br>  
+                                <p class="datas">Agendamento: {{date('H:i', strtotime($agenda -> start))}}<br>{{$agenda->Assistido->nome }} <br>  
                                     <a href="{{ route('assistido.edit', $agenda->Assistido-> id) }}" class="btn btn-primary"> editar </a>
                                     <a href="{{route('assistido.info',$agenda->Assistido-> id)}}" class="btn btn-secondary"> info </a>
                                 </p>
@@ -69,6 +69,9 @@
             @endif
         @endif
     @endforeach
+    <div class="mx-auto" style="width: 150px">
+    {{$agendas->links('custom.pagination')}}
+    </div>
     @if(count($agendas) == 0)
         <p>Não há agendamentos disponíveis</p>
     @endif

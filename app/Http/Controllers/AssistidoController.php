@@ -15,9 +15,10 @@ class AssistidoController extends Controller
     public function index(){
 
         $assistidos = DB::table('assistidos');
-        $agendas = Agenda::orderBy('start', 'asc')->orderBy('vag_h', 'desc')->get(); //passando todos os eventos pra view '/agendar', e ordenando.
+        $agendas = Agenda::orderBy('start', 'asc')->orderBy('vag_h', 'desc')->paginate(20); //passando todos os eventos pra view '/agendar', e ordenando.
+        $agendamentos = DB::table('agendamentos');
 
-    return view('agendar', ['agendas' => $agendas,'assistidos'=>$assistidos]);
+    return view('agendar', ['agendas' => $agendas,'assistidos'=>$assistidos,'agendamentos'=>$agendamentos]);
     }
 
     public function list(){
@@ -25,10 +26,11 @@ class AssistidoController extends Controller
         $search = request('search');
         if($search){
             $assistidos = DB::table('assistidos')
-                ->where('nome', 'like', '%'.$search.'%')->get();
+                ->where('nome', 'like', '%'.$search.'%')
+                ->orWhere('cpf', 'like','%'.$search.'%')->paginate(20);
         }
         else{
-            $assistidos = Assistido::orderBy('nome', 'asc')->get();
+            $assistidos = Assistido::orderBy('nome', 'asc')->paginate(20);
         }
 
     return view ('assistido', ['assistidos'=>$assistidos, 'search'=>$search]);
@@ -61,7 +63,7 @@ class AssistidoController extends Controller
             $assistido->telefone = $telefone;
 
             $assistido->save();
-        
+
     return redirect ('/assistido');
     }
 
@@ -82,11 +84,12 @@ class AssistidoController extends Controller
         $assistido  -> cpf = $req->cpf;
         $assistido  -> email = $req->email;
         $assistido  -> telefone = $req->telefone;
-        $assistido  -> info = $req->info;
 
-            $assistido->save();
-
-        return redirect('/mediacao/agendamentos')->with('msg', 'Dados Atualizados!');
+        $assistido->save();
+        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->paginate(21); //passando todos os eventos pra view '/meadiacao/agendamentos'
+        $agendamentos = DB::table('agendamentos')->get();
+    
+        return view('/mediacao/agendamentos',['agendas' => $agendas,'agendamentos' => $agendamentos])->with('msg', 'Dados Atualizados!');
     }
     public function show($id) {
 

@@ -17,15 +17,15 @@
     </div> <br>
     <div class="cadastrocpf"> 
         <label for="cpf">cpf:</label>
-        <input type="text" id="cpf" name="cpf" maxlength="11">
+        <input type="text" id="cpf" name="cpf" maxlength="11" required>
     </div> <br>
     <div class="cadastrotel"> 
         <label for="telefone">telefone:</label>
-        <input type="text" id="telefone" name="telefone" maxlength="11">
+        <input type="text" id="telefone" name="telefone" maxlength="11" required>
     </div> <br>
     <div class="cadastroemail"> 
         <label for="email">e-mail:</label>
-        <input type="text" id="email" name="email">
+        <input type="text" id="email" name="email" required>
     </div> <br>
     <div> <br>
         <label for="info">Informações adicionais:</label><br><br>

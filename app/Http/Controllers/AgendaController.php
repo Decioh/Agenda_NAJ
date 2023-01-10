@@ -15,7 +15,7 @@ class AgendaController extends Controller
     }
     public function index(){
 
-        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->get(); //passando todos os eventos pra view '/meadiacao/agendamentos'
+        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->paginate(21); //passando todos os eventos pra view '/meadiacao/agendamentos'
         $agendamentos = DB::table('agendamentos')->get();
 
     return view('/mediacao/agendamentos',['agendas' => $agendas,'agendamentos' => $agendamentos]);   
@@ -26,13 +26,13 @@ class AgendaController extends Controller
             DB::table('agendamentos')->where([['agenda_id', $id]])->update(['Status' => 2]);
             $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->get(); //passando todos os eventos pra view '/mediacao/agendamentos'
             $agendamentos = DB::table('agendamentos')->get();
-            return view('mediacao/agendamentos',['agendas' => $agendas,'agendamentos' => $agendamentos]);
+            //return view('mediacao/agendamentos',['agendas' => $agendas,'agendamentos' => $agendamentos]);
         }
         elseif($agendamento->Status==2){
             DB::table('agendamentos')->where([['agenda_id', $id]])->update(['Status' => 1]);
             $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->get(); //passando todos os eventos pra view '/mediacao/agendamentos'
             $agendamentos = DB::table('agendamentos')->get();
-            return view('mediacao/agendamentos',['agendas' => $agendas,'agendamentos' => $agendamentos]);
+            //return view('mediacao/agendamentos',['agendas' => $agendas,'agendamentos' => $agendamentos]);
         }        
         
     return back();
@@ -121,7 +121,7 @@ class AgendaController extends Controller
 
     public function list($id){
         $id;
-        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->get(); //passando todos os eventos pra view '/meadiacao/agendamentos'
+        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->paginate(21); //passando todos os eventos pra view 'agendar_assistido'
         $agendamentos = DB::table('agendamentos')->get();
     
     return view ('agendar_assistido', ['agendas' => $agendas,'agendamentos' => $agendamentos,'assistido_id'=>$id]);

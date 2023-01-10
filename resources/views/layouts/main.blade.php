@@ -43,7 +43,7 @@
         <a href="{{ route('login') }}">Login</a>
         <a href="{{ route('register') }}">Cadastrar</a>
         @endguest
-        <a href="{{ route('calendario.get') }}">Calendario</a>
+        {{--<a href="{{ route('calendario.get') }}">Calendario</a>--}}
         </nav>
         
     </header>

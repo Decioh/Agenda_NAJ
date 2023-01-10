@@ -66,4 +66,7 @@ $i = 1;
     @endforeach
     </tbody>
 </div>
+<div class="mt-3 mx-auto" style="width: 210px">
+    {{$agendas->links('custom.pagination')}}
+</div>
 @endsection

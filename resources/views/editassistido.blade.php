@@ -31,10 +31,6 @@
         <label for="email">e-mail:</label>
         <input type="text" id="email" name="email"value="{{$assistido->email}}">
     </div> <br>
-    <div> <br>
-        <label for="info">Informações adicionais:</label><br><br>
-        <input type="text"  id="info" name="info" value="{{$assistido->info}}">
-    </div> <br>
         <div class="form-group">
         <p>
             <input type="submit" class="btn btn-secondary" value="Confirmar" >

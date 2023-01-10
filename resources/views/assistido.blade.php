@@ -35,7 +35,7 @@
             <tr>
                 <th scope="row">{{ $loop->iteration }}</th>
                 <td>{{$assistido->nome}}</td>
-                <td>{{date('d/m/Y', strtotime($assistido -> nasc))}}</td>
+                <td>@if($assistido->nasc != null){{date('d/m/Y', strtotime($assistido -> nasc))}} @else - @endif</td>
                 <td>{{$cpf}}</td>
                 <td>{{$assistido->email}}</td>
                 <td>{{$tel}}</td>
@@ -49,9 +49,13 @@
     
 @endforeach
     @if((count($assistidos)==0))
-        <p>Não foi encontrado um assistido cadastrado com esse nome</p> 
+        <p>Não foi encontrado um assistido cadastrado com esse nome/CPF</p> 
     @endif
     <a href="{{route('assistido.novo')}}"class="btn btn-warning btn-sm"> Cadastrar </a>  
-</div>
+    </div>
+    
+    <div class="mt-3 mx-auto" style="width: 150px">
+    {{$assistidos->links('custom.pagination')}}
+    </div>
 
 @endsection
