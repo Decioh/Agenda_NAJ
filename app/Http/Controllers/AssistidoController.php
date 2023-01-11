@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\facades\Auth;
 use Jenssegers\Agent\Facades\Agent;
-
+use Carbon\Carbon;
 class AssistidoController extends Controller
 {
     public function index(){
@@ -64,6 +64,15 @@ class AssistidoController extends Controller
 
             $assistido->save();
 
+               $agenda =  DB::table('agendas')->where('start','<', now())->pluck('id');//Pega os ids das datas já antigas
+               foreach($agenda as $agendas){                                           //Anda entre os ids que salvamos
+                Agendamento::destroy($agenda);                                         //Apaga os dados de agendamento
+                Agenda::destroy($agenda);                                              //Apaga os dados de agenda
+               }
+               
+
+                
+            
     return redirect ('/assistido');
     }
 

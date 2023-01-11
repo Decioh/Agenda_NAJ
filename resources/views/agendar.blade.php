@@ -5,7 +5,7 @@
 @section('content')  
 
     <a class="btn btn-dark mt-5" href="{{ route('assistido.list')}}">Pesquisar/Cadastrar assistido</a>
-
+    
     <div id="events-container" class="col-md-12">
         <h2>Próximas vagas e horários</h2>
     
