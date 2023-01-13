@@ -23,10 +23,10 @@ class AssistidoController extends Controller
         if($search){
             $assistidos = DB::table('assistidos')
                 ->where('nome', 'like', '%'.$search.'%')
-                ->orWhere('cpf', 'like','%'.$search.'%')->paginate(20);
+                ->orWhere('cpf', 'like','%'.$search.'%')->simplePaginate(20);
         }
         else{
-            $assistidos = Assistido::orderBy('nome', 'asc')->paginate(20);
+            $assistidos = Assistido::orderBy('nome', 'asc')->simplePaginate(20);
         }
 
     return view ('assistido', ['assistidos'=>$assistidos, 'search'=>$search]);

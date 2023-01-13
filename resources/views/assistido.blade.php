@@ -54,7 +54,7 @@
     </div>
     
     <div class="mt-3 mx-auto" style="width: 150px">
-    {{$assistidos->links('pagination::bootstrap-4')}}
+    {{$assistidos->links()}}
     </div>
 
 @endsection

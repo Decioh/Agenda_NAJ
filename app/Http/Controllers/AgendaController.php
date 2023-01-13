@@ -14,7 +14,7 @@ class AgendaController extends Controller
     }
     public function index(){
 
-        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->paginate(20); //passando todos os eventos pra view '/meadiacao/agendamentos'
+        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->simplePaginate(20); //passando todos os eventos pra view '/meadiacao/agendamentos'
 
     return view('/mediacao/agendamentos',['agendas' => $agendas]);   
     }
@@ -111,6 +111,21 @@ class AgendaController extends Controller
     return view ('agendar_assistido', ['agendas' => $agendas,'assistido_id'=>$id]);
     }
 
+    /*public function info($agenda,$assistido,$req){
+        $info = $req->info;
+        DB::table('agendas')->where('id',$agenda)->update(['info' => $info]);
+
+        if ((Auth::user()->user_type) == 2){
+            return redirect('/agendar')->with('msg', 'Agenda marcada com sucesso!');
+        }
+        
+        elseif((Auth::user()->user_type) == 1){
+            return redirect('/mediacao/agendamentos')->with('msg', 'Agenda marcada com sucesso!');
+        
+        }
+
+    }*/
+
     public function criar($assistido_id, $agenda_id){
 
 
@@ -122,7 +137,7 @@ class AgendaController extends Controller
         $agenda->save();
 
     if ((Auth::user()->user_type) == 2){
-        return redirect('assistido')->with('msg', 'Agenda marcada com sucesso!');
+        return redirect('/agendar')->with('msg', 'Agenda marcada com sucesso!');
     }
     
     elseif((Auth::user()->user_type) == 1){

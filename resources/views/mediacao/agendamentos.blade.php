@@ -104,6 +104,6 @@ $i = 1;
 </div>
 @endif
     <div class="mx-auto" >
-        {{$agendas->onEachSide(-1)->links('pagination::bootstrap-4')}}
+        {{$agendas->links()}}
     </div>
 @endsection
