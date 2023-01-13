@@ -3,22 +3,18 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Agenda;
-use App\Models\Agendamento;
 use App\Models\Assistido;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\facades\Auth;
 use Jenssegers\Agent\Facades\Agent;
-use Carbon\Carbon;
 class AssistidoController extends Controller
 {
     public function index(){
 
-        $assistidos = DB::table('assistidos');
-        $agendas = Agenda::orderBy('start', 'asc')->orderBy('vag_h', 'desc')->paginate(20); //passando todos os eventos pra view '/agendar', e ordenando.
-        $agendamentos = DB::table('agendamentos');
+        $agendas = Agenda::orderBy('start', 'asc')->orderBy('vag_h', 'desc')->simplePaginate(20); //passando todos os eventos pra view '/agendar', e ordenando.
 
-    return view('agendar', ['agendas' => $agendas,'assistidos'=>$assistidos,'agendamentos'=>$agendamentos]);
+    return view('agendar', ['agendas' => $agendas]);
     }
 
     public function list(){
@@ -63,16 +59,12 @@ class AssistidoController extends Controller
             $assistido->telefone = $telefone;
 
             $assistido->save();
-
-               $agenda =  DB::table('agendas')->where('start','<', now())->pluck('id');//Pega os ids das datas já antigas
-               foreach($agenda as $agendas){                                           //Anda entre os ids que salvamos
-                Agendamento::destroy($agenda);                                         //Apaga os dados de agendamento
-                Agenda::destroy($agenda);                                              //Apaga os dados de agenda
-               }
-               
-
-                
             
+                $agenda =  DB::table('agendas')->where('start','<', now())->pluck('id');//Pega os ids das datas já antigas
+                foreach($agenda as $agenda){                                              //Anda entre os ids que salvamos
+                Agenda::destroy($agenda);                                                 //Apaga os dados de agenda
+                }      
+               
     return redirect ('/assistido');
     }
 
@@ -96,9 +88,8 @@ class AssistidoController extends Controller
 
         $assistido->save();
         $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->paginate(21); //passando todos os eventos pra view '/meadiacao/agendamentos'
-        $agendamentos = DB::table('agendamentos')->get();
     
-        return view('/mediacao/agendamentos',['agendas' => $agendas,'agendamentos' => $agendamentos])->with('msg', 'Dados Atualizados!');
+        return view('/mediacao/agendamentos',['agendas' => $agendas])->with('msg', 'Dados Atualizados!');
     }
     public function show($id) {
 
@@ -126,7 +117,6 @@ class AssistidoController extends Controller
             $cpf       = $req->cpf;
             $email     = $req->email;
             $telefone  = $req->telefone;
-            $agenda_id = $req->id;
             $info      = $req->info;
 
             $assistido = new Assistido();
@@ -134,8 +124,8 @@ class AssistidoController extends Controller
             $assistido->nome = $nome;
             $assistido->nasc = $nasc;
             $assistido->cpf = $cpf;
-            $assistido->email = $email;
             $assistido->telefone = $telefone;
+            $assistido->email = $email;
 
             $assistido->save();
 
@@ -143,22 +133,16 @@ class AssistidoController extends Controller
 
             $agenda->assistido_id = $assistido->id;
             $agenda->info = $info;
+            $agenda->Status = '1';
 
             $agenda->save();
-
-            $agendamento = Agendamento::find($agenda_id);
-
-            $agendamento->assistido_id = $agenda->assistido_id;
-            $agendamento->Status = '1';
-
-            $agendamento->save();
 
         if ((Auth::user()->user_type) == 2){
             return redirect('assistido')->with('msg', 'Assistido Cadastrado!');
         }
         
         elseif((Auth::user()->user_type) == 1)
-            return redirect('/mediacao/agendamentos')->with('msg', 'Assistido Cadastrado!');
+            return redirect('/assistido')->with('msg', 'Assistido Cadastrado!');
         
         }
     

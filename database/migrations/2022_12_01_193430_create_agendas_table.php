@@ -21,6 +21,8 @@ class CreateAgendasTable extends Migration
             $table  ->  integer('dur')->nullable();
             $table  ->  integer('vag_h');
             $table  ->  text('info')->nullable();
+            $table  ->  boolean('Status')->default('0');
+            $table  ->  foreignId('user_id')->constrained();
             $table  ->  timestamps();
         });
     }

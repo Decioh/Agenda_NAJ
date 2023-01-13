@@ -38,17 +38,17 @@
     </div>
 </div>
 </form>
-<form action="{{ route('assistido.destroy', $assistido->id) }}" method="POST">
+{{--<form action="{{ route('assistido.destroy', $assistido->id) }}" method="POST">
     @csrf
     @method('DELETE')
     <button type="submit" class="btn btn-danger delete-btn">Deletar assistido</button>
-</form>
-{{--<form action="{{ route('agenda.destroy', $assistido->id) }}" method="POST">
+</form>--}}
+<form action="{{ route('agenda.destroy', $assistido->id) }}" method="POST">
     @csrf
     @method('DELETE')
 
     <button type="submit" class="btn btn-danger delete-btn">Cancelar agendamento</button>
-</form>--}}
+</form>
 </form>
 
 

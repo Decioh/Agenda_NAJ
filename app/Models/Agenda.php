@@ -17,5 +17,9 @@ class Agenda extends Model
     public function agendamento(){
         return $this->belongsTo('App\Models\Agendamento','agenda_id');
     }
+    public function user(){
+		return $this->belongsTo('App\Models\User');
+	}
 }
+
 

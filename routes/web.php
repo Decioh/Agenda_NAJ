@@ -4,7 +4,6 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\FullCalendarController;
-
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AssistidoController;
 use GuzzleHttp\Middleware;

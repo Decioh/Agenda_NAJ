@@ -40,7 +40,6 @@
                 <td>{{$assistido->email}}</td>
                 <td>{{$tel}}</td>
                 <td>
-                    <a href="{{ route('assistido.edit', $assistido-> id) }}"class="btn btn-warning btn-sm"> Editar </a>
                     <a href="{{route('assistido.info', $assistido-> id)}}"class="btn btn-secondary btn-sm"> info </a>
                     <a href="{{ route('agenda.list', $assistido-> id)}}"class="btn btn-success btn-sm"> Agendar </a>
                 </td>
@@ -55,7 +54,7 @@
     </div>
     
     <div class="mt-3 mx-auto" style="width: 150px">
-    {{$assistidos->links('custom.pagination')}}
+    {{$assistidos->links('pagination::bootstrap-4')}}
     </div>
 
 @endsection

@@ -27,10 +27,10 @@
         <label for="email">e-mail:</label>
         <input type="text" id="email" name="email" required>
     </div> <br>
-    <div> <br>
-        <label for="info">Informações adicionais:</label><br><br>
+    {{--<div> <br>
+        <label for="info">Informações adicionais sobre o agendamento:</label><br><br>
         <textarea id="info" name="info"></textarea>
-    </div> <br>
+    </div> <br>--}}
         <div class="form-group">
         <p>
             <input type="submit" class="btn btn-secondary" value="Cadastrar" >

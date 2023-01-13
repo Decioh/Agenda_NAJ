@@ -33,10 +33,10 @@
         <label for="email">e-mail:</label>
         <input type="text" id="email" name="email">
     </div> <br>
-    <div> <br>
+    {{--<div> <br>
         <label for="info">Informações adicionais:</label><br><br>
         <textarea id="info" name="info"></textarea>
-    </div> <br>
+    </div> <br>--}}
         <div class="form-group">
         <p>
             <input type="submit" class="btn btn-secondary" value="Agendar" >

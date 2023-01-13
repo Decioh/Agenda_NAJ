@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use App\Models\Agenda;
-use App\Models\Agendamento;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,35 +14,25 @@ class AgendaController extends Controller
     }
     public function index(){
 
-        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->paginate(10); //passando todos os eventos pra view '/meadiacao/agendamentos'
-        $agendamentos = DB::table('agendamentos')->get();
+        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->paginate(20); //passando todos os eventos pra view '/meadiacao/agendamentos'
 
-    return view('/mediacao/agendamentos',['agendas' => $agendas,'agendamentos' => $agendamentos, 'horario',]);   
+    return view('/mediacao/agendamentos',['agendas' => $agendas]);   
     }
     public function edit($id){
-        $agendamento = Agendamento::where('agenda_id',$id)->first();
-        if($agendamento->Status==1){
-            DB::table('agendamentos')->where([['agenda_id', $id]])->update(['Status' => 2]);
-            $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->get(); //passando todos os eventos pra view '/mediacao/agendamentos'
-            $agendamentos = DB::table('agendamentos')->get();
-            //return view('mediacao/agendamentos',['agendas' => $agendas,'agendamentos' => $agendamentos]);
+        $agenda = Agenda::where('id',$id)->first();
+        if($agenda->Status==1){
+            DB::table('agendas')->where([['id', $id]])->update(['Status' => 2]);
         }
-        elseif($agendamento->Status==2){
-            DB::table('agendamentos')->where([['agenda_id', $id]])->update(['Status' => 1]);
-            $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->get(); //passando todos os eventos pra view '/mediacao/agendamentos'
-            $agendamentos = DB::table('agendamentos')->get();
-            //return view('mediacao/agendamentos',['agendas' => $agendas,'agendamentos' => $agendamentos]);
+        elseif($agenda->Status==2){
+            DB::table('agendas')->where([['id', $id]])->update(['Status' => 1]);
         }        
         
     return back();
     }
     public function destroy($id){
 
-        DB::table('agendamentos')->where([['assistido_id', $id]])->orderBy('updated_at','asc')->take(1)
-        ->update(['Status' => 0, 'assistido_id'=> null]);
-    
         DB::table('agendas')->where('assistido_id', $id)->orderBy('updated_at','asc')->take(1)
-            ->update(['assistido_id' => null, 'info' => null]);
+            ->update(['assistido_id' => null, 'info' => null, 'status' => 0]);
     
         return redirect('/')->with('msg', 'Agendamento cancelado!');
         }
@@ -89,6 +78,7 @@ class AgendaController extends Controller
                             $agenda->vag_h = $vag_h;
                             $agenda->end = $end;
                             $agenda->dia = $dia;
+                            $agenda->user_id= Auth::user()->id;
 
                         } else { // Os outros loops só precisam igualar o start ao end do último evento, e assim começar onde o último agendamento terminou;
                             $start = $end;
@@ -99,16 +89,11 @@ class AgendaController extends Controller
                             $agenda->end = $end;
                             $agenda->dia = $dia;
                             $agenda->vag_h = $vag_h;
+                            $agenda->user_id= Auth::user()->id;
                         }
                         $agenda->dur = $dur;
 
                         $agenda->save();
-
-                        $agendamento = new Agendamento();
-                        $agendamento->agenda_id = $agenda->id;
-                        $user = auth()->user();
-                        $agendamento->user_id = $user->id;
-                        $agendamento->save();
                     }
 
 
@@ -122,9 +107,8 @@ class AgendaController extends Controller
     public function list($id){
         $id;
         $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->paginate(21); //passando todos os eventos pra view 'agendar_assistido'
-        $agendamentos = DB::table('agendamentos')->get();
     
-    return view ('agendar_assistido', ['agendas' => $agendas,'agendamentos' => $agendamentos,'assistido_id'=>$id]);
+    return view ('agendar_assistido', ['agendas' => $agendas,'assistido_id'=>$id]);
     }
 
     public function criar($assistido_id, $agenda_id){
@@ -133,15 +117,9 @@ class AgendaController extends Controller
         $agenda = Agenda::find($agenda_id);
 
         $agenda->assistido_id = $assistido_id;
+        $agenda->Status = '1';
 
         $agenda->save();
-
-        $agendamento = Agendamento::find($agenda_id);
-
-        $agendamento->assistido_id = $agenda->assistido_id;
-        $agendamento->Status = '1';
-
-        $agendamento->save();
 
     if ((Auth::user()->user_type) == 2){
         return redirect('assistido')->with('msg', 'Agenda marcada com sucesso!');

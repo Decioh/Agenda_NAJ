@@ -11,21 +11,26 @@
     
     @foreach($agendas as $agenda)
         @if($loop->first)                                                   <!-- Se for o primeiro loop, já criamos o card com o dia-->
+                    @php $day = date('d/m', strtotime($agenda -> start)) @endphp <!-- Igualando o primeiro dia com o dia atual, para comparar nos próximos loops-->
+                         
+                    @php 
+                        $l_start = $agenda -> start;
+                        $l_assistido = $agenda -> assistido_id;
+                    @endphp
+        @endif
+        @if($loop->first)                                                   <!-- Se for o primeiro loop, já criamos o card com o dia-->
             @php $day = date('d/m', strtotime($agenda -> start)) @endphp <!-- Igualando o primeiro dia com o dia atual, para comparar nos próximos loops-->
-                 
             @php 
                 $l_start = $agenda -> start;
                 $l_assistido = $agenda -> assistido_id;
             @endphp
-            
                 <div id="cards-container">                                      <!-- Container para os cards-->
                 <div class="row d-flex justify-content-center">
                     <div class = "card col-md-4">
                         <div class="card-body">
                             <h5 class="card-date">{{$agenda -> dia}}<br>dia {{date('d/m', strtotime($agenda -> start))}}</h5><!-- Imprimindo o dia e mês-->
                             @if (isset($agenda -> assistido_id))
-                                <p class="datas">Agendamento: {{date('H:i', strtotime($agenda -> start))}}<br>{{$agenda->Assistido->nome }} <br>  
-                                    <a href="{{ route('assistido.edit', $agenda->Assistido-> id) }}" class="btn btn-primary"> editar </a>
+                                <p class="datas">Agendamento: {{date('H:i', strtotime($agenda -> start))}}<br>{{$agenda->Assistido->nome }} @if(($agenda->Status)==2) <ion-icon name="checkmark-done-outline"></ion-icon>@elseif(($agenda->Status)==1) <ion-icon name="checkmark-outline"></ion-icon> @endif<br>  
                                     <a href="{{route('assistido.info',$agenda->Assistido-> id)}}" class="btn btn-secondary"> info </a>
                                 </p>
                             @else
@@ -33,7 +38,7 @@
                                     <a href="{{ route('assistido.create', $agenda -> id) }}" class="btn btn-success"> {{$agenda -> vag_h}} vaga(s) </a>
                                 </p>
                             @endif
-            
+                            
         @else
             @if($l_start != $agenda -> start || $l_assistido != $agenda -> assistido_id)  <!--Para mostrar apenas um evento por horario-->
                     @if($day != date('d/m', strtotime($agenda -> start)))    <!-- Se for um novo dia, criaremos outro card com o próximo dia-->
@@ -50,8 +55,8 @@
                                {{--<p class="datas"> de {{date('H:i', strtotime($agenda -> start))}} <br> até {{date('H:i', strtotime($agenda -> end))}} <br> <!--Imprimindo o horario de atendimento-->--}}
                 @if($agenda->vag_h>0)
                     @if (isset($agenda -> assistido_id))
-                    <p class="datas">Agendamento: {{date('H:i', strtotime($agenda -> start))}}<br>Assistido: {{$agenda->Assistido->nome }} <br>  
-                        <a href="{{ route('assistido.edit', $agenda->Assistido-> id) }}" class="btn btn-primary"> editar </a>
+                    <p class="datas">Agendamento: {{date('H:i', strtotime($agenda -> start))}}<br>Assistido: {{$agenda->Assistido->nome }} @if(($agenda->Status)==2) <ion-icon name="checkmark-done-outline"></ion-icon>@elseif(($agenda->Status)==1) <ion-icon name="checkmark-outline"></ion-icon> @endif<br>  
+                        
                         <a href="{{route('assistido.info',$agenda->Assistido-> id)}}" class="btn btn-secondary"> info </a>
                     </p>
                     @else
@@ -60,18 +65,18 @@
                     </p>
                     @endif
                 @endif
-                            
-                    @php $day = date('d/m', strtotime($agenda -> start))@endphp
-                @php 
-                    $l_start = $agenda -> start;
-                    $l_assistido = $agenda -> assistido_id;
-                @endphp
+                    @php 
+                        $day = date('d/m', strtotime($agenda -> start)); 
+                        $l_start = $agenda -> start;
+                        $l_assistido = $agenda -> assistido_id;
+                    @endphp
             @endif
-        @endif
+        @endif    
     @endforeach
-    <div class="mx-auto" style="width: 150px">
-    {{$agendas->links('custom.pagination')}}
+    <div class="text-xs-center">
+        {{$agendas->links()}}
     </div>
+
     @if(count($agendas) == 0)
         <p>Não há agendamentos disponíveis</p>
     @endif
