@@ -101,11 +101,8 @@ class AssistidoController extends Controller
     }
     public function destroy($id){
 
-        DB::table('agendamentos')->where([['assistido_id', $id]])
-        ->update(['Status' => 0, 'assistido_id'=> null]);
-
         DB::table('agendas')->where('assistido_id', $id)
-        ->update(['assistido_id' => null]);
+        ->update(['assistido_id' => null,'Status' => 0]);
         Assistido::destroy('id', $id);
 
     return redirect('/')->with('msg', 'Assistido deletado!');

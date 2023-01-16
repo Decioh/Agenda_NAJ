@@ -4,7 +4,7 @@
 
 @section('content')    
 
-<h3 class="mt-3">Informações assistido</h3>
+{{--<h3 class="mt-3">Informações assistido</h3>
 <p>
     Nome: {{$assistido -> nome}}<br>
     nasc: @if($assistido->nasc != null){{date('d/m/Y', strtotime($assistido -> nasc))}} @else - @endif<br>
@@ -15,10 +15,9 @@
     cpf: {{$cpf}}<br>
     email: {{$assistido -> email}}<br>
     telefone: {{$tel}}<br>
-    Informações adicionais: {{$assistido -> info}}   
-</p>
+</p>--}}
 
-<form action="{{ route('agenda.info',$assistido -> id, $agenda -> id) }}" method="POST">
+<form action="{{ route('agenda.info', $agenda_id) }}" method="POST">
 @csrf
 <div> <br>
     <label for="info">Informações sobre o agendamento:</label><br><br>

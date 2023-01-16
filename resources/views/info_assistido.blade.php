@@ -15,7 +15,6 @@
     cpf: {{$cpf}}<br>
     email: {{$assistido -> email}}<br>
     telefone: {{$tel}}<br>
-    Informações adicionais: {{$assistido -> info}}
     
 </p>
 <form action="{{ route('assistido.destroy', $assistido->id) }}" method="POST">
@@ -29,7 +28,7 @@
 
 @if(count($agenda)>0)    
     @foreach( $agenda as $agenda)
-    <a href="{{ route('assistido.edit', $assistido -> id) }}" class="btn btn-success edit-btn">{{$agenda->dia}} -
+    <a href="#" class="btn btn-success edit-btn">{{$agenda->dia}} -
         {{date('d/m/y H:i', strtotime($agenda -> start))}}</a>
     @endforeach
 @else

@@ -32,10 +32,11 @@ class AgendaController extends Controller
     public function destroy($id){
 
         DB::table('agendas')->where('assistido_id', $id)->orderBy('updated_at','asc')->take(1)
-            ->update(['assistido_id' => null, 'info' => null, 'status' => 0]);
+            ->update(['assistido_id' => null,'info' => null, 'status' => 0]);
+
     
         return redirect('/')->with('msg', 'Agendamento cancelado!');
-        }
+    }
 
     public function store(Request $request)
     {
@@ -59,8 +60,8 @@ class AgendaController extends Controller
         $dow = array('Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado');
         $diff = $fim - $start; //Vamos usar para delimitar os dias onde serão criadas as agendas;
         $diff = (($diff / 60) / 60) / 24; //Convertendo de segundos para dias;
-        $k = $vag_h; //Variável k, para criar k agendamentos para o mesmo horario;
-        for ($k > 0; $k > 0; $k--) {
+        //$k = $vag_h; //Variável k, para criar k agendamentos para o mesmo horario;
+        //for ($k > 0; $k > 0; $k--) {
 
             for ($j = 0; $j <= $diff; $j++) { //for para ir para o próximo dia
                 $start = date('Y-m-d H:i', strtotime("+$j days", strtotime($aux))); // aumentar $j dias, 0 dias, 1 dia, 2 dias...;
@@ -99,8 +100,8 @@ class AgendaController extends Controller
 
                 }
             }
-            $vag_h = $vag_h - 1;
-            }
+            //$vag_h = $vag_h - 1;
+            //}
         return redirect('mediacao/agendamentos')->with('msg', 'Agendamento criado com sucesso!');
     }
 
@@ -111,9 +112,9 @@ class AgendaController extends Controller
     return view ('agendar_assistido', ['agendas' => $agendas,'assistido_id'=>$id]);
     }
 
-    /*public function info($agenda,$assistido,$req){
+    public function info(Request $req, $agenda_id){
         $info = $req->info;
-        DB::table('agendas')->where('id',$agenda)->update(['info' => $info]);
+        DB::table('agendas')->where('id',$agenda_id)->update(['info' => $info]);
 
         if ((Auth::user()->user_type) == 2){
             return redirect('/agendar')->with('msg', 'Agenda marcada com sucesso!');
@@ -123,28 +124,24 @@ class AgendaController extends Controller
             return redirect('/mediacao/agendamentos')->with('msg', 'Agenda marcada com sucesso!');
         
         }
-
-    }*/
-
+    }
     public function criar($assistido_id, $agenda_id){
 
-
         $agenda = Agenda::find($agenda_id);
+        if($agenda->vag_h>1){
+            $new_agenda = $agenda->replicate();
+            $new_agenda->vag_h = $agenda->vag_h-1;
+            $new_agenda->save();
+        }
 
         $agenda->assistido_id = $assistido_id;
         $agenda->Status = '1';
 
         $agenda->save();
 
-    if ((Auth::user()->user_type) == 2){
-        return redirect('/agendar')->with('msg', 'Agenda marcada com sucesso!');
-    }
-    
-    elseif((Auth::user()->user_type) == 1){
-        return redirect('/mediacao/agendamentos')->with('msg', 'Agenda marcada com sucesso!');
+        return view('info_form',['agenda_id'=> $agenda_id])->with('msg', 'Agenda marcada com sucesso!');
     
     }
-    }
-
-
 }
+
+
