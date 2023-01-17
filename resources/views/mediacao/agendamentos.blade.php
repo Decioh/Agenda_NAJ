@@ -41,31 +41,53 @@
     @foreach($agendas as $agenda)
         @if($loop->first)
             @php 
-                $day = date('d/m', strtotime($agenda -> start));
-                $l_start = $agenda -> start;
-                $l_assistido = $agenda -> assistido_id;
-            @endphp        
+                $day = date('d/m', strtotime($agenda -> start));  //Igualando o primeiro dia com o dia atual, para comparar nos próximos loops
+                $l_start = $agenda->start;
+                $l_assistido = $agenda->assistido_id;
+            @endphp 
             <tr>
-                <th scope="row">{{ $i }}</th>
+                <th scope="row">{{$i}}</th>
                 <td>{{$agenda->dia}} - {{date('d/m', strtotime($agenda->start))}}</td>
-                <td>
-            
+                <td>@if(($agenda -> assistido_id) == null)
+                <a href="#"class="btn btn-success btn"> {{date('H:i', strtotime($agenda->start))}} - {{$agenda->vag_h}} </a>
+            @else 
+                <a href="{{route('assistido.info',$agenda->Assistido-> id)}}"class="btn btn-primary btn">
+                {{date('H:i', strtotime($agenda->start))}}@if(($agenda->Status)==2) 
+                <ion-icon name="checkmark-done-outline"></ion-icon></a>
+            @elseif(($agenda->Status)==1) 
+                <ion-icon name="checkmark-outline"></ion-icon></a>
+            @endif
+                </a>
+            @if(($agenda->Status)==2) 
+                <a href="{{route('agenda.edit',['id'=> $agenda->id])}}"class="btn btn-success btn-sm"></a>
+            @elseif(($agenda->Status)==1) 
+                <a href="{{route('agenda.edit',['id'=> $agenda->id])}}"class="btn btn-warning btn-sm"></a>
+            @endif     
+            @endif     
+                
         @endif
-        @if($day != date('d/m', strtotime($agenda -> start)))                           <!--Abrimos nova linha, caso seja um novo dia-->
-            @if($l_start != $agenda -> start || $l_assistido != $agenda->assistido_id)  <!--Para mostrar apenas um evento por horario-->
-                @php $i+=1;@endphp                                                      <!--Contagem de dias-->
+        @if($day != date('d/m', strtotime($agenda -> start)))                           <!--Abrimos nova linha, caso seja um novo dia-->  <!--Para mostrar apenas um evento por horario-->
+                @php $i+=1;@endphp                                                      <!--Contagem de linhas da tabela-->
                     </td>                               
                 </tr>
                 <tr>
                     <th scope="row">{{$i}}</th>
                     <td>{{$agenda->dia}} - {{date('d/m', strtotime($agenda->start))}}</td>
                     <td>
-            @endif
         @endif
-        @if(($agenda -> assistido_id) == null)
-            <a href="#"class="btn btn-success btn"> {{date('H:i', strtotime($agenda->start))}} - {{$agenda->vag_h}} </a>
-        @else 
-            <a href="{{route('assistido.info',$agenda->Assistido-> id)}}"class="btn btn-secondary btn"> {{date('H:i', strtotime($agenda->start))}} - 0</a>      
+        @if($l_start != $agenda->start || $l_assistido != $agenda->assistido_id)  <!--Para mostrar apenas um evento por horario-->
+            @if(($agenda -> assistido_id) == null)
+                <a href="#"class="btn btn-success btn"> {{date('H:i', strtotime($agenda->start))}} - {{$agenda->vag_h}} </a>
+            @else 
+                <a href="{{route('assistido.info',$agenda->Assistido-> id)}}"class="btn btn-primary btn">
+                {{date('H:i', strtotime($agenda->start))}}@if(($agenda->Status)==2) 
+                <ion-icon name="checkmark-done-outline"></ion-icon></a>
+            @elseif(($agenda->Status)==1) 
+                <ion-icon name="checkmark-outline"></ion-icon></a>
+            @endif
+                </a>    
+        @endif
+        @else
         @endif   
         @php 
             $l_start = $agenda -> start;

@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Meus agendamentos')
+@section('title', 'Agendamento')
 
 @section('content')    
 
@@ -11,16 +11,9 @@
             @endif
         </div>
     </div>
-    @if ((Auth::user()->user_type) == 2)
-        <h1>Usuario não autorizado</h1>
-    @else
-    <div style="margin: 50px">
-    <a  href="{{url ('/mediacao/criar_agenda')}}"><button class="btn btn-dark ">Disponibilizar novo horario na agenda</button></a><br>
-    <a class="btn btn-warning mt-5" href="{{ route('assistido.list')}}">Pesquisar/Cadastrar assistido</a>
-    </div>
 
     <div class="col-md10 offset-md-1 dashboard-title-container" style="margin-right: 160px">
-        <h2>Meus agendamentos</h2>
+        <h2>Agendando assistido</h2>
     </div>
     <div class="col-md10 offset-md-1 dashboard-title-container pb-5" style="margin-right: 160px">
     @php
@@ -44,12 +37,11 @@
                 $day = date('d/m', strtotime($agenda -> start));
                 $l_start = $agenda -> start;
                 $l_assistido = $agenda -> assistido_id;
-            @endphp        
+            @endphp
             <tr>
                 <th scope="row">{{ $i }}</th>
                 <td>{{$agenda->dia}} - {{date('d/m', strtotime($agenda->start))}}</td>
-                <td>
-            
+                <td>                
         @endif
         @if($day != date('d/m', strtotime($agenda -> start)))                           <!--Abrimos nova linha, caso seja um novo dia-->
             @if($l_start != $agenda -> start || $l_assistido != $agenda->assistido_id)  <!--Para mostrar apenas um evento por horario-->
@@ -64,23 +56,16 @@
         @endif
         @if(($agenda -> assistido_id) == null)
         <a href="{{route('assistido.agendar', [$assistido_id, 'agenda_id'=> $agenda->id]) }}" class="btn btn-success edit-btn"> {{date('H:i', strtotime($agenda->start))}} </a>
-        @else 
-            <a href="{{route('assistido.info',$agenda->Assistido-> id)}}"class="btn btn-secondary btn"> {{date('H:i', strtotime($agenda->start))}} </a>      
         @endif   
         @php 
             $l_start = $agenda -> start;
             $l_assistido = $agenda -> assistido_id;
             $day = date('d/m', strtotime($agenda -> start)); 
-        @endphp    
+        @endphp 
     @endforeach
                 </td>
             </tr>
         </tbody>
-
-
-        @else
-            <p>Você ainda não criou um horario de atendimento.</p>
-        @endif
     </div>
     @endif
         <div class="mx-auto" >

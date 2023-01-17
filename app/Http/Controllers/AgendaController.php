@@ -14,7 +14,7 @@ class AgendaController extends Controller
     }
     public function index(){
 
-        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->simplePaginate(20); //passando todos os eventos pra view '/meadiacao/agendamentos'
+        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->simplePaginate(51); //passando todos os eventos pra view '/meadiacao/agendamentos'
 
     return view('/mediacao/agendamentos',['agendas' => $agendas]);   
     }
@@ -43,6 +43,7 @@ class AgendaController extends Controller
         $dur = $request->dur;
         $vagas = $request->vagas;
         $start = $request->start;
+        $end   = $request->end;
         $fim = $request->fim;
         $seg = $request->seg;
         $ter = $request->ter;
@@ -53,7 +54,6 @@ class AgendaController extends Controller
         $dom = $request->dom;
         $vag_h = $request->vag_h;
 
-        $end = 0; //Inicializando a variável pro laravel não reclamar;
         $aux = $start; //Variável auxiliar, para resetar o $start depois de cada loop;
         $start = strtotime($start); //Retorna uma timestamp que pode ser trabalhada em contas;
         $fim = strtotime($fim); //Retorna uma timestamp que pode ser trabalhada em contas;
@@ -117,7 +117,7 @@ class AgendaController extends Controller
         DB::table('agendas')->where('id',$agenda_id)->update(['info' => $info]);
 
         if ((Auth::user()->user_type) == 2){
-            return redirect('/agendar')->with('msg', 'Agenda marcada com sucesso!');
+            return redirect('/')->with('msg', 'Agenda marcada com sucesso!');
         }
         
         elseif((Auth::user()->user_type) == 1){

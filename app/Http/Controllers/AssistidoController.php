@@ -12,7 +12,7 @@ class AssistidoController extends Controller
 {
     public function index(){
 
-        $agendas = Agenda::orderBy('start', 'asc')->orderBy('vag_h', 'desc')->simplePaginate(20); //passando todos os eventos pra view '/agendar', e ordenando.
+        $agendas = Agenda::orderBy('start', 'asc')->orderBy('vag_h', 'desc')->simplePaginate(20); //passando todos as agendas para a view '/agendar', e ordenando.
 
     return view('agendar', ['agendas' => $agendas]);
     }
@@ -60,7 +60,7 @@ class AssistidoController extends Controller
 
             $assistido->save();
             
-                $agenda =  DB::table('agendas')->where('start','<', now())->pluck('id');//Pega os ids das datas já antigas
+                $agenda =  DB::table('agendas')->where('start','<', now())->pluck('id');  //Pega os ids das datas já antigas
                 foreach($agenda as $agenda){                                              //Anda entre os ids que salvamos
                 Agenda::destroy($agenda);                                                 //Apaga os dados de agenda
                 }      
@@ -87,9 +87,10 @@ class AssistidoController extends Controller
         $assistido  -> telefone = $req->telefone;
 
         $assistido->save();
-        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->paginate(21); //passando todos os eventos pra view '/meadiacao/agendamentos'
-    
-        return view('/mediacao/agendamentos',['agendas' => $agendas])->with('msg', 'Dados Atualizados!');
+        $assistidos = Assistido::orderBy('nome', 'asc')->simplePaginate(20);
+
+        return view('/assistido',['assistidos' => $assistidos])->with('msg', 'Dados Atualizados!');
+        
     }
     public function show($id) {
 
@@ -105,7 +106,14 @@ class AssistidoController extends Controller
         ->update(['assistido_id' => null,'Status' => 0]);
         Assistido::destroy('id', $id);
 
-    return redirect('/')->with('msg', 'Assistido deletado!');
+        if ((Auth::user()->user_type) == 2){
+            return redirect('/')->with('msg', 'Assistido deletado!');
+        }
+        
+        elseif((Auth::user()->user_type) == 1){
+            return redirect('/mediacao/agendamentos')->with('msg', 'Assistido deletado!');
+        
+        }
     }
     public function store(Request $req){                                                                                                                                          
             
