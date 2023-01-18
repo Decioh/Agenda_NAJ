@@ -46,7 +46,6 @@
                                 <div class="card-body">
                                     <h5 class="card-date">{{$agenda -> dia}}<br>dia {{date('d/m', strtotime($agenda -> start))}}</h5>
                     @endif
-                               {{--<p class="datas"> de {{date('H:i', strtotime($agenda -> start))}} <br> até {{date('H:i', strtotime($agenda -> end))}} <br> <!--Imprimindo o horario de atendimento-->--}}
                 @if($agenda->vag_h>0)
                     @if (isset($agenda -> assistido_id))
                     <p class="datas">Agendamento: {{date('H:i', strtotime($agenda -> start))}}<br>Assistido: {{$agenda->Assistido->nome }} @if(($agenda->Status)==2) <ion-icon name="checkmark-done-outline"></ion-icon>@elseif(($agenda->Status)==1) <ion-icon name="checkmark-outline"></ion-icon> @endif<br>  
@@ -55,7 +54,7 @@
                     </p>
                     @else
                     <p class="datas"> de {{date('H:i', strtotime($agenda -> start))}} <br> até {{date('H:i', strtotime($agenda -> end))}} <br>  
-                        <a href="{{ route('assistido.create', $agenda -> id) }}" class="btn btn-success"> {{$agenda -> vag_h}} vaga(s) </a>
+                        <a href="" class="btn btn-success"> {{$agenda -> vag_h}} vaga(s) </a>
                     </p>
                     @endif
                 @endif

@@ -47,9 +47,11 @@
         </tbody>
     
 @endforeach
+@if(isset($search))
     @if((count($assistidos)==0))
         <p>Não foi encontrado um assistido cadastrado com esse nome/CPF</p> 
     @endif
+@endif
     <a href="{{route('assistido.novo')}}"class="btn btn-warning btn-sm"> Cadastrar </a>  
     </div>
     

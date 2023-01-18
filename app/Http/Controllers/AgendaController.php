@@ -107,7 +107,7 @@ class AgendaController extends Controller
 
     public function list($id){
         $id;
-        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->paginate(21); //passando todos os eventos pra view 'agendar_assistido'
+        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->paginate(30); //passando todos os eventos pra view 'agendar_assistido'
     
     return view ('agendar_assistido', ['agendas' => $agendas,'assistido_id'=>$id]);
     }
@@ -135,12 +135,23 @@ class AgendaController extends Controller
         }
 
         $agenda->assistido_id = $assistido_id;
-        $agenda->Status = '1';
-
+        if ((Auth::user()->user_type) == 2){
+            $agenda->Status = '1';
+        }
+        
+        elseif((Auth::user()->user_type) == 1){
+            $agenda->Status = '2';
+        }      
+        
         $agenda->save();
 
         return view('info_form',['agenda_id'=> $agenda_id])->with('msg', 'Agenda marcada com sucesso!');
     
+    }
+    public function JoinAgenda($id,$assistido_id){
+        
+        
+
     }
 }
 

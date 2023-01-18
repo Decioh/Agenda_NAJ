@@ -7,6 +7,7 @@ use App\Models\Assistido;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\facades\Auth;
+use Carbon\Carbon;
 use Jenssegers\Agent\Facades\Agent;
 class AssistidoController extends Controller
 {
@@ -60,12 +61,12 @@ class AssistidoController extends Controller
 
             $assistido->save();
             
-                $agenda =  DB::table('agendas')->where('start','<', now())->pluck('id');  //Pega os ids das datas já antigas
+                $agenda =  DB::table('agendas')->where('start','<', Carbon::yesterday())->pluck('id');  //Pega os ids das datas já antigas
                 foreach($agenda as $agenda){                                              //Anda entre os ids que salvamos
                 Agenda::destroy($agenda);                                                 //Apaga os dados de agenda
-                }      
-               
-    return redirect ('/assistido');
+                }
+            $id=$assistido->id;               
+    return redirect()->route('agenda.list',['id'=>$id]);
     }
 
     public function edit($id){
@@ -98,7 +99,8 @@ class AssistidoController extends Controller
 
         $agenda = DB::table('agendas')->where('assistido_id',$id)->get();
 
-    return view('/info_assistido', ['assistido' => $assistido, 'agenda'=> $agenda]);
+        $assistidos = Assistido::all('*');
+    return view('/info_assistido', ['assistido' => $assistido, 'agenda'=> $agenda,'assistidos'=> $assistidos]);
     }
     public function destroy($id){
 

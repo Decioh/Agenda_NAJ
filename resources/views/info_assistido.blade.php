@@ -25,7 +25,7 @@ $tel = preg_replace("/(\d{0})(\d{2})(\d{5})(\d{4})/", "\$1(\$2)\$3-\$4", $assist
     <button type="submit" class="btn btn-danger delete-btn">Deletar</button>
 </form>--}}
     
-<h2>Agendamentos do assistido</h2>
+<h2>Conciliações </h2>
 
 @if(count($agenda)>0)    
     @foreach( $agenda as $agenda)
@@ -36,12 +36,15 @@ $tel = preg_replace("/(\d{0})(\d{2})(\d{5})(\d{4})/", "\$1(\$2)\$3-\$4", $assist
           <h6 class="card-subtitle mb-2 text-muted">{{date('d/m/y H:i', strtotime($agenda -> start))}}</h6>
           <p class="card-text">Informações do agendamento:<br>
             {{$agenda->info}} </p>
-            <form action="{{ route('agenda.destroy', $assistido->id) }}" method="POST">
+            partes:
+            {{$assistido->nome}}<br>
+            <a href="{{route('agenda.join',$agenda->id)}}" class="btn btn-dark btn-sm"><abbr title="adicionar parte"><ion-icon name="person-add-outline"></ion-icon></abbr></a>
+            <form action="{{ route('agenda.destroy', $assistido->id) }}" method="POST" class="mt-3">
                 @csrf
                 @method('DELETE')
         @if ((Auth::user()->user_type) == 1)
                 @if(($agenda->Status)==2) 
-                <a href="{{route('agenda.edit',['id'=> $agenda->id])}}"class="btn btn-success btn-sm">Agendamento confirmado</a>
+                <a href="{{route('assistido.list',['id'=> $agenda->id])}}"class="btn btn-success btn-sm">Agendamento confirmado</a>
             @elseif(($agenda->Status)==1) 
                 <a href="{{route('agenda.edit',['id'=> $agenda->id])}}"class="btn btn-warning btn-sm">Confirmar agendamento</a>
             @endif

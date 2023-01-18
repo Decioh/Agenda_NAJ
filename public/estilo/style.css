@@ -65,6 +65,14 @@ nav.menu{
 .datas{
     display: inline-block;
 }
+.btn-primary{
+    color: #ffffff !important; 
+    background-color: rgb(2, 70, 0) !important;
+    border-color: #061b00 !important;
+}
+.btn-primary:hover{
+    background-color: #061b00 !important;
+}
 #search-container{
     padding: 20px;
 }

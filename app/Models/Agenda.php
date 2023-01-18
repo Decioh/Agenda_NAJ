@@ -11,15 +11,12 @@ class Agenda extends Model
 
     protected $table = 'agendas';
     
-    public function assistido(){
-        return $this->belongsTo('App\Models\Assistido','assistido_id');
-    }
-    public function agendamento(){
-        return $this->belongsTo('App\Models\Agendamento','agenda_id');
-    }
     public function user(){
 		return $this->belongsTo('App\Models\User');
 	}
+    public function assistido(){
+        return $this->belongsToMany('App\Models\Assistido');
+    }
 }
 
 
