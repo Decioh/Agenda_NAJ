@@ -25,7 +25,8 @@ Route::get  ('/mediacao/agendamentos/{id}/edit', [AgendaController::class, 'edit
 Route::get('/assistido/{id}/agendar/{agenda_id}',[AgendaController::class, 'criar'])->name('assistido.agendar')->middleware('auth');
 Route::get('/assistido/{id}/agendar',[AgendaController::class, 'list'])->name('agenda.list')->middleware('auth');
 Route::post('/agendar/{agenda_id}/info',[AgendaController::class, 'info'])->name('agenda.info')->middleware('auth');
-Route::post('/agendar/{id}/{agenda_id}',[AgendaController::class, 'JoinAgenda'])->name('agenda.join');
+Route::get('/agendar/{agenda_id}/novaparte',[AgendaController::class, 'novaparte'])->name('agenda.nova_parte')->middleware('auth');
+Route::get('/novaparte/{agenda_id}/{id}',[AgendaController::class, 'joinAgenda'])->name('agenda.join')->middleware('auth');
 
 /*Rotas Assistido*/
 Route::get  ('/assistido', [AssistidoController::class, 'list'])->name('assistido.list')->middleware('auth');

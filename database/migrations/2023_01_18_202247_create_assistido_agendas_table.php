@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAssistidoAgendaTable extends Migration
+class CreateAssistidoAgendasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAssistidoAgendaTable extends Migration
      */
     public function up()
     {
-        Schema::create('assistido_agenda', function (Blueprint $table) {
+        Schema::create('assistido_agendas', function (Blueprint $table) {
             $table->foreignId('agenda_id')->constrained();
             $table->foreignId('assistido_id')->constrained();
             $table->timestamps();

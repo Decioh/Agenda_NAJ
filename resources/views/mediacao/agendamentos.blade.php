@@ -56,7 +56,7 @@
                 @else
                     @if(($agenda->Status)==2) <a href="{{route('assistido.info',$agenda->Assistido-> id)}}"class="btn btn-primary">
                     <abbr title="{{$agenda->Assistido->nome}}">{{date('H:i', strtotime($agenda->start))}}
-                    @elseif(($agenda->Status)==1) <a href="{{route('assistido.info',$agenda->Assistido-> id)}}"class="btn btn-warning">
+                    @elseif(($agenda->Status)==1) <a href="{{route('assistido.info',$agenda->Assistido->id)}}"class="btn btn-warning">
                     <abbr title="{{$agenda->Assistido->nome}}">{{date('H:i', strtotime($agenda->start))}}    
                 @endif
                 </abbr></a>

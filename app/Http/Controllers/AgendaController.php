@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Agenda;
+use App\Models\Assistido;
+use App\Models\AssistidoAgenda;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,7 +37,7 @@ class AgendaController extends Controller
             ->update(['assistido_id' => null,'info' => null, 'status' => 0]);
 
     
-        return redirect('/')->with('msg', 'Agendamento cancelado!');
+        return back()->with('msg', 'Agendamento cancelado!');
     }
 
     public function store(Request $request)
@@ -116,30 +118,23 @@ class AgendaController extends Controller
         $info = $req->info;
         DB::table('agendas')->where('id',$agenda_id)->update(['info' => $info]);
 
-        if ((Auth::user()->user_type) == 2){
-            return redirect('/')->with('msg', 'Agenda marcada com sucesso!');
-        }
-        
-        elseif((Auth::user()->user_type) == 1){
-            return redirect('/mediacao/agendamentos')->with('msg', 'Agenda marcada com sucesso!');
-        
-        }
+        $agenda = Agenda::where('id',$agenda_id)->first();
+
+        $assistidoAgenda = AssistidoAgenda::where('agenda_id',$agenda_id)->get('*');
+
+    return redirect()->route('assistido.info',[$agenda->assistido_id,$assistidoAgenda]);
     }
     public function criar($assistido_id, $agenda_id){
 
         $agenda = Agenda::find($agenda_id);
-        if($agenda->vag_h>1){
-            $new_agenda = $agenda->replicate();
-            $new_agenda->vag_h = $agenda->vag_h-1;
-            $new_agenda->save();
-        }
-
+        
         $agenda->assistido_id = $assistido_id;
-        if ((Auth::user()->user_type) == 2){
+
+        if ((Auth::user()->user_type) == 2){// Se for mediador, o status vai como pendente(1);
             $agenda->Status = '1';
         }
         
-        elseif((Auth::user()->user_type) == 1){
+        elseif((Auth::user()->user_type) == 1){ // Se for a conta mediadora,
             $agenda->Status = '2';
         }      
         
@@ -148,11 +143,31 @@ class AgendaController extends Controller
         return view('info_form',['agenda_id'=> $agenda_id])->with('msg', 'Agenda marcada com sucesso!');
     
     }
-    public function JoinAgenda($id,$assistido_id){
-        
-        
-
+    public function novaparte($agenda_id){
+        $search = request('search');
+            if($search){
+                $assistidos = DB::table('assistidos')
+                    ->where('nome', 'like', '%'.$search.'%')
+                    ->orWhere('cpf', 'like','%'.$search.'%')->simplePaginate(20);
+            }
+            else{
+            $assistidos = Assistido::orderBy('nome', 'asc')->simplePaginate(20);
+            }
+            return view('assistidos_novaparte',['assistidos'=>$assistidos,'agenda_id'=>$agenda_id]);
     }
+    public function joinAgenda($agenda_id,$id){
+        
+        /*$id->agenda_participant()->attach($id);*/
+        $assistido_agenda = new AssistidoAgenda();
+        $assistido_agenda->agenda_id = $agenda_id;
+        $assistido_agenda->assistido_id = $id;
+        $assistido_agenda->save();
+
+        $agenda = Agenda::where('id',$agenda_id)->first();        
+
+        return redirect()->route('assistido.info',[$agenda->assistido_id]);
+    }
+
 }
 
 

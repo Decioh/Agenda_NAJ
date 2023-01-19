@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Agenda;
 use App\Models\Assistido;
+use App\Models\AssistidoAgenda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Routing\Route;
 use Jenssegers\Agent\Facades\Agent;
 class AssistidoController extends Controller
 {
@@ -21,15 +23,15 @@ class AssistidoController extends Controller
     public function list(){
         
         $search = request('search');
-        if($search){
-            $assistidos = DB::table('assistidos')
-                ->where('nome', 'like', '%'.$search.'%')
-                ->orWhere('cpf', 'like','%'.$search.'%')->simplePaginate(20);
-        }
-        else{
-            $assistidos = Assistido::orderBy('nome', 'asc')->simplePaginate(20);
-        }
-
+            if($search){
+                $assistidos = DB::table('assistidos')
+                    ->where('nome', 'like', '%'.$search.'%')
+                    ->orWhere('cpf', 'like','%'.$search.'%')->simplePaginate(20);
+            }
+            else{
+                $assistidos = Assistido::orderBy('nome', 'asc')->simplePaginate(20);
+            }
+            
     return view ('assistido', ['assistidos'=>$assistidos, 'search'=>$search]);
     }
 

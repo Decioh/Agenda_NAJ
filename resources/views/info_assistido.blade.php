@@ -37,8 +37,10 @@ $tel = preg_replace("/(\d{0})(\d{2})(\d{5})(\d{4})/", "\$1(\$2)\$3-\$4", $assist
           <p class="card-text">Informações do agendamento:<br>
             {{$agenda->info}} </p>
             partes:
-            {{$assistido->nome}}<br>
-            <a href="{{route('agenda.join',$agenda->id)}}" class="btn btn-dark btn-sm"><abbr title="adicionar parte"><ion-icon name="person-add-outline"></ion-icon></abbr></a>
+            {{--@foreach($assistidoAgenda as $assistidoAgenda)
+                {{$assistidoAgenda->assistido_id}}<br>
+            @endforeach--}}
+            <a href="{{route('agenda.nova_parte', $agenda->id)}}" class="btn btn-dark btn-sm"><abbr title="adicionar parte"><ion-icon name="person-add-outline"></ion-icon></abbr></a>
             <form action="{{ route('agenda.destroy', $assistido->id) }}" method="POST" class="mt-3">
                 @csrf
                 @method('DELETE')
