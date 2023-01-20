@@ -14,8 +14,10 @@ class CreateAssistidoAgendasTable extends Migration
     public function up()
     {
         Schema::create('assistido_agendas', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('agenda_id')->constrained();
             $table->foreignId('assistido_id')->constrained();
+            $table->string('nome_assistido')->nullable();
             $table->timestamps();
         });
     }

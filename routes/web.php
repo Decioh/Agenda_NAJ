@@ -27,6 +27,7 @@ Route::get('/assistido/{id}/agendar',[AgendaController::class, 'list'])->name('a
 Route::post('/agendar/{agenda_id}/info',[AgendaController::class, 'info'])->name('agenda.info')->middleware('auth');
 Route::get('/agendar/{agenda_id}/novaparte',[AgendaController::class, 'novaparte'])->name('agenda.nova_parte')->middleware('auth');
 Route::get('/novaparte/{agenda_id}/{id}',[AgendaController::class, 'joinAgenda'])->name('agenda.join')->middleware('auth');
+Route::get ('/assistido/{assistido_id}/agenda/{agenda_id}/delete', [AgendaController::class, 'delete'])->name('delete.parte')->middleware('auth');
 
 /*Rotas Assistido*/
 Route::get  ('/assistido', [AssistidoController::class, 'list'])->name('assistido.list')->middleware('auth');
@@ -36,7 +37,8 @@ Route::get  ('/assistido/{id}/edit', [AssistidoController::class, 'edit'])->name
 Route::post ('/assistido/{id}/update', [AssistidoController::class, 'update'])->name('assistido.update')->middleware('auth');
 Route::delete('/assistido/{id}', [AssistidoController::class, 'destroy'])->name('assistido.destroy')->middleware('auth');
 Route::get  ('/assistido/{id}/info', [AssistidoController::class, 'show'])->name('assistido.info')->middleware('auth');
-Route::get  ('/assistido/{id}/search', [AssistidoController::class, 'search'])->name('assistido.search')->middleware('auth');
+
+
 
 //rotas para criar assistido antes de agendar;
 Route::get ('/novo/assistido', [AssistidoController::class, 'novo'])->name('assistido.novo')->middleware('auth');

@@ -119,12 +119,20 @@ class AgendaController extends Controller
         DB::table('agendas')->where('id',$agenda_id)->update(['info' => $info]);
 
         $agenda = Agenda::where('id',$agenda_id)->first();
-
         $assistidoAgenda = AssistidoAgenda::where('agenda_id',$agenda_id)->get('*');
 
     return redirect()->route('assistido.info',[$agenda->assistido_id,$assistidoAgenda]);
     }
     public function criar($assistido_id, $agenda_id){
+
+       /* $assistido = Assistido::where('id',$assistido_id)->first();
+
+        $assistido_agenda = new AssistidoAgenda();
+        $assistido_agenda->agenda_id = $agenda_id;
+        $assistido_agenda->assistido_id = $assistido_id;
+        $assistido_agenda->nome_assistido = $assistido->nome;
+        
+        $assistido_agenda->save();*/
 
         $agenda = Agenda::find($agenda_id);
         
@@ -137,8 +145,7 @@ class AgendaController extends Controller
         elseif((Auth::user()->user_type) == 1){ // Se for a conta mediadora,
             $agenda->Status = '2';
         }      
-        
-        $agenda->save();
+        $agenda->save();       
 
         return view('info_form',['agenda_id'=> $agenda_id])->with('msg', 'Agenda marcada com sucesso!');
     
@@ -158,14 +165,25 @@ class AgendaController extends Controller
     public function joinAgenda($agenda_id,$id){
         
         /*$id->agenda_participant()->attach($id);*/
+        $assistido = Assistido::where('id',$id)->first();
+        
         $assistido_agenda = new AssistidoAgenda();
         $assistido_agenda->agenda_id = $agenda_id;
         $assistido_agenda->assistido_id = $id;
+        $assistido_agenda->nome_assistido = $assistido->nome;
+        
         $assistido_agenda->save();
 
         $agenda = Agenda::where('id',$agenda_id)->first();        
 
         return redirect()->route('assistido.info',[$agenda->assistido_id]);
+    }
+
+    public function delete($assistido_id, $agenda_id){
+
+        AssistidoAgenda::where('assistido_id',$assistido_id)->where('agenda_id',$agenda_id)->delete();
+
+    return back();
     }
 
 }

@@ -62,12 +62,12 @@ class AssistidoController extends Controller
             $assistido->telefone = $telefone;
 
             $assistido->save();
-            
+            $id=$assistido->id; 
+
                 $agenda =  DB::table('agendas')->where('start','<', Carbon::yesterday())->pluck('id');  //Pega os ids das datas já antigas
                 foreach($agenda as $agenda){                                              //Anda entre os ids que salvamos
                 Agenda::destroy($agenda);                                                 //Apaga os dados de agenda
-                }
-            $id=$assistido->id;               
+                }                         
     return redirect()->route('agenda.list',['id'=>$id]);
     }
 
@@ -100,9 +100,14 @@ class AssistidoController extends Controller
         $assistido = Assistido::findOrFail($id);
 
         $agenda = DB::table('agendas')->where('assistido_id',$id)->get();
+        
+        //$agenda_id = Agenda::where('assistido_id','=',$id)->first('id');
+ 
+        $assistido_agenda = AssistidoAgenda::all();
 
         $assistidos = Assistido::all('*');
-    return view('/info_assistido', ['assistido' => $assistido, 'agenda'=> $agenda,'assistidos'=> $assistidos]);
+        
+    return view('/info_assistido', ['assistido' => $assistido, 'agenda'=> $agenda,'assistidos'=> $assistidos, 'assistido_agenda'=>$assistido_agenda]);
     }
     public function destroy($id){
 

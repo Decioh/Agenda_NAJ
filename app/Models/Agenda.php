@@ -14,6 +14,9 @@ class Agenda extends Model
     public function assistido(){
         return $this->belongsTo('App\Models\Assistido','assistido_id');
     }
+    public function assistidoAgenda(){
+        return $this->hasMany('App\Models\AssistidoAgenda','assistido_id');
+        }
     public function user(){
 		return $this->belongsTo('App\Models\User');
 	}
