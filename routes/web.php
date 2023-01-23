@@ -12,7 +12,7 @@ Route::get('/calendario', [FullCalendarController::class, 'index'])->name('calen
 
 Route::post('/calendario/action', [FullCalendarController::class, 'action']);
 
-Route::get('/', [AssistidoController::class, 'index']);
+Route::get('/', [AssistidoController::class, 'index'])->middleware('auth');
 
 /*Rotas Agenda*/
 Route::get('/mediacao/criar_agenda', [AgendaController::class, 'create'])->name('mediacao.create')->middleware('auth');

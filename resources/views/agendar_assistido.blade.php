@@ -17,7 +17,7 @@
 
         <a href="{{route('assistido.novo')}}" class="btn btn-secondary edit-btn">Cadastrar outro assistido</a>
     </div>
-        <p>Ou, continue e esolha um horário de atendimento...</p>
+        <p>Ou, continue e escolha um horário de atendimento...</p>
     <div class="col-md10 offset-md-1 dashboard-title-container pb-5" style="margin-right: 160px">
     @php
     $i = 1;

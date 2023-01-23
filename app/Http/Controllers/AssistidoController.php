@@ -15,7 +15,7 @@ class AssistidoController extends Controller
 {
     public function index(){
 
-        $agendas = Agenda::orderBy('start', 'asc')->orderBy('vag_h', 'desc')->simplePaginate(20); //passando todos as agendas para a view '/agendar', e ordenando.
+        $agendas = Agenda::orderBy('start', 'asc')->orderBy('vag_h', 'desc')->simplePaginate(51); //passando todos as agendas para a view '/agendar', e ordenando.
 
     return view('agendar', ['agendas' => $agendas]);
     }
@@ -62,8 +62,14 @@ class AssistidoController extends Controller
             $assistido->telefone = $telefone;
 
             $assistido->save();
-            $id=$assistido->id; 
+            $id=$assistido->id;
 
+            /*$assistido_agenda = new AssistidoAgenda();
+            $assistido_agenda->agenda_id = null;
+            $assistido_agenda->assistido_id = $assistido->id;
+            $assistido_agenda->nome_assistido = $assistido->nome;
+        
+        $assistido_agenda->save();  */
                 $agenda =  DB::table('agendas')->where('start','<', Carbon::yesterday())->pluck('id');  //Pega os ids das datas já antigas
                 foreach($agenda as $agenda){                                              //Anda entre os ids que salvamos
                 Agenda::destroy($agenda);                                                 //Apaga os dados de agenda

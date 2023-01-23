@@ -9,7 +9,7 @@
     <h2>Buscar assistido</h2>
     <form action="{{route('assistido.list')}}" method="GET">
         <input type="text" id="search" name="search" placeholder="Procure pelo Nome ou CPF"> <br>
-        <button type="submit" class="btn btn-secondary btn-sm mt-1">Pesquisar</button>
+        <button type="submit" class="btn btn-warning btn-sm mt-1">Pesquisar</button>
     </form>
 </div>
 
@@ -52,7 +52,7 @@
         <p>Não foi encontrado um assistido cadastrado com esse nome/CPF</p> 
     @endif
 @endif
-    <a href="{{route('assistido.novo')}}"class="btn btn-warning btn-sm"> Cadastrar </a>  
+    <a href="{{route('assistido.novo')}}"class="btn btn-success btn-sm"> Cadastrar </a>  
     </div>
     
     <div class="mt-3 mx-auto" style="width: 150px">

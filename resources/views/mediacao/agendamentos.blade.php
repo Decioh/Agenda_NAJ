@@ -15,7 +15,7 @@
         <h1>Usuario não autorizado</h1>
     @else
     <div style="margin: 50px">
-    <a  href="{{url ('/mediacao/criar_agenda')}}"><button class="btn btn-dark ">Disponibilizar novo horario na agenda</button></a><br>
+    @if ((Auth::user()->user_type) == 1)<a  href="{{url ('/mediacao/criar_agenda')}}"><button class="btn btn-dark ">Disponibilizar novo horario na agenda</button></a><br>@endif
     <a class="btn btn-warning mt-5" href="{{ route('assistido.list')}}">Pesquisar/Cadastrar assistido</a>
     </div>
 
@@ -54,10 +54,10 @@
                 @if(($agenda -> assistido_id) == null)
                     <a href="#"class="btn btn-primary"> {{date('H:i', strtotime($agenda->start))}} - {{$agenda->vag_h}} </a>
                 @else
-                    @if(($agenda->Status)==2) <a href="{{route('assistido.info',$agenda->Assistido-> id)}}"class="btn btn-primary">
-                    <abbr title="{{$agenda->Assistido->nome}}">{{date('H:i', strtotime($agenda->start))}}
+                    @if(($agenda->Status)==2) <a href="{{route('assistido.info',$agenda->Assistido-> id)}}"class="btn btn-secondary">
+                    <abbr class="text-decoration-none" title="{{$agenda->Assistido->nome}}">{{date('H:i', strtotime($agenda->start))}}
                     @elseif(($agenda->Status)==1) <a href="{{route('assistido.info',$agenda->Assistido->id)}}"class="btn btn-warning">
-                    <abbr title="{{$agenda->Assistido->nome}}">{{date('H:i', strtotime($agenda->start))}}    
+                    <abbr class="text-decoration-none" title="{{$agenda->Assistido->nome}}">{{date('H:i', strtotime($agenda->start))}}    
                 @endif
                 </abbr></a>
             @endif     
@@ -77,10 +77,10 @@
             @if(($agenda -> assistido_id) == null)
                 <a href="#"class="btn btn-success"> {{date('H:i', strtotime($agenda->start))}} - {{$agenda->vag_h}} </a>
             @else
-            @if(($agenda->Status)==2) <a href="{{route('assistido.info',$agenda->Assistido-> id)}}"class="btn btn-primary">
-                <abbr title="{{$agenda->Assistido->nome}}">{{date('H:i', strtotime($agenda->start))}}
+            @if(($agenda->Status)==2) <a href="{{route('assistido.info',$agenda->Assistido-> id)}}"class="btn btn-secondary">
+                <abbr class="text-decoration-none" title="{{$agenda->Assistido->nome}}">{{date('H:i', strtotime($agenda->start))}}
             @elseif(($agenda->Status)==1) <a href="{{route('assistido.info',$agenda->Assistido-> id)}}"class="btn btn-warning">
-                <abbr title="{{$agenda->Assistido->nome}}">{{date('H:i', strtotime($agenda->start))}}
+                <abbr class="text-decoration-none" title="{{$agenda->Assistido->nome}}">{{date('H:i', strtotime($agenda->start))}}
         @endif
         </abbr></a>    
         @endif

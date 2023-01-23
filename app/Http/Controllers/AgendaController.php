@@ -121,18 +121,10 @@ class AgendaController extends Controller
         $agenda = Agenda::where('id',$agenda_id)->first();
         $assistidoAgenda = AssistidoAgenda::where('agenda_id',$agenda_id)->get('*');
 
-    return redirect()->route('assistido.info',[$agenda->assistido_id,$assistidoAgenda]);
+    //return redirect()->route('assistido.info',[$agenda->assistido_id,$assistidoAgenda]);
+    return redirect()->route('agenda.join',['agenda_id'=>$agenda->id,'id'=>$agenda->assistido_id]);
     }
     public function criar($assistido_id, $agenda_id){
-
-       /* $assistido = Assistido::where('id',$assistido_id)->first();
-
-        $assistido_agenda = new AssistidoAgenda();
-        $assistido_agenda->agenda_id = $agenda_id;
-        $assistido_agenda->assistido_id = $assistido_id;
-        $assistido_agenda->nome_assistido = $assistido->nome;
-        
-        $assistido_agenda->save();*/
 
         $agenda = Agenda::find($agenda_id);
         
@@ -147,8 +139,7 @@ class AgendaController extends Controller
         }      
         $agenda->save();       
 
-        return view('info_form',['agenda_id'=> $agenda_id])->with('msg', 'Agenda marcada com sucesso!');
-    
+    return view('info_form',['agenda_id'=> $agenda_id]);
     }
     public function novaparte($agenda_id){
         $search = request('search');
