@@ -108,8 +108,10 @@ class AssistidoController extends Controller
         $agenda = DB::table('agendas')->where('assistido_id',$id)->get();
         
         //$agenda_id = Agenda::where('assistido_id','=',$id)->first('id');
- 
+
         $assistido_agenda = AssistidoAgenda::all();
+        
+
 
         $assistidos = Assistido::all('*');
         
@@ -131,39 +133,30 @@ class AssistidoController extends Controller
         }
     }
     public function store(Request $req){                                                                                                                                          
-            
-            $nome      = $req->nome;
-            $nasc      = $req->nasc;
-            $cpf       = $req->cpf;
-            $email     = $req->email;
-            $telefone  = $req->telefone;
-            $info      = $req->info;
 
             $assistido = new Assistido();
 
-            $assistido->nome = $nome;
-            $assistido->nasc = $nasc;
-            $assistido->cpf = $cpf;
-            $assistido->telefone = $telefone;
-            $assistido->email = $email;
+            $assistido->nome = $req->nome;
+            $assistido->nasc = $req->nasc;
+            $assistido->cpf = $req->cpf;
+            $assistido->telefone = $req->telefone;
+            $assistido->email = $req->email;
 
             $assistido->save();
 
-            $agenda = Agenda::find($req->id);
-
-            $agenda->assistido_id = $assistido->id;
-            $agenda->info = $info;
-            $agenda->Status = '1';
-
-            $agenda->save();
-
-        if ((Auth::user()->user_type) == 2){
-            return redirect('assistido')->with('msg', 'Assistido Cadastrado!');
-        }
+            $assistido_agenda = new AssistidoAgenda();
+            $assistido_agenda->agenda_id = $req->agenda_id;
+            $assistido_agenda->assistido_id = $assistido->id;
+            $assistido_agenda->nome_assistido = $assistido->nome;
         
-        elseif((Auth::user()->user_type) == 1)
-            return redirect('/assistido')->with('msg', 'Assistido Cadastrado!');
-        
-        }
+            $assistido_agenda->save();
+
+        $assistido_agenda = AssistidoAgenda::all();
+
+        $agenda = Agenda::where('id',$req->agenda_id)->get();
+      
+    return redirect()->route('assistido.info',[$assistido->id, $agenda]);
     
     }
+
+}

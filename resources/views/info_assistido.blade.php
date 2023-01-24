@@ -30,7 +30,7 @@ $tel = preg_replace("/(\d{0})(\d{2})(\d{5})(\d{4})/", "\$1(\$2)\$3-\$4", $assist
 
 @if(count($agenda)>0)    
     @foreach( $agenda as $agenda)
-    <div class="card mx-auto" style="width: 23rem;">
+    <div class="card mx-auto mb-5" style="width: 23rem;">
         <div class="row d-flex justify-content-center">
         <div class="card-body">
           <h5 class="card-title">{{$agenda->dia}}</h5>

@@ -44,22 +44,24 @@
             <tr>
                 <th scope="row">{{ $i }}</th>
                 <td>{{$agenda->dia}} - {{date('d/m', strtotime($agenda->start))}}</td>
-                <td>                
+                <td> @if(($agenda -> assistido_id) == null)
+                    <a href="{{route('assistido.agendar', [$assistido_id, 'agenda_id'=> $agenda->id]) }}" class="btn btn-success edit-btn"> {{date('H:i', strtotime($agenda->start))}} </a>
+                @endif                
         @endif
         @if($day != date('d/m', strtotime($agenda -> start)))                           <!--Abrimos nova linha, caso seja um novo dia-->
-            @if($l_start != $agenda -> start || $l_assistido != $agenda->assistido_id)  <!--Para mostrar apenas um evento por horario-->
-                @php $i+=1;@endphp                                                      <!--Contagem de dias-->
-                    </td>                               
-                </tr>
-                <tr>
-                    <th scope="row">{{$i}}</th>
-                    <td>{{$agenda->dia}} - {{date('d/m', strtotime($agenda->start))}}</td>
-                    <td>
-            @endif
+            @php $i+=1;@endphp                                                      <!--Contagem de dias-->
+                </td>                               
+            </tr>
+            <tr>
+                <th scope="row">{{$i}}</th>
+                <td>{{$agenda->dia}} - {{date('d/m', strtotime($agenda->start))}}</td>
+                <td>
         @endif
-        @if(($agenda -> assistido_id) == null)
-        <a href="{{route('assistido.agendar', [$assistido_id, 'agenda_id'=> $agenda->id]) }}" class="btn btn-success edit-btn"> {{date('H:i', strtotime($agenda->start))}} </a>
-        @endif   
+        @if($l_start != $agenda -> start || $l_assistido != $agenda->assistido_id)  <!--Para mostrar apenas um evento por horario-->
+            @if(($agenda -> assistido_id) == null)
+                <a href="{{route('assistido.agendar', [$assistido_id, 'agenda_id'=> $agenda->id]) }}" class="btn btn-success edit-btn"> {{date('H:i', strtotime($agenda->start))}} </a>
+            @endif   
+        @endif
         @php 
             $l_start = $agenda -> start;
             $l_assistido = $agenda -> assistido_id;

@@ -16,7 +16,7 @@ class AgendaController extends Controller
     }
     public function index(){
 
-        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->simplePaginate(51); //passando todos os eventos pra view '/meadiacao/agendamentos'
+        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->get(); //passando todos os eventos pra view '/meadiacao/agendamentos'
 
     return view('/mediacao/agendamentos',['agendas' => $agendas]);   
     }
@@ -62,8 +62,8 @@ class AgendaController extends Controller
         $dow = array('Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado');
         $diff = $fim - $start; //Vamos usar para delimitar os dias onde serão criadas as agendas;
         $diff = (($diff / 60) / 60) / 24; //Convertendo de segundos para dias;
-        //$k = $vag_h; //Variável k, para criar k agendamentos para o mesmo horario;
-        //for ($k > 0; $k > 0; $k--) {
+        $k = $vag_h; //Variável k, para criar k agendamentos para o mesmo horario;
+        for ($k > 0; $k > 0; $k--) {
 
             for ($j = 0; $j <= $diff; $j++) { //for para ir para o próximo dia
                 $start = date('Y-m-d H:i', strtotime("+$j days", strtotime($aux))); // aumentar $j dias, 0 dias, 1 dia, 2 dias...;
@@ -102,14 +102,14 @@ class AgendaController extends Controller
 
                 }
             }
-            //$vag_h = $vag_h - 1;
-            //}
+            $vag_h = $vag_h - 1;
+            }
         return redirect('mediacao/agendamentos')->with('msg', 'Agendamento criado com sucesso!');
     }
 
     public function list($id){
         $id;
-        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->paginate(30); //passando todos os eventos pra view 'agendar_assistido'
+        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->paginate(350); //passando todos os eventos pra view 'agendar_assistido'
     
     return view ('agendar_assistido', ['agendas' => $agendas,'assistido_id'=>$id]);
     }

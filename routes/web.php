@@ -32,7 +32,7 @@ Route::get ('/assistido/{assistido_id}/agenda/{agenda_id}/delete', [AgendaContro
 /*Rotas Assistido*/
 Route::get  ('/assistido', [AssistidoController::class, 'list'])->name('assistido.list')->middleware('auth');
 Route::get  ('/assistido/{id}', [AssistidoController::class, 'create'])->name('assistido.create')->middleware('auth');
-Route::post ('/assistido/{id}/novo', [AssistidoController::class, 'store'])->name('assistido.store')->middleware('auth');
+Route::get ('/assistido/{id}/novo', [AssistidoController::class, 'store'])->name('assistido.store')->middleware('auth');
 Route::get  ('/assistido/{id}/edit', [AssistidoController::class, 'edit'])->name('assistido.edit')->middleware('auth');
 Route::post ('/assistido/{id}/update', [AssistidoController::class, 'update'])->name('assistido.update')->middleware('auth');
 Route::delete('/assistido/{id}', [AssistidoController::class, 'destroy'])->name('assistido.destroy')->middleware('auth');

@@ -27,10 +27,6 @@
         <label for="email"><b>E-mail:</b></label>
         <input type="text" id="email" name="email" required>
     </div> <br>
-    {{--<div> <br>
-        <label for="info">Informações adicionais sobre o agendamento:</label><br><br>
-        <textarea id="info" name="info"></textarea>
-    </div> <br>--}}
         <div class="form-group">
         <p>
             <input type="submit" class="btn btn-success" value="Cadastrar" >
