@@ -30,7 +30,7 @@ Route::get('/novaparte/{agenda_id}/{id}',[AgendaController::class, 'joinAgenda']
 Route::get ('/assistido/{assistido_id}/agenda/{agenda_id}/delete', [AgendaController::class, 'delete'])->name('delete.parte')->middleware('auth');
 
 /*Rotas Assistido*/
-Route::get  ('/assistido', [AssistidoController::class, 'list'])->name('assistido.list')->middleware('auth');
+Route::get  ('/assistido', [AssistidoController::class, 'list'])->name('assistido.list');
 Route::get  ('/assistido/{id}', [AssistidoController::class, 'create'])->name('assistido.create')->middleware('auth');
 Route::get ('/assistido/{id}/novo', [AssistidoController::class, 'store'])->name('assistido.store')->middleware('auth');
 Route::get  ('/assistido/{id}/edit', [AssistidoController::class, 'edit'])->name('assistido.edit')->middleware('auth');

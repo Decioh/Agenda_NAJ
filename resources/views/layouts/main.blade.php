@@ -27,9 +27,7 @@
     <header>
         <a href="{{ route('mediacao.agendamentos') }}"><img src="{{asset('/img/DP_DF-preto.png')}}" alt="logo-defensoria" height="59px" width="225px"></a>
         <nav class = 'menu'>
-            @if ((Auth::user()->user_type) == 1)
             <a href="{{ route('mediacao.agendamentos') }}">Meus atendimentos</a>
-        @endif
         @auth
         <div class= 'menu'>
         <form method="POST" name="logout" action="{{ route('logout') }}">

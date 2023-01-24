@@ -51,7 +51,6 @@ class AgendaController extends Controller
         $vagas = $request->vagas;
         $start = $request->start;
         $end   = $request->end;
-        $fim = $request->fim;
         $seg = $request->seg;
         $ter = $request->ter;
         $qua = $request->qua;
@@ -63,7 +62,7 @@ class AgendaController extends Controller
 
         $aux = $start; //Variável auxiliar, para resetar o $start depois de cada loop;
         $start = strtotime($start); //Retorna uma timestamp que pode ser trabalhada em contas;
-        $fim = strtotime($fim); //Retorna uma timestamp que pode ser trabalhada em contas;
+        $fim = strtotime($end); //Retorna uma timestamp que pode ser trabalhada em contas;
         $dow = array('Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado');
         $diff = $fim - $start; //Vamos usar para delimitar os dias onde serão criadas as agendas;
         $diff = (($diff / 60) / 60) / 24; //Convertendo de segundos para dias;
@@ -109,7 +108,7 @@ class AgendaController extends Controller
             }
             $vag_h = $vag_h - 1;
             }
-        return redirect('mediacao/agendamentos')->with('msg', 'Agendamento criado com sucesso!');
+        return redirect('/')->with('msg', 'Agendamento criado com sucesso!');
     }
 
     public function list($id){

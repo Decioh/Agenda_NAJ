@@ -123,14 +123,7 @@ class AssistidoController extends Controller
         ->update(['assistido_id' => null,'Status' => 0]);
         Assistido::destroy('id', $id);
 
-        if ((Auth::user()->user_type) == 2){
-            return redirect('/')->with('msg', 'Assistido deletado!');
-        }
-        
-        elseif((Auth::user()->user_type) == 1){
-            return redirect('/mediacao/agendamentos')->with('msg', 'Assistido deletado!');
-        
-        }
+    return redirect('/')->with('msg', 'Assistido deletado!');
     }
     public function store(Request $req){                                                                                                                                          
         
