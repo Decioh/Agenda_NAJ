@@ -3,32 +3,40 @@
 @section('title', 'Agendamentos')
 
 @section('content')
+<!--Esconder campo de texto-->
 
 
-
+@if ((Auth::user()->user_type) == 2)
+    <h1>Usuario não autorizado</h1>
+@else
 
 <div id="event-create-container" class="formulario1">
 
-    <form action="{{ route('agenda.create') }}" method="POST">
+    <form action="{{ route('agenda.store') }}" method="POST">
         @csrf
     
     <div class="form-group">
         <legend>Criando horarios de atendimento:</legend>
-        <label for="começo">Começo: <input type="datetime" class="form-control" id="começo" name="start" placeholder="começo"></label>
+        <div class="form-group">
+         
         
-        <label for="fim" >final: <input type="datetime" class="form-control" id="fim" name="fim" placeholder="fim"></label>
+        <label for="começo"><b>Começo:</b> <input type="datetime" class="form-control" id="começo" name="start" placeholder="começo"></label>
+        
+        <label for="fim" ><b>Final:</b> <input type="datetime" class="form-control" id="fim" name="fim" placeholder="fim"></label>
         
     </div> <br>
+    <div> <br>
+        
     <div class="form-group">
-        <label for="dura">Tempo para cada atendimento:</label><br>
+        <label for="dura"><b>Tempo para cada atendimento:</b></label><br>
         <input type="number" min = "1" max="60" id="dur" name="dur">
     </div><br>
     <div class="form-group">
-        <label for="vagas">Vagas:</label><br>
+        <label for="vagas"><b>Vagas:</b></label><br>
         <input type="number" min="1" max="40" id="vagas" name="vagas">
     </div> <br>
     <div class="form-group"> 
-        <label for="vagas">Atendimentos simultaneos:</label><br>
+        <label for="vagas"><b>Atendimentos simultaneos:</b></label><br>
         <input type="number" min="1" max="40" id="vag_h" name="vag_h">
     </div> <br>
     <div> <br>
@@ -43,7 +51,7 @@
     </div> <br>
     <div class="form-group">
         <p>
-            <input type="submit" class="btn btn-secondary" value="Criar" >
+            <input type="submit" class="btn btn-success" value="Criar" >
             <input type="reset" class="btn btn-secondary" value="Limpar" >
         </p>
     </div>
@@ -51,5 +59,5 @@
 </div>
 
 
-
+@endif
 @endsection  

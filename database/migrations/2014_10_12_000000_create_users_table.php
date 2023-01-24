@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-        /*  $table->string('telefone');
-            $table->varcahr('cpf');
-            $table->string('status')->nullable();
-            $table->char('user_type'); //1-mediador, 2-Usuario Naj*/
+            $table->string('telefone');
+            $table->char('cpf');
+            $table->string('status')->default(1); //1-Ativo, 2-Inativo
+            $table->char('user_type')->default(2); //1-Mediador, 2-Usuario Naj*/
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();

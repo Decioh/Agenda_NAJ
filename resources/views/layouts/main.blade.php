@@ -7,13 +7,15 @@
     <title>@yield('title')</title>
     <!--CSS da aplicação-->
     <link rel="stylesheet" href={{asset('/estilo/style.css')}}>
-    <!--CSS bootstrap-->
-    <!-- CSS only -->
+    <!-- CSS bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!--Script-->
     <script src={{asset('/js/scripts.js')}}></script>
     <!--Flatpickr.js-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!--Ion icons-->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <!--Fontes-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,13 +35,15 @@
         <a href="javascript:document.logout.submit()">Logout</a>
         </form>
         </div>
-        <a href="{{ route('mediacao.agendamentos') }}">Meus atendimentos</a>
+        @if ((Auth::user()->user_type) == 1)
+            <a href="{{ route('mediacao.agendamentos') }}">Meus atendimentos</a>
+        @endif
         @endauth
         @guest
         <a href="{{ route('login') }}">Login</a>
         <a href="{{ route('register') }}">Cadastrar</a>
         @endguest
-        <a href="{{ route('calendario.get') }}">Calendario</a>
+        {{--<a href="{{ route('calendario.get') }}">Calendario</a>--}}
         </nav>
         
     </header>

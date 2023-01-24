@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserAgendaTable extends Migration
+class CreateAssistidosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateUserAgendaTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_agenda', function (Blueprint $table) {
+        Schema::create('assistidos', function (Blueprint $table) {
             $table  ->  id();
-            $table  ->  tinyInteger('status');
+            $table  ->  string('nome');
+            $table  ->  date('nasc')->nullable();
+            $table  ->  char('cpf',11);
+            $table  ->  char('email',45);
+            $table  ->  char('telefone',11);
             $table  ->  timestamps();
-
-            $table  ->  foreignId('assistido_id')->constrained('assistido');
-            $table  ->  foreignId('agenda_id')->constrained('agenda');
         });
     }
 
@@ -30,6 +31,6 @@ class CreateUserAgendaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_agenda');
+        Schema::dropIfExists('assistidos');
     }
 }

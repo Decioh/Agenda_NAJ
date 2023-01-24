@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUserIDToEventsTable extends Migration
+class AddAssistidoIdToAgendasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddUserIDToEventsTable extends Migration
      */
     public function up()
     {
-        Schema::table('events', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained();
+        Schema::table('agendas', function (Blueprint $table) {
+            $table->foreignId('assistido_id')->nullable()->constrained();
         });
     }
 
@@ -25,9 +25,8 @@ class AddUserIDToEventsTable extends Migration
      */
     public function down()
     {
-        Schema::table('events', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained()
-            ->onDelete('cascade');
+        Schema::table('agendas', function (Blueprint $table) {
+            $table->foreignId('iassistido_id')->constrained()->onDelete('cascade');
         });
-    }
+    }  
 }

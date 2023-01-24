@@ -67,14 +67,14 @@ $(document).ready(function () {
             dow: [1, 2, 3, 4, 5], // dias da semana( começa no domingo[0] e vai até sabado[6]);
         }],
         
-        events:'/calendario',
+        agendas:'/calendario',
         selectable:true,
         selectHelper: true,
         select:function(start, end, allDay)
         {
-            var assistido = prompt('Tipo de atendimento:');
+            var agenda = prompt('Tipo de atendimento:');
 
-            if(assistido)
+            if(agenda)
             {
                 var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm');
 
@@ -84,7 +84,7 @@ $(document).ready(function () {
                     url:"/calendario/action",
                     type:"POST",
                     data:{
-                        assistido: assistido,
+                        agenda: $agenda->Assistido->nome,
                         start: start,
                         end: end,
                         type: 'add'
@@ -100,12 +100,12 @@ $(document).ready(function () {
     
         editable:true,
         
-        eventResize: function(event, delta)
+        eventResize: function(agendas, delta)
         {
-            var start = $.fullCalendar.formatDate(event.start, 'DD-MM-Y HH:mm');
-            var end = $.fullCalendar.formatDate(event.end, 'DD-MM-Y HH:mm');
-            var assistido = event.assistido;
-            var id = event.id;
+            var start = $.fullCalendar.formatDate(agendas.start, 'DD-MM-Y HH:mm');
+            var end = $.fullCalendar.formatDate(agendas.end, 'DD-MM-Y HH:mm');
+            var assistido = agenda.assistido_id;
+            var id = agendas.id;
             $.ajax({
                 url:"/calendario/action",
                 type:"POST",
@@ -123,12 +123,12 @@ $(document).ready(function () {
                 }
             })
         },
-        eventDrop: function(event, delta)
+        eventDrop: function(agendas, delta)
         {
-            var start = $.fullCalendar.formatDate(event.start, 'DD-MM-Y HH:mm');
-            var end = $.fullCalendar.formatDate(event.end, 'DD-MM-Y HH:mm');
-            var assistido = event.assistido;
-            var id = event.id;
+            var start = $.fullCalendar.formatDate(agendas.start, 'DD-MM-Y HH:mm');
+            var end = $.fullCalendar.formatDate(agenda.end, 'DD-MM-Y HH:mm');
+            var assistido = agenda.assistido;
+            var id = agenda.id_assistido;
             $.ajax({
                 url:"/calendario/action",
                 type:"POST",
