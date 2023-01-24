@@ -40,24 +40,29 @@ $tel = preg_replace("/(\d{0})(\d{2})(\d{5})(\d{4})/", "\$1(\$2)\$3-\$4", $assist
             <b>Partes:</b><br>
             @foreach($assistido_agenda as $assistido_agendas)
                 @if($assistido_agendas->agenda_id == $agenda->id)
-                {{--<div class="mt-1"><abbr class="text-decoration-none" title="{{($assistido_agendas->nome_assistido)}}">{{ \Illuminate\Support\Str::words($assistido_agendas->nome_assistido, 2, '') }}</abbr> <a href="{{route('delete.parte',['agenda_id'=> $agenda->id,'assistido_id'=>$assistido_agendas->assistido_id])}}" class="btn btn-danger btn-sm"><abbr title="remover parte"><ion-icon name="person-remove-outline"></ion-icon></abbr></a><br></div>--}}
                 <div class="mt-1">{{($assistido_agendas->nome_assistido)}} <a href="{{route('delete.parte',['agenda_id'=> $agenda->id,'assistido_id'=>$assistido_agendas->assistido_id])}}" class="btn btn-danger btn-sm"><abbr class="text-decoration-none" title="remover parte"><ion-icon title="false" name="person-remove-outline"></ion-icon></abbr></a><br></div>
                 @endif
             @endforeach
             <br>
             <a href="{{route('agenda.nova_parte', $agenda->id)}}" class="btn btn-success btn-sm"><abbr class="text-decoration-none" title="Adicionar parte"><ion-icon title = "false" name="person-add-outline"></ion-icon></abbr></a>
-            <form action="{{ route('agenda.destroy', $assistido->id) }}" method="POST" class="mt-3">
-                @csrf
-                @method('DELETE')
-        @if ((Auth::user()->user_type) == 1)
-                @if(($agenda->Status)==2) 
-                <button href="{{route('agenda.edit',['id'=> $agenda->id])}}"class="btn btn-success btn-sm">Agendamento confirmado</button>
-            @elseif(($agenda->Status)==1) 
-                <button href="{{route('agenda.edit',['id'=> $agenda->id])}}"class="btn btn-warning btn-sm">Confirmar agendamento</button>
-            @endif
-                <button type="submit" class="btn btn-danger delete-btn btn-sm mt-1">Cancelar agendamento</button> 
-        @endif           
-            </form>
+            <div>
+                <form action="{{ route('agenda.destroy', $assistido->id) }}" method="POST" class="mt-3">
+                    @csrf
+                    @method('DELETE')
+                    @if ((Auth::user()->user_type) == 1)
+                        @if(($agenda->Status)==2) 
+                            <a href="{{route('agenda.edit', $assistido_agendas->agenda_id)}}" class="btn btn-success btn-sm">Agendamento confirmado</a>
+                        @elseif(($agenda->Status)==1) 
+                            <a href="{{route('agenda.edit',$assistido_agendas->agenda_id)}}" class="btn btn-warning btn-sm">Confirmar agendamento</a>
+                    @endif
+                    <br>
+                    <button type="submit" class="btn btn-danger btn-sm mt-1">Cancelar agendamento</button>          
+                </form>
+            </div>
+            
+
+            
+    @endif  
         </div>
       </div>
     </div>

@@ -17,7 +17,7 @@ class AssistidoController extends Controller
 
         $agendas = Agenda::orderBy('start', 'asc')->orderBy('vag_h', 'desc')->simplePaginate(51); //passando todos as agendas para a view '/agendar', e ordenando.
 
-    return view('agendar', ['agendas' => $agendas]);
+    return view('/mediacao/agendamentos', ['agendas' => $agendas]);
     }
 
     public function list(){
@@ -101,13 +101,13 @@ class AssistidoController extends Controller
         return view('/assistido',['assistidos' => $assistidos])->with('msg', 'Dados Atualizados!');
         
     }
-    public function show($id) {
+    public function info($id) {
 
         $assistido = Assistido::findOrFail($id);
 
-        $agenda = DB::table('agendas')->where('assistido_id',$id)->get();
-        
-        //$agenda_id = Agenda::where('assistido_id','=',$id)->first('id');
+        $agenda_id = AssistidoAgenda::where('assistido_id',$id)->get('agenda_id');
+
+        $agenda = Agenda::findOrFail($agenda_id);
 
         $assistido_agenda = AssistidoAgenda::all();
         
@@ -133,7 +133,7 @@ class AssistidoController extends Controller
         }
     }
     public function store(Request $req){                                                                                                                                          
-
+        
             $assistido = new Assistido();
 
             $assistido->nome = $req->nome;
@@ -143,19 +143,9 @@ class AssistidoController extends Controller
             $assistido->email = $req->email;
 
             $assistido->save();
+            $id = $req->agenda_id;
 
-            $assistido_agenda = new AssistidoAgenda();
-            $assistido_agenda->agenda_id = $req->agenda_id;
-            $assistido_agenda->assistido_id = $assistido->id;
-            $assistido_agenda->nome_assistido = $assistido->nome;
-        
-            $assistido_agenda->save();
-
-        $assistido_agenda = AssistidoAgenda::all();
-
-        $agenda = Agenda::where('id',$req->agenda_id)->get();
-      
-    return redirect()->route('assistido.info',[$assistido->id, $agenda]);
+    return redirect()->route('agenda.join',['agenda_id'=>$id, 'id'=>$assistido->id]);
     
     }
 

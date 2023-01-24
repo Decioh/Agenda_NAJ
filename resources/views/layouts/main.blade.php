@@ -25,9 +25,11 @@
 </head>
 <body>
     <header>
-        <a href="/"><img src="{{asset('/img/DP_DF-preto.png')}}" alt="logo-defensoria" height="59px" width="225px"></a>
+        <a href="{{ route('mediacao.agendamentos') }}"><img src="{{asset('/img/DP_DF-preto.png')}}" alt="logo-defensoria" height="59px" width="225px"></a>
         <nav class = 'menu'>
-        <a href="/">Home</a>
+            @if ((Auth::user()->user_type) == 1)
+            <a href="{{ route('mediacao.agendamentos') }}">Meus atendimentos</a>
+        @endif
         @auth
         <div class= 'menu'>
         <form method="POST" name="logout" action="{{ route('logout') }}">
@@ -35,9 +37,7 @@
         <a href="javascript:document.logout.submit()">Logout</a>
         </form>
         </div>
-        @if ((Auth::user()->user_type) == 1)
-            <a href="{{ route('mediacao.agendamentos') }}">Meus atendimentos</a>
-        @endif
+        
         @endauth
         @guest
         <a href="{{ route('login') }}">Login</a>
@@ -55,7 +55,7 @@
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <!-- flatpickr -->
+    <!-- flatpickr, Seleção de calendario nos formulários-->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
         <!-- Mudar lingua do flatpickr -->

@@ -49,15 +49,15 @@
                 <th scope="row">{{$i}}</th>
                 <td>{{$agenda->dia}} - {{date('d/m', strtotime($agenda->start))}}</td>
                 <td>@if(($agenda -> assistido_id) == null)
-                <a href="#"class="btn btn-success"> {{date('H:i', strtotime($agenda->start))}} - {{$agenda->vag_h}} </a>
+                <a href="#"class="btn btn-success my-1"> {{date('H:i', strtotime($agenda->start))}} - {{$agenda->vag_h}} </a>
             @else 
                 @if(($agenda -> assistido_id) == null)
-                    <a href="#"class="btn btn-primary"> {{date('H:i', strtotime($agenda->start))}} - {{$agenda->vag_h}} </a>
+                    <a href="#"class="btn btn-primary my-1"> {{date('H:i', strtotime($agenda->start))}} - {{$agenda->vag_h}} </a>
                 @else
-                    @if(($agenda->Status)==2) <a href="{{route('assistido.info',$agenda->Assistido-> id)}}"class="btn btn-secondary">
-                    <abbr class="text-decoration-none" title="{{$agenda->Assistido->nome}}">{{date('H:i', strtotime($agenda->start))}}
-                    @elseif(($agenda->Status)==1) <a href="{{route('assistido.info',$agenda->Assistido->id)}}"class="btn btn-warning">
-                    <abbr class="text-decoration-none" title="{{$agenda->Assistido->nome}}">{{date('H:i', strtotime($agenda->start))}}    
+                    @if(($agenda->Status)==2) <a href="{{route('assistido.info',$agenda->Assistido-> id)}}"class="btn btn-secondary my-1">
+                    <abbr class="text-decoration-none my-1" title="{{$agenda->Assistido->nome}}">{{date('H:i', strtotime($agenda->start))}}
+                    @elseif(($agenda->Status)==1) <a href="{{route('assistido.info',$agenda->Assistido->id)}}"class="btn btn-warning my-1">
+                    <abbr class="text-decoration-none my-1" title="{{$agenda->Assistido->nome}}">{{date('H:i', strtotime($agenda->start))}}    
                 @endif
                 </abbr></a>
             @endif     
@@ -75,12 +75,12 @@
         @endif
         @if($l_start != $agenda->start || $l_assistido != $agenda->assistido_id)  <!--Para mostrar apenas um evento por horario-->
             @if(($agenda -> assistido_id) == null)
-                <a href="#"class="btn btn-success"> {{date('H:i', strtotime($agenda->start))}} - {{$agenda->vag_h}} </a>
+                <a href="#"class="btn btn-success my-1"> {{date('H:i', strtotime($agenda->start))}} - {{$agenda->vag_h}} </a>
             @else
-            @if(($agenda->Status)==2) <a href="{{route('assistido.info',$agenda->Assistido-> id)}}"class="btn btn-secondary">
-                <abbr class="text-decoration-none" title="{{$agenda->Assistido->nome}}">{{date('H:i', strtotime($agenda->start))}}
-            @elseif(($agenda->Status)==1) <a href="{{route('assistido.info',$agenda->Assistido-> id)}}"class="btn btn-warning">
-                <abbr class="text-decoration-none" title="{{$agenda->Assistido->nome}}">{{date('H:i', strtotime($agenda->start))}}
+            @if(($agenda->Status)==2) <a href="{{route('assistido.info',$agenda->Assistido-> id)}}"class="btn btn-secondary my-1">
+                <abbr class="text-decoration-none my-1" title="{{$agenda->Assistido->nome}}">{{date('H:i', strtotime($agenda->start))}}
+            @elseif(($agenda->Status)==1) <a href="{{route('assistido.info',$agenda->Assistido-> id)}}"class="btn btn-warning my-1">
+                <abbr class="text-decoration-none my-1" title="{{$agenda->Assistido->nome}}">{{date('H:i', strtotime($agenda->start))}}
         @endif
         </abbr></a>    
         @endif

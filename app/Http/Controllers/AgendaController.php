@@ -33,9 +33,14 @@ class AgendaController extends Controller
     }
     public function destroy($id){
 
-        DB::table('agendas')->where('assistido_id', $id)->orderBy('updated_at','asc')->take(1)
-            ->update(['assistido_id' => null,'info' => null, 'status' => 0]);
+        $agenda_id = Agenda::where('assistido_id', $id)->pluck('id');
 
+        AssistidoAgenda::where('agenda_id',$agenda_id)->delete();
+
+        DB::table('agendas')->where('assistido_id', $id)
+            ->update(['assistido_id' => null,'info' => null, 'status' => 0]);
+        
+        
     
         return back()->with('msg', 'Agendamento cancelado!');
     }
@@ -119,9 +124,7 @@ class AgendaController extends Controller
         DB::table('agendas')->where('id',$agenda_id)->update(['info' => $info]);
 
         $agenda = Agenda::where('id',$agenda_id)->first();
-        $assistidoAgenda = AssistidoAgenda::where('agenda_id',$agenda_id)->get('*');
 
-    //return redirect()->route('assistido.info',[$agenda->assistido_id,$assistidoAgenda]);
     return redirect()->route('agenda.join',['agenda_id'=>$agenda->id,'id'=>$agenda->assistido_id]);
     }
     public function criar($assistido_id, $agenda_id){
@@ -155,7 +158,6 @@ class AgendaController extends Controller
     }
     public function joinAgenda($agenda_id,$id){
         
-        /*$id->agenda_participant()->attach($id);*/
         $assistido = Assistido::where('id',$id)->first();
         
         $assistido_agenda = new AssistidoAgenda();

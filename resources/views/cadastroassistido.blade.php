@@ -12,6 +12,7 @@
 
 <form action="{{ route('assistido.store',$agenda -> id) }}" method="get">
     @csrf
+    
     <input type="hidden" name="agenda_id" value="{{$agenda['id']}}">
     <div class="cadastro"><br>
         <div class="cadastron">
