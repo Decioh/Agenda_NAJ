@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FullCalendarController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AssistidoController;
+use App\Http\Controllers\HistoricoController;
 use GuzzleHttp\Middleware;
 
 //Route::get('/calendario', [FullCalendarController::class, 'index'])->name('calendario.get')->middleware('auth');
@@ -43,3 +44,9 @@ Route::get  ('/assistido/{id}/info', [AssistidoController::class, 'info'])->name
 //rotas para criar assistido antes de agendar;
 Route::get ('/novo/assistido', [AssistidoController::class, 'novo'])->name('assistido.novo')->middleware('auth');
 Route::post  ('/assistido/criar', [AssistidoController::class, 'criar'])->name('assistido.criar')->middleware('auth');
+
+/*Rotas Historico*/
+
+Route::get('/historico', [HistoricoController::class, 'index'])->name('historico.index')->middleware('auth');
+Route::get('/historico/{agenda_id}', [HistoricoController::class, 'create'])->name('historico.create')->middleware('auth');
+Route::get('/historico/{agenda_id}', [HistoricoController::class, 'info'])->name('historico.info')->middleware('auth');

@@ -16,7 +16,7 @@ class AgendaController extends Controller
     }
     public function index(){
 
-        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->get(); //passando todos os eventos pra view '/meadiacao/agendamentos'
+        $agendas = Agenda::where( 'start', '>', Carbon::yesterday())->orderBy('start','asc')->orderBy('vag_h','desc')->get(); //passando todos as agendas futuras para '/meadiacao/agendamentos'
 
     return view('/mediacao/agendamentos',['agendas' => $agendas]);   
     }
@@ -51,6 +51,7 @@ class AgendaController extends Controller
         $vagas = $request->vagas;
         $start = $request->start;
         $end   = $request->end;
+        $fim = $request->fim;
         $seg = $request->seg;
         $ter = $request->ter;
         $qua = $request->qua;
@@ -62,7 +63,7 @@ class AgendaController extends Controller
 
         $aux = $start; //Variável auxiliar, para resetar o $start depois de cada loop;
         $start = strtotime($start); //Retorna uma timestamp que pode ser trabalhada em contas;
-        $fim = strtotime($end); //Retorna uma timestamp que pode ser trabalhada em contas;
+        $fim = strtotime($fim); //Retorna uma timestamp que pode ser trabalhada em contas;
         $dow = array('Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado');
         $diff = $fim - $start; //Vamos usar para delimitar os dias onde serão criadas as agendas;
         $diff = (($diff / 60) / 60) / 24; //Convertendo de segundos para dias;
@@ -113,7 +114,7 @@ class AgendaController extends Controller
 
     public function list($id){
         $id;
-        $agendas = Agenda::orderBy('start','asc')->orderBy('vag_h','desc')->paginate(350); //passando todos os eventos pra view 'agendar_assistido'
+        $agendas = Agenda::where( 'start', '>', Carbon::yesterday())->orderBy('start','asc')->orderBy('vag_h','desc')->paginate(350); //passando todos os eventos pra view 'agendar_assistido'
     
     return view ('agendar_assistido', ['agendas' => $agendas,'assistido_id'=>$id]);
     }

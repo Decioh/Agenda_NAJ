@@ -57,6 +57,7 @@ $tel = preg_replace("/(\d{0})(\d{2})(\d{5})(\d{4})/", "\$1(\$2)\$3-\$4", $assist
                     @endif
                     <br>
                     <button type="submit" class="btn btn-danger btn-sm mt-1">Cancelar agendamento</button>          
+                    <a href="{{route('historico.create',$assistido_agendas->agenda_id)}}" class="btn btn-secondary btn-sm">Adicionar parecer</a>
                 </form>
             </div>
             

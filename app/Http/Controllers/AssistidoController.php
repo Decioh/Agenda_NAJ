@@ -5,12 +5,10 @@ use App\Models\User;
 use App\Models\Agenda;
 use App\Models\Assistido;
 use App\Models\AssistidoAgenda;
+use App\Models\Historico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\facades\Auth;
-use Carbon\Carbon;
-use Illuminate\Routing\Route;
-use Jenssegers\Agent\Facades\Agent;
+
 class AssistidoController extends Controller
 {
     public function index(){
@@ -64,16 +62,18 @@ class AssistidoController extends Controller
             $assistido->save();
             $id=$assistido->id;
 
-            /*$assistido_agenda = new AssistidoAgenda();
-            $assistido_agenda->agenda_id = null;
-            $assistido_agenda->assistido_id = $assistido->id;
-            $assistido_agenda->nome_assistido = $assistido->nome;
-        
-        $assistido_agenda->save();  */
-                $agenda =  DB::table('agendas')->where('start','<', Carbon::yesterday())->pluck('id');  //Pega os ids das datas já antigas
+           /* $agenda =  DB::table('agendas')->where('start','<', Carbon::yesterday())->get('*');  //Pega os ids das agendas já antigas
                 foreach($agenda as $agenda){                                              //Anda entre os ids que salvamos
-                Agenda::destroy($agenda);                                                 //Apaga os dados de agenda
-                }                         
+                    $historico = new Historico();
+
+                    $historico->start = $agenda->start;
+                    $historico->dur = $agenda->dur;
+                    $historico->parecer = null;
+                    $historico->agenda_id = $agenda->id;
+                    $historico->user_id = $agenda->user_id;
+
+                    $historico->save();                                                                        
+                }                 */
     return redirect()->route('agenda.list',['id'=>$id]);
     }
 

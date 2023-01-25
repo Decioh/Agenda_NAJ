@@ -27,7 +27,9 @@
     <header>
         <a href="{{ route('mediacao.agendamentos') }}"><img src="{{asset('/img/DP_DF-preto.png')}}" alt="logo-defensoria" height="59px" width="225px"></a>
         <nav class = 'menu'>
-            <a href="{{ route('mediacao.agendamentos') }}">Meus atendimentos</a>
+        <a href="{{ route('mediacao.agendamentos') }}">Meus atendimentos</a>
+
+        <a href="{{ route('historico.index') }}">historico de atendimentos</a>
         @auth
         <div class= 'menu'>
         <form method="POST" name="logout" action="{{ route('logout') }}">
