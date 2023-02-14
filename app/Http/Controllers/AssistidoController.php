@@ -62,18 +62,6 @@ class AssistidoController extends Controller
             $assistido->save();
             $id=$assistido->id;
 
-           /* $agenda =  DB::table('agendas')->where('start','<', Carbon::yesterday())->get('*');  //Pega os ids das agendas já antigas
-                foreach($agenda as $agenda){                                              //Anda entre os ids que salvamos
-                    $historico = new Historico();
-
-                    $historico->start = $agenda->start;
-                    $historico->dur = $agenda->dur;
-                    $historico->parecer = null;
-                    $historico->agenda_id = $agenda->id;
-                    $historico->user_id = $agenda->user_id;
-
-                    $historico->save();                                                                        
-                }                 */
     return redirect()->route('agenda.list',['id'=>$id]);
     }
 
@@ -107,7 +95,8 @@ class AssistidoController extends Controller
 
         $agenda_id = AssistidoAgenda::where('assistido_id',$id)->get('agenda_id');
 
-        $agenda = Agenda::findOrFail($agenda_id);
+        $agenda = Agenda::where('assistido_id',$id)->get();
+
 
         $assistido_agenda = AssistidoAgenda::all();
         

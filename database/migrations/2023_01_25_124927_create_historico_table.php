@@ -16,7 +16,6 @@ class CreateHistoricoTable extends Migration
         Schema::create('historicos', function (Blueprint $table) {
             $table  ->  id();
             $table  ->  dateTime('start');
-            $table  ->  integer('dur')->nullable();
             $table  ->  text('parecer')->nullable();
             $table  ->  text('info')->nullable();
             $table  ->  foreignId('agenda_id')->constrained();

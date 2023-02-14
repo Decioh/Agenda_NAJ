@@ -19,7 +19,7 @@ use GuzzleHttp\Middleware;
 Route::get('/', [AgendaController::class, 'index'])->name('mediacao.agendamentos')->middleware('auth');
 Route::get('/mediacao/criar_agenda', [AgendaController::class, 'create'])->name('mediacao.create')->middleware('auth');
 Route::post('/mediacao/criar_agenda/novo', [AgendaController::class, 'store'])->name('agenda.store')->middleware('auth');
-Route::delete('/mediacao/agendamentos/{id}', [AgendaController::class, 'destroy'])->name('agenda.destroy')->middleware('auth');
+Route::delete('/mediacao/agendamentos/{id}/{agenda_id}', [AgendaController::class, 'destroy'])->name('agenda.destroy')->middleware('auth');
 Route::get  ('/mediacao/agendamentos/{id}/edit', [AgendaController::class, 'edit'])->name('agenda.edit')->middleware('auth');
 
 /*Rotas para agendar assistido já cadastrado*/
@@ -49,4 +49,4 @@ Route::post  ('/assistido/criar', [AssistidoController::class, 'criar'])->name('
 
 Route::get('/historico', [HistoricoController::class, 'index'])->name('historico.index')->middleware('auth');
 Route::get('/historico/{agenda_id}', [HistoricoController::class, 'create'])->name('historico.create')->middleware('auth');
-Route::get('/historico/{agenda_id}', [HistoricoController::class, 'info'])->name('historico.info')->middleware('auth');
+Route::post('/historico/agenda/{agenda_id}', [HistoricoController::class, 'info'])->name('historico.info')->middleware('auth');

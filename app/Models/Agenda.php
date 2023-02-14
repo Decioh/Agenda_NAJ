@@ -17,6 +17,9 @@ class Agenda extends Model
     public function assistidoAgenda(){
         return $this->hasMany('App\Models\AssistidoAgenda','assistido_id');
         }
+    public function Historico(){
+        return $this->hasOne('App\Models\Historico','historico_id','agenda_id');
+        }
     public function user(){
 		return $this->belongsTo('App\Models\User');
 	}

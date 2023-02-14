@@ -78,9 +78,9 @@
                 <abbr class="text-decoration-none my-1" title="{{$agenda->Assistido->nome}}">{{date('H:i', strtotime($agenda->start))}}
             @elseif(($agenda->Status)==1) <a href="{{route('assistido.info',$agenda->Assistido-> id)}}"class="btn btn-warning my-1">
                 <abbr class="text-decoration-none my-1" title="{{$agenda->Assistido->nome}}">{{date('H:i', strtotime($agenda->start))}}
-        @endif
-        </abbr></a>    
-        @endif
+            @endif
+            </abbr></a>
+            @endif
         @else
         @endif   
         @php 

@@ -25,20 +25,20 @@
 
 <form action="{{ route('historico.info', $historico) }}" method="POST">
 @csrf
-<div> <br>
+<div class="mx-auto"> <br>
     <label class="my-2" for="parecer">Parecer final:</label><br>
-    <select name="info" id="parecer">
-        <option value="Acordo inviável" onclick="show(0)">Acordo inviável</option>
+    <select name="parecer" id="parecer">
+        <option value="Acordo inviável" onclick="show(0)" >Acordo inviável</option>
         <option value="Acordo realizado" onclick="show(0)">Acordo realizado</option>
         <option value="Processo judicializado" onclick="show(0)">Processo judicializado</option>
         <option value="Parte não compareceu" onclick="show(1)" selected>Parte não compareceu</option>
     </select><br>
     <select name="parte_faltante" id="parte_faltante" class="custom-select-sm my-3" size="1">
         <label class="my-2" for="pfinal">Qual parte faltou?</label><br>
-    @foreach($assistido_agendas as $assistido_agendas)
-        <option value="{{$loop->index}}">{{$loop->index}}</option>        
+    @foreach($agendas_assistidos as $agendas_assistidos)
+        <option value="{{$agendas_assistidos->nome_assistido}}">{{$agendas_assistidos->nome_assistido}}</option>        
     @endforeach
-        <option value="todos">ambas as partes</option>
+        <option value="todos">Todas as partes</option>
     </select><br>
     <label class="my-2" for="pindo">Informações adicionais:</label><br>
     <textarea  id="info" name="info"></textarea>

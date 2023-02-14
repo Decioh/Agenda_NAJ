@@ -31,15 +31,23 @@ class AgendaController extends Controller
         
     return back();
     }
-    public function destroy($id){
+    public function destroy($id,$agenda_id){
 
-        $agenda_id = Agenda::where('assistido_id', $id)->pluck('id');
+        AssistidoAgenda::where('agenda_id',$agenda_id)->where('assistido_id',$id)->delete();
 
-        AssistidoAgenda::where('agenda_id',$agenda_id)->delete();
+        $start = Agenda::where('id',$agenda_id)->pluck('start');
 
-        DB::table('agendas')->where('assistido_id', $id)
-            ->update(['assistido_id' => null,'info' => null, 'status' => 0]);
+        $start = Agenda::where('start',$start)->where('assistido_id',null)->pluck('start');
+
+        $count = $start->count()+1;
+
+        DB::table('agendas')->where('id',$agenda_id)
+            ->update(['assistido_id' => null,'info' => null, 'status' => 0,'vag_h' => $count]);
         
+        /*DB::table('agendas')->where('assistido_id', $id)->where('id',$agenda_id)
+            ->update(['assistido_id' => null,'info' => null, 'status' => 0,'vag_h' => $count]);*/
+
+            
         
     
         return back()->with('msg', 'Agendamento cancelado!');
