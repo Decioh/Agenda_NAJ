@@ -10,9 +10,15 @@
     font-family: 'Abyssinica SIL', serif;
     text-align: center;
 }
-ion-icon {
+.ion-icon {
     pointer-events: none;
+    display: inline-block;
+    vertical-align: middle;
 }
+.text{
+    display: inline-block;
+    vertical-align: middle;
+  }
 .container-fluid {
     width: 300px;
     padding-right: 15px;

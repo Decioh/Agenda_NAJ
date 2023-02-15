@@ -177,7 +177,7 @@ class AgendaController extends Controller
 
         $agenda = Agenda::where('id',$agenda_id)->first();        
 
-        return redirect()->route('assistido.info',[$agenda->assistido_id]);
+        return redirect()->route('assistido.info',[$id]);
     }
 
     public function delete($assistido_id, $agenda_id){

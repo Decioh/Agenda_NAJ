@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agenda;
 use App\Models\Assistido;
+use App\Models\AssistidoAgenda;
 use Illuminate\Support\Facades\DB;
 use App\Models\Historico;
 use Illuminate\Http\Request;
@@ -29,7 +30,10 @@ class HistoricoController extends Controller
             $historico->agenda_id = $agenda->id;
             $historico->user_id = $agenda->user_id;
 
-        $historico->save();  
+        $historico->save();
+        
+        DB::table('agendas')->where('id',$agenda_id)
+            ->update(['status' => 3]);
 
         DB::table('agendas')->where('id',$agenda_id)
             ->update(['historico_id' => $historico->id]);
@@ -39,18 +43,29 @@ class HistoricoController extends Controller
 
     return view ('historico_add_parecer',['historico'=>$historico,'agenda'=>$agenda,'assistido_agendas'=>$assistido_agendas,'agendas_assistidos'=>$agendas_assistidos]);
     }
-    public function info($historico, Request $req){
+    public function store($historico, Request $req){
 
         $info = $req->info;
         $parecer = $req->parecer;
         $faltante = $req->parte_faltante;
         if($parecer=='Parte não compareceu'){
-            $parecer = $parecer." parte faltante: ".$faltante;
+            $parecer = $parecer.':'.$faltante;
         }
 
         DB::table('historicos')->where('id', $historico)
             ->update(['parecer' => $parecer,'info' => $info]);
 
         return redirect()->route('historico.index');
+    }
+    public function info($agenda_id){
+        $i=0;
+        $historico = Historico::where('agenda_id',$agenda_id)->get();
+        $agendas = Agenda::where('id',$agenda_id)->get();
+        $assistido_ids = AssistidoAgenda::where('agenda_id',$agenda_id)->pluck('assistido_id');
+        foreach($assistido_ids as $assistido_id){
+            $assistidos[$i] = Assistido::where('id',$assistido_id)->first();
+            $i++;
+        }
+    return view ('historico_info',['historico'=>$historico,'assistidos'=>$assistidos,'agendas'=>$agendas]);
     }
 }

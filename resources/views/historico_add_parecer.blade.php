@@ -23,7 +23,7 @@
             <div class="my-1">{{($assistido_agendas->nome_assistido)}} </div>
         @endforeach
 
-<form action="{{ route('historico.info', $historico) }}" method="POST">
+<form action="{{ route('historico.store', $historico) }}" method="POST">
 @csrf
 <div class="mx-auto"> <br>
     <label class="my-2" for="parecer">Parecer final:</label><br>
@@ -38,7 +38,7 @@
     @foreach($agendas_assistidos as $agendas_assistidos)
         <option value="{{$agendas_assistidos->nome_assistido}}">{{$agendas_assistidos->nome_assistido}}</option>        
     @endforeach
-        <option value="todos">Todas as partes</option>
+        <option value="ambas">Todas as partes</option>
     </select><br>
     <label class="my-2" for="pindo">Informações adicionais:</label><br>
     <textarea  id="info" name="info"></textarea>

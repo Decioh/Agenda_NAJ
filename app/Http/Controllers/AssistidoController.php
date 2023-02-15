@@ -90,13 +90,15 @@ class AssistidoController extends Controller
         
     }
     public function info($id) {
-
+        $i=0;
         $assistido = Assistido::findOrFail($id);
 
-        $agenda_id = AssistidoAgenda::where('assistido_id',$id)->get('agenda_id');
+        $agendas_id = AssistidoAgenda::where('assistido_id',$id)->pluck('agenda_id');
 
-        $agenda = Agenda::where('assistido_id',$id)->get();
-
+        foreach($agendas_id as $agenda_id){
+            $agendas[$i] = Agenda::where('id',$agenda_id)->first();
+            $i++;
+        }
 
         $assistido_agenda = AssistidoAgenda::all();
         
@@ -104,7 +106,7 @@ class AssistidoController extends Controller
 
         $assistidos = Assistido::all('*');
         
-    return view('/info_assistido', ['assistido' => $assistido, 'agenda'=> $agenda,'assistidos'=> $assistidos, 'assistido_agenda'=>$assistido_agenda]);
+    return view('/info_assistido', ['assistido' => $assistido, 'agendas'=> $agendas,'assistidos'=> $assistidos, 'assistido_agenda'=>$assistido_agenda]);
     }
     public function destroy($id){
 

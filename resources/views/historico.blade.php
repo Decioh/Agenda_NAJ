@@ -21,6 +21,7 @@
                 <th scope="col">Data</th>
                 <th scope="col">Partes</th>
                 <th scope="col">Parecer</th>
+                <th scope="col">Informações</th>
                 <th scope="col">Ação</th>
             </tr>
         </thead>
@@ -29,10 +30,11 @@
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{date('d/m/Y', strtotime($historicos->start))}}</td>
-                    <td>{{$historicos->agenda_id}}</td>
+                    <td>{{$historicos->agenda->Assistido->nome}}</td>
                     <td>{{$historicos->parecer}}</td>
+                    <td>{{$historicos->info}}</td>
                     <td>
-                        <a href="#"class="btn btn-secondary btn-sm"> info </a>
+                        <a href="{{route('historico.info',$historicos->agenda_id)}}"class="btn btn-secondary btn-sm"> info </a>
                     </td>
                 </tr>
             </tbody>

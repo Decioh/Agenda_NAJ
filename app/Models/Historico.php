@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Historico extends Model
 {
+    public function agenda()
+    {
+        return $this->belongsTo(Agenda::class, 'agenda_id', 'id');
+    }
     use HasFactory;
 }

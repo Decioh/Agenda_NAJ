@@ -49,4 +49,5 @@ Route::post  ('/assistido/criar', [AssistidoController::class, 'criar'])->name('
 
 Route::get('/historico', [HistoricoController::class, 'index'])->name('historico.index')->middleware('auth');
 Route::get('/historico/{agenda_id}', [HistoricoController::class, 'create'])->name('historico.create')->middleware('auth');
-Route::post('/historico/agenda/{agenda_id}', [HistoricoController::class, 'info'])->name('historico.info')->middleware('auth');
+Route::post('/historico/agenda/{agenda_id}', [HistoricoController::class, 'store'])->name('historico.store')->middleware('auth');
+Route::get('/historico/info/{agenda_id}', [HistoricoController::class, 'info'])->name('historico.info')->middleware('auth');
