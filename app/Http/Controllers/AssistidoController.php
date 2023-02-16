@@ -94,19 +94,18 @@ class AssistidoController extends Controller
         $assistido = Assistido::findOrFail($id);
 
         $agendas_id = AssistidoAgenda::where('assistido_id',$id)->pluck('agenda_id');
-
+        
         foreach($agendas_id as $agenda_id){
             $agendas[$i] = Agenda::where('id',$agenda_id)->first();
             $i++;
         }
-
         $assistido_agenda = AssistidoAgenda::all();
-        
-
-
         $assistidos = Assistido::all('*');
-        
-    return view('/info_assistido', ['assistido' => $assistido, 'agendas'=> $agendas,'assistidos'=> $assistidos, 'assistido_agenda'=>$assistido_agenda]);
+        if(isset($agendas))
+            return view('/info_assistido', ['assistido' => $assistido, 'agendas'=> $agendas,'assistidos'=> $assistidos, 'assistido_agenda'=>$assistido_agenda]);
+        else
+            return view('/info_assistido', ['assistido' => $assistido,'assistidos'=> $assistidos, 'assistido_agenda'=>$assistido_agenda]);
+            
     }
     public function destroy($id){
 

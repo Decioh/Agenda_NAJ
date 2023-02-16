@@ -23,7 +23,7 @@ $tel = preg_replace("/(\d{0})(\d{2})(\d{5})(\d{4})/", "\$1(\$2)\$3-\$4", $assist
     
 <h2>Conciliações </h2>
 
-@if(count($agendas)>0)    
+@if(isset($agendas))
     @foreach( $agendas as $agenda)
     @if($agenda->Status==3)
         <p>O assistido possui atendimentos no historico.</p>

@@ -38,7 +38,7 @@
     @foreach($agendas_assistidos as $agendas_assistidos)
         <option value="{{$agendas_assistidos->nome_assistido}}">{{$agendas_assistidos->nome_assistido}}</option>        
     @endforeach
-        <option value="ambas">Todas as partes</option>
+        <option value="Ambas">Todas as partes</option>
     </select><br>
     <label class="my-2" for="pindo">Informações adicionais:</label><br>
     <textarea  id="info" name="info"></textarea>

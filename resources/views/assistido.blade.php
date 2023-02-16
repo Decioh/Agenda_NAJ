@@ -9,7 +9,7 @@
     <h2>Buscar assistido</h2>
     <form action="{{route('assistido.list')}}" method="GET">
         <input type="text" id="search" name="search" placeholder="Procure pelo Nome ou CPF"> <br>
-        <button type="submit" class="btn btn-warning btn-sm mt-1">Pesquisar</button>
+        <button type="submit" class="btn btn-warning btn-sm mt-1">Pesquisar</button><a class="btn btn-secondary btn-sm mx-1 mt-1" href="{{route('assistido.list')}}">limpar</a>
     </form>
 </div>
 

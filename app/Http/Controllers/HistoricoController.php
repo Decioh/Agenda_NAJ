@@ -6,6 +6,7 @@ use App\Models\Agenda;
 use App\Models\Assistido;
 use App\Models\AssistidoAgenda;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection;
 use App\Models\Historico;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -13,8 +14,28 @@ use Carbon\Carbon;
 class HistoricoController extends Controller
 {
     public function index(){
+        $search = request('search');
+            if($search){
+                $i=0;
+                $agenda_ids = AssistidoAgenda::where('nome_assistido', 'like', '%'.$search.'%')->pluck('agenda_id');
+                if(count($agenda_ids)>0){
+                    foreach($agenda_ids as $agenda_id){
+                        $historicos[$i] = DB::table('historicos')->where('agenda_id', 'like', $agenda_id)->first();
+                        $i++;
+                    }
+                $historicos = array_filter( $historicos);
+                }
+                else{
+                    $historicos = Historico::all('*');
+                    $agendas = Agenda::all('*');
+                    $assistidos = Assistido::all('*');
 
-        $historicos = Historico::all('*');
+                return view ('historico',['historicos'=>$historicos,'assistidos'=>$assistidos,'agendas'=>$agendas])->with('msg', 'Não foi encontrado um Histórico nesse nome');
+                }   
+            }
+            else{
+                $historicos = Historico::all('*');
+            }     
         $agendas = Agenda::all('*');
         $assistidos = Assistido::all('*');
 
