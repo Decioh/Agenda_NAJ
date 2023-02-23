@@ -51,3 +51,4 @@ Route::get('/historico', [HistoricoController::class, 'index'])->name('historico
 Route::get('/historico/{agenda_id}', [HistoricoController::class, 'create'])->name('historico.create')->middleware('auth');
 Route::post('/historico/agenda/{agenda_id}', [HistoricoController::class, 'store'])->name('historico.store')->middleware('auth');
 Route::get('/historico/info/{agenda_id}', [HistoricoController::class, 'info'])->name('historico.info')->middleware('auth');
+Route::get('/estatisticas', [HistoricoController::class, 'dashboard'])->name('historico.dashboard')->middleware('auth');

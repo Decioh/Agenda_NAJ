@@ -20,17 +20,17 @@ class HistoricoController extends Controller
                 $agenda_ids = AssistidoAgenda::where('nome_assistido', 'like', '%'.$search.'%')->pluck('agenda_id');
                 if(count($agenda_ids)>0){
                     foreach($agenda_ids as $agenda_id){
-                        $historicos[$i] = DB::table('historicos')->where('agenda_id', 'like', $agenda_id)->first();
+                        $historicos[$i] = DB::table('historicos')->where('agenda_id', '=', $agenda_id)->first();
                         $i++;
                     }
                 $historicos = array_filter( $historicos);
                 }
-                else{
-                    $historicos = Historico::all('*');
+                else if(count($agenda_ids)==0){
+                    $historicos = 0;
                     $agendas = Agenda::all('*');
                     $assistidos = Assistido::all('*');
 
-                return view ('historico',['historicos'=>$historicos,'assistidos'=>$assistidos,'agendas'=>$agendas])->with('msg', 'Não foi encontrado um Histórico nesse nome');
+                return view ('historico',['historicos'=>$historicos,'assistidos'=>$assistidos,'agendas'=>$agendas,'search'=>$search])->with('msg', 'Não foi encontrado um Histórico com esse nome');
                 }   
             }
             else{
@@ -88,5 +88,13 @@ class HistoricoController extends Controller
             $i++;
         }
     return view ('historico_info',['historico'=>$historico,'assistidos'=>$assistidos,'agendas'=>$agendas]);
+    }
+
+    public function dashboard(){
+
+    $assistidos = Assistido::all()->count();  
+    $historicos = Historico::all()->count(); 
+    $agendamentos = Agenda::where('assistido_id','!=', null)->count();
+    return view('estatisticas',['assistidos'=>$assistidos,'historicos'=>$historicos,'agendamentos'=>$agendamentos]);
     }
 }

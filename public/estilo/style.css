@@ -155,3 +155,41 @@ footer a:hover{
     margin-bottom: 0px;
     color: rgb(112, 111, 111);
 }
+
+/***********************/
+/****** DASHBOARD *****/
+/***********************/
+
+/* Bg gradient */
+.bg-gradient-green {background-image: linear-gradient(to right, #00c853 , #69f0ae);color: white;}
+.bg-gradient-blue {background-image: linear-gradient(to right, #0091ea , #40c4ff);color: white;}
+.bg-gradient-orange {background-image: linear-gradient(to right, #f57f17 , #fbc02d );color: white;}
+
+
+
+/* Media Screen 
+@media only screen and (max-width: 600px) {
+    .info article {margin-bottom: 20px;}
+    .brand-logo img {width: 220px; margin-top: 8px;}
+}
+*/
+/* Chip 
+.chip {font-weight: 400; font-size: 1rem;}
+*/
+
+/* Gráficos
+.graficos {padding:20px;}
+.grafico {padding: 20px; border-radius: 10px;}
+.grafico h5 {font-size: 1rem; text-transform: uppercase; font-weight: 500; color: #333; }
+ */
+/* Crud 
+.crud .titulo  {margin-top: 20px; padding: 12px 0;} 
+.crud .titulo h1 {font-size: 2rem;  text-transform: uppercase; font-weight: 900; color: #333; margin: 0; }
+.crud .titulo p {font-size: 1rem;   font-weight: 500; color: #333; margin: 0 0 20px 0; }
+.crud .registros {padding: 20px;}
+.crud .registros table img {width: 60px; margin-left: 10px;}
+*/
+/* Pagination 
+.pagination {padding: 20px 0;}
+*/
+

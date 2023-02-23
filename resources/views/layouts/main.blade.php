@@ -6,12 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
     <!--CSS da aplicação-->
-    <link rel="stylesheet" href={{asset('/estilo/style.css')}}>
+    <link rel="stylesheet" href={{asset('/estilo/style.css')}}><!--defer-->
     <!-- CSS bootstrap -->
-    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous"-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <!--Script-->
-    <script src={{asset('/js/scripts.js')}}></script>
+    <script src={{asset('/js/scripts.js')}} defer></script>
     <!--Flatpickr.js-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!--Ion icons-->
@@ -22,7 +21,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Abyssinica+SIL&family=Roboto:wght@300&display=swap" rel="stylesheet"> 
     <link rel="shortcut icon" href="../public/img/favicon.ico" type="image/x-icon">
+    
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    
+
+    
 </head>
 <body>
     <header>
@@ -30,7 +35,9 @@
         <nav class = 'menu'>
         <a href="{{ route('mediacao.agendamentos') }}">Meus atendimentos</a>
 
-        <a href="{{ route('historico.index') }}">historico de atendimentos</a>
+        <a href="{{ route('historico.index') }}">Histórico</a>
+
+        <a href="{{ route('historico.dashboard') }}">Estatísticas</a>
         @auth
         <div class= 'menu'>
         <form method="POST" name="logout" action="{{ route('logout') }}">
@@ -77,6 +84,10 @@
     "locale": "pt_BR"  // locale for this instance only
     });
     </script>
-    
+    <!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="{{asset('js/chart.js')}}" ></script>
+<script src="{{asset('js/main.js')}}"></script>
+@stack('graficos')
 </body>
 </html>
