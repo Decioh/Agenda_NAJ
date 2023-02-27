@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 use App\Models\Historico;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Http\traits\HistoricTrait;
 
 class HistoricoController extends Controller
 {
@@ -89,12 +90,78 @@ class HistoricoController extends Controller
         }
     return view ('historico_info',['historico'=>$historico,'assistidos'=>$assistidos,'agendas'=>$agendas]);
     }
+    function wrap_implode( $array, $before = '', $after = '', $separator = '' ){
+        if( ! $array )  return '';
+        return $before . implode("{$after}{$separator}{$before}", $array ) . $after;
+      }
 
     public function dashboard(){
 
-    $assistidos = Assistido::all()->count();  
-    $historicos = Historico::all()->count(); 
-    $agendamentos = Agenda::where('assistido_id','!=', null)->count();
-    return view('estatisticas',['assistidos'=>$assistidos,'historicos'=>$historicos,'agendamentos'=>$agendamentos]);
+        $assistidos = Assistido::all()->count();  
+        $historicos = Historico::all()->count(); 
+        $agendamentos = Agenda::where('assistido_id','!=', null)->count();
+        $ano = request('ano');
+        if($ano)
+            {/*Gráfico 1*/
+        $atendimentos_mes = Historico::select([
+            DB::raw('MONTH(start) as mes'),
+            DB::raw('COUNT(*) as total')
+        ])
+        ->groupBy('mes')
+        ->orderBy('mes','asc')
+        ->get();
+        setlocale( LC_ALL, 'pt_BR', 'pt_BR.iso-8859-1', 'pt_BR.utf-8', 'portuguese' );
+        $month = array('Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'jul', 'Agosto', 'Set', 'Out', 'Nov', 'Dez');
+        foreach($atendimentos_mes as $atendimento){
+            $mes[] = "'".($month[($atendimento->mes-1)])."'";
+            $tot_mes[] = $atendimento->total;
+        }
+        $meses = implode(',', $mes);
+        $tot_p_mes = implode(',', $tot_mes);
+
+        /*Gráfico 2*/
+        $acordo_realizado = Historico::where('parecer', '=', 'Acordo realizado')->count();
+        $acordo_inviavel = Historico::where('parecer', '=', 'Acordo inviável')->count();
+        $nao_compareceu = Historico::where('parecer', 'like', '%'.'Parte não compareceu'.'%')->count();
+        $processo_judicializado = Historico::where('parecer', '=', 'Processo judicializado')->count();
+        $total = $acordo_inviavel+$acordo_realizado+$nao_compareceu+$processo_judicializado;
+        }
+        /*Gráfico 1*/
+        $atendimentos_mes = Historico::select([
+            DB::raw('MONTH(start) as mes'),
+            DB::raw('COUNT(*) as total')
+        ])
+        ->groupBy('mes')
+        ->orderBy('mes','asc')
+        ->get();
+        setlocale( LC_ALL, 'pt_BR', 'pt_BR.iso-8859-1', 'pt_BR.utf-8', 'portuguese' );
+        $month = array('Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'jul', 'Agosto', 'Set', 'Out', 'Nov', 'Dez');
+        foreach($atendimentos_mes as $atendimento){
+            $mes[] = "'".($month[($atendimento->mes-1)])."'";
+            $tot_mes[] = $atendimento->total;
+        }
+        $meses = implode(',', $mes);
+        $tot_p_mes = implode(',', $tot_mes);
+
+        /*Gráfico 2*/
+        $acordo_realizado = Historico::where('parecer', '=', 'Acordo realizado')->count();
+        $acordo_inviavel = Historico::where('parecer', '=', 'Acordo inviável')->count();
+        $nao_compareceu = Historico::where('parecer', 'like', '%'.'Parte não compareceu'.'%')->count();
+        $processo_judicializado = Historico::where('parecer', '=', 'Processo judicializado')->count();
+        $total = $acordo_inviavel+$acordo_realizado+$nao_compareceu+$processo_judicializado; 
+
+        $acordo_inviavel_p        = number_format(((float)$acordo_inviavel/$total)*100, 2, '.', '');
+        $nao_compareceu_p         = number_format(((float)$nao_compareceu/$total)*100, 2, '.', '');
+        $acordo_realizado_p       = number_format(((float)$acordo_realizado/$total)*100, 2, '.', '');
+        $processo_judicializado_p = number_format(((float)$processo_judicializado/$total)*100, 2, '.', '');
+        $acordo_inviavel_p        = $acordo_inviavel_p        ."%";
+        $nao_compareceu_p         = $nao_compareceu_p         ."%";
+        $acordo_realizado_p       = $acordo_realizado_p       ."%";
+        $processo_judicializado_p = $processo_judicializado_p ."%";
+
+        if($total == 0) $total=1;
+    return view('estatisticas',['meses'=>$meses, 'tot_p_mes'=>$tot_p_mes ,'total'=>$total,'assistidos'=>$assistidos,'historicos'=>$historicos,'agendamentos'=>$agendamentos,'acordo_realizado'=>$acordo_realizado,'acordo_inviavel'=>$acordo_inviavel,'nao_compareceu'=>$nao_compareceu,'processo_judicializado'=>$processo_judicializado
+    ,'acordo_realizado_p'=>$acordo_realizado_p,'acordo_inviavel_p'=>$acordo_inviavel_p,'nao_compareceu_p'=>$nao_compareceu_p,'processo_judicializado_p'=>$processo_judicializado_p]);
     }
+    
 }

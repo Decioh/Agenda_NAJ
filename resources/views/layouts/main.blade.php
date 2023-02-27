@@ -33,7 +33,7 @@
     <header>
         <a href="{{ route('mediacao.agendamentos') }}"><img src="{{asset('/img/DP_DF-preto.png')}}" alt="logo-defensoria" height="59px" width="225px"></a>
         <nav class = 'menu'>
-        <a href="{{ route('mediacao.agendamentos') }}">Meus atendimentos</a>
+        <a href="{{ route('mediacao.agendamentos') }}">Horários</a>
 
         <a href="{{ route('historico.index') }}">Histórico</a>
 
@@ -85,7 +85,7 @@
     });
     </script>
     <!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 <script src="{{asset('js/chart.js')}}" ></script>
 <script src="{{asset('js/main.js')}}"></script>
 @stack('graficos')
