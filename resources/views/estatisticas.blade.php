@@ -44,31 +44,32 @@
 </div>
     
 </div> <br>
-    <div class="row mx-5 mb-5">
-        <section class="graficos col 12 my-5" >            
-          <div class="grafico card z-depth-4">
+<div class="row mx-5 mb-5">
+    <section class="graficos col 12 my-5" >            
+      <div class="grafico card z-depth-4">
+        <span class="d-inline-flex p-2">
+            <form action="{{route('historico.dashboard')}}">
+                @csrf
+                <label for="começo"><input type="number" min="2023" max="2099" step="1" value="{{$ano}}" class="form-control" id="ano" name="ano"></label>
+                <input type="submit" class="btn btn-warning btn-sm" value="filtrar" >
+            </form>
+        </span>
+          <h5 class="center"> Atendimentos por mês</h5>
+          @if($meses == 'nenhum agendamento no Ano selecionado')
+          <p style="font-weight:bold">Nenhum histórico no Ano de {{$ano}}</p>
+          @endif
+          <canvas id="myChart" width="700" height="350"></canvas>
+      </div>           
+    </section> 
+    <section class="graficos col 12 my-5">            
+        <div class="grafico card z-depth-4">
             <span class="d-inline-flex p-2">
                 <form action="{{route('historico.dashboard')}}">
+                    <input type="hidden" name="ano" value="{{$ano}}">
                     @csrf
-                    <label for="começo"><input type="number" min="2023" max="2099" step="1" value="{{$ano}}" class="form-control" id="ano" name="ano"></label>
-                    <input type="submit" class="btn btn-warning btn-sm" value="filtrar" >
-                </form>
-            </span>
-              <h5 class="center"> Atendimentos por mês</h5>
-              @if($meses == 'nenhum agendamento no Ano selecionado')
-              <p style="font-weight:bold">Nenhum histórico no Ano de {{$ano}}</p>
-              @endif
-              <canvas id="myChart" width="700" height="350"></canvas>
-          </div>           
-        </section> 
-        <section class="graficos col 12 my-5">            
-            <div class="grafico card z-depth-4">
-                <span class="d-inline-flex p-2">
-                    <form action="{{route('historico.dashboard')}}">
-                        <input type="hidden" name="ano" value="{{$ano}}">
-                        @csrf
-                        <select class=" form-select form-select-sm " aria-label="Default select example" name="mes_filter" id="mes_filter">
-                            <option value="00"  selected>Mês</option>
+                    <label for="mes_filter">
+                        <select class=" form-select form-select-sm my-2 mx-2 " aria-label="Default select example" name="mes_filter" id="mes_filter">
+                            <option value="00"  selected></option>
                             <option value="01" >Janeiro</option>
                             <option value="02" >Fevereiro</option>
                             <option value="03" >Março</option>
@@ -82,16 +83,17 @@
                             <option value="11">Novembro</option>
                             <option value="12">Dezembro</option>
                         </select>
-                        <input type="submit" class="btn btn-warning btn-sm my-2" value="filtrar" >
-                    </form>
-                </span>
-                <h5 class="center"> Pareceres </h5>
-                @if($acordo_inviavel == 0 && $nao_compareceu == 0 && $acordo_realizado == 0 && $processo_judicializado == 0)
-                    <p style="font-weight:bold">Nenhum histórico para {{$selected_month}} de {{$ano}}</p>
-                @endif
-                <canvas id="myChart2" width="700" height="350"></canvas> 
-            </div>
-        </section>           
+                    </label>
+                    <input type="submit" class="btn btn-warning btn-sm mx-3" value="filtrar" >
+                </form>
+            </span>
+            <h5 class="center"> Pareceres </h5>
+            @if($acordo_inviavel == 0 && $nao_compareceu == 0 && $acordo_realizado == 0 && $processo_judicializado == 0)
+                <p style="font-weight:bold">Nenhum histórico para {{$selected_month}} de {{$ano}}</p>
+            @endif
+            <canvas id="myChart2" width="700" height="350"></canvas> 
+        </div>
+    </section>           
 </div>  
 @endsection
 

@@ -173,6 +173,7 @@ class HistoricoController extends Controller
 
         if($total == 0) $total=1;//Caso total igual a zero, evitamos uma divisão por zero;
 
+        /* Dados em porcentagem*/
         $acordo_inviavel_p        = number_format(((float)$acordo_inviavel/$total)*100, 2, '.', '');
         $nao_compareceu_p         = number_format(((float)$nao_compareceu/$total)*100, 2, '.', '');
         $acordo_realizado_p       = number_format(((float)$acordo_realizado/$total)*100, 2, '.', '');
