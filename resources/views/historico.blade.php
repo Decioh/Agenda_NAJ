@@ -18,7 +18,7 @@
     </form>
 </div>
 @if(is_int($historicos))
-<p>Não foi encontrado um histórico para o assistido <b>{{$search}}</b></p>
+<p>Não foi encontrado um histórico para o assistido <span style="font-weight: bold;">{{$search}}</span></p>
 @else
     @if(count($historicos)>0)
     

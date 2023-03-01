@@ -18,7 +18,7 @@
       <h6 class="card-subtitle mb-2 text-muted">{{date('d/m/y H:i', strtotime($agenda -> start))}}</h6>
       <p class="card-text">Informações do agendamento:<br>
         {{$agenda->info}} </p>
-        <b>Partes:</b><br>
+        <span style="font-weight: bold;">Partes:</span><br>
         @foreach($assistido_agendas as $assistido_agendas)
             <div class="my-1">{{($assistido_agendas->nome_assistido)}} </div>
         @endforeach

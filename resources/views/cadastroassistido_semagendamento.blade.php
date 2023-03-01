@@ -8,23 +8,23 @@
     @csrf
 <div class="cadastro"><br>
     <div class="cadastron">
-        <label for="nome"><b>Nome:</b></label>
+        <label for="nome"><span style="font-weight: bold;">Nome:</span></label>
         <input type="text" id="nome" name="nome" required>
     </div><br>
     <div class="cadastrod">
-        <label for="nasc"><b>Data de nascimento:</b>&nbsp;<input type="date"  id="nasc" name="nasc"></label>
+        <label for="nasc"><span style="font-weight: bold;">Data de nascimento:</span>&nbsp;<input type="date"  id="nasc" name="nasc"></label>
         
     </div> <br>
     <div class="cadastrocpf"> 
-        <label for="cpf"><b>CPF:</b></label>
+        <label for="cpf"><span style="font-weight: bold;">CPF:</span></label>
         <input type="text" id="cpf" name="cpf" maxlength="11" required>
     </div> <br>
     <div class="cadastrotel"> 
-        <label for="telefone"><b>Telefone:</b></label>
+        <label for="telefone"><span style="font-weight: bold;">Telefone:</span></label>
         <input type="text" id="telefone" name="telefone" maxlength="11" required>
     </div> <br>
     <div class="cadastroemail"> 
-        <label for="email"><b>E-mail:</b></label>
+        <label for="email"><span style="font-weight: bold;">E-mail:</span></label>
         <input type="text" id="email" name="email" required>
     </div> <br>
         <div class="form-group">

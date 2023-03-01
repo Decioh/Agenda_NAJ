@@ -49,7 +49,7 @@
 @endforeach
 @if(isset($search))
     @if((count($assistidos)==0))
-        <p>Não foi encontrado um assistido cadastrado com esse nome/CPF</p> 
+        <p>Não foi encontrado um assistido cadastrado com esse nome/CPF: <span style="font-weight: bold;">{{$search}}</span></p> 
     @endif
 @endif
     <a href="{{route('assistido.novo')}}"class="btn btn-success btn-sm"> Cadastrar </a>  

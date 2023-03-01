@@ -13,11 +13,11 @@ $tel = preg_replace("/(\d{0})(\d{2})(\d{5})(\d{4})/", "\$1(\$2)\$3-\$4", $assist
 <h3 class="mt-3">Informações assistido</h3>
 
 <p>
-    <b>Nome:</b> {{$assistido -> nome}}<br>
-    <b>Nasc:</b> @if($assistido->nasc != null){{date('d/m/Y', strtotime($assistido -> nasc))}} @else - @endif<br>
-    <b>CPF:</b> {{$cpf}}<br>
-    <b>E-mail:</b> {{$assistido -> email}}<br>
-    <b>Telefone:</b> {{$tel}}<br>
+    <span style="font-weight: bold;">Nome:</span> {{$assistido -> nome}}<br>
+    <span style="font-weight: bold;">Nasc:</span> @if($assistido->nasc != null){{date('d/m/Y', strtotime($assistido -> nasc))}} @else - @endif<br>
+    <span style="font-weight: bold;">CPF:</span> {{$cpf}}<br>
+    <span style="font-weight: bold;">E-mail:</span> {{$assistido -> email}}<br>
+    <span style="font-weight: bold;">Telefone:</span> {{$tel}}<br>
 </p>
 <a href="{{ route('assistido.edit', $assistido-> id) }}"class="btn btn-warning btn"> Editar </a>
     
@@ -35,7 +35,7 @@ $tel = preg_replace("/(\d{0})(\d{2})(\d{5})(\d{4})/", "\$1(\$2)\$3-\$4", $assist
               <h6 class="card-subtitle mb-2 text-muted">{{date('d/m/y H:i', strtotime($agenda -> start))}}</h6>
               <p class="card-text">Informações do agendamento:<br>
                 {{$agenda->info}} </p>
-                <b>Partes:</b><br>
+                <span style="font-weight: bold;">Partes:</span><br>
                 @foreach($assistido_agenda as $assistido_agendas)
                     @if($assistido_agendas->agenda_id == $agenda->id)
                     <div class="mt-1">{{($assistido_agendas->nome_assistido)}} <a href="{{route('delete.parte',['agenda_id'=> $agenda->id,'assistido_id'=>$assistido_agendas->assistido_id])}}" class="btn btn-danger btn-sm"><abbr class="text-decoration-none" title="remover parte"><ion-icon title="false" name="person-remove-outline"></ion-icon></abbr></a><br></div>

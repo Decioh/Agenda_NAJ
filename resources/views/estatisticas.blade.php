@@ -47,27 +47,52 @@
     <div class="row mx-5 mb-5">
         <section class="graficos col 12 my-5" >            
           <div class="grafico card z-depth-4">
-            <form action="{{route('historico.dashboard')}}">
-                <label for="começo"><input type="number" min="2022" max="2099" step="1" value="2023" class="form-control" id="ano" name="ano" placeholder="começo"></label>
-                <input type="submit" class="btn btn-warning btn-sm" value="filtrar" >
-            </form>
+            <span class="d-inline-flex p-2">
+                <form action="{{route('historico.dashboard')}}">
+                    @csrf
+                    <label for="começo"><input type="number" min="2023" max="2099" step="1" value="{{$ano}}" class="form-control" id="ano" name="ano"></label>
+                    <input type="submit" class="btn btn-warning btn-sm" value="filtrar" >
+                </form>
+            </span>
               <h5 class="center"> Atendimentos por mês</h5>
+              @if($meses == 'nenhum agendamento no Ano selecionado')
+              <p style="font-weight:bold">Nenhum histórico no Ano de {{$ano}}</p>
+              @endif
               <canvas id="myChart" width="700" height="350"></canvas>
           </div>           
         </section> 
-
         <section class="graficos col 12 my-5">            
             <div class="grafico card z-depth-4">
+                <span class="d-inline-flex p-2">
+                    <form action="{{route('historico.dashboard')}}">
+                        <input type="hidden" name="ano" value="{{$ano}}">
+                        @csrf
+                        <select class=" form-select form-select-sm " aria-label="Default select example" name="mes_filter" id="mes_filter">
+                            <option value="00"  selected>Mês</option>
+                            <option value="01" >Janeiro</option>
+                            <option value="02" >Fevereiro</option>
+                            <option value="03" >Março</option>
+                            <option value="04" >Abril</option>
+                            <option value="05" >Maio</option>
+                            <option value="06" >Junho</option>
+                            <option value="07" >Julho</option>
+                            <option value="08" >Agosto</option>
+                            <option value="09" >Setembro</option>
+                            <option value="10">Outubro</option>
+                            <option value="11">Novembro</option>
+                            <option value="12">Dezembro</option>
+                        </select>
+                        <input type="submit" class="btn btn-warning btn-sm my-2" value="filtrar" >
+                    </form>
+                </span>
                 <h5 class="center"> Pareceres </h5>
-                {{--<form action="#">
-                    <select name="op" id="op">
-                        <option value="1" onclick="tipo(1)">Porcentagem</option>
-                        <option value="2" onclick="tipo(2)">Total</option>
-                    </select>
-                </form>--}}
+                @if($acordo_inviavel == 0 && $nao_compareceu == 0 && $acordo_realizado == 0 && $processo_judicializado == 0)
+                    <p style="font-weight:bold">Nenhum histórico para {{$selected_month}} de {{$ano}}</p>
+                @endif
                 <canvas id="myChart2" width="700" height="350"></canvas> 
-            </div>            
-</div>
+            </div>
+        </section>           
+</div>  
 @endsection
 
 @push('graficos')
@@ -79,7 +104,7 @@ var myChart = new Chart(ctx, {
     data: {
         labels: [{!!$meses!!}],
         datasets: [{
-            label: '2023',
+            label: ['Atendimentos'],
             data: [{{$tot_p_mes}}],
             backgroundColor: [
                 'rgba(153, 162, 235, 1)',

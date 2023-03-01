@@ -20,23 +20,23 @@
         <div class="form-group">
          
         
-        <label for="começo"><b>Começo:</b> <input type="datetime" class="form-control" id="começo" name="start" placeholder="começo"></label>
+        <label for="começo"><span style="font-weight: bold;">Começo:</span> <input type="datetime" class="form-control" id="começo" name="start" placeholder="começo"></label>
         
-        <label for="fim" ><b>Final:</b> <input type="datetime" class="form-control" id="fim" name="fim" placeholder="fim"></label>
+        <label for="fim" ><span style="font-weight: bold;">Final:</span> <input type="datetime" class="form-control" id="fim" name="fim" placeholder="fim"></label>
         
     </div> <br>
     <div> <br>
         
     <div class="form-group">
-        <label for="dura"><b>Tempo para cada atendimento:</b></label><br>
+        <label for="dura"><span style="font-weight: bold;">Tempo para cada atendimento:</span></label><br>
         <input type="number" min = "1" max="60" id="dur" name="dur">
     </div><br>
     <div class="form-group">
-        <label for="vagas"><b>Vagas:</b></label><br>
+        <label for="vagas"><span style="font-weight: bold;">Vagas:</span></label><br>
         <input type="number" min="1" max="40" id="vagas" name="vagas">
     </div> <br>
     <div class="form-group"> 
-        <label for="vagas"><b>Atendimentos simultaneos:</b></label><br>
+        <label for="vagas"><span style="font-weight: bold;">Atendimentos simultaneos:</span></label><br>
         <input type="number" min="1" max="40" id="vag_h" name="vag_h">
     </div> <br>
     <div> <br>
