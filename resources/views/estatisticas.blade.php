@@ -69,7 +69,7 @@
                     @csrf
                     <label for="mes_filter">
                         <select class=" form-select form-select-sm my-2 mx-2 " aria-label="Default select example" name="mes_filter" id="mes_filter">
-                            <option value="00"  selected></option>
+                            <option value="01" >{{$selected_month}}</option>
                             <option value="01" >Janeiro</option>
                             <option value="02" >Fevereiro</option>
                             <option value="03" >Março</option>
@@ -87,7 +87,7 @@
                     <input type="submit" class="btn btn-warning btn-sm mx-3" value="filtrar" >
                 </form>
             </span>
-            <h5 class="center"> Pareceres </h5>
+            <h5 class="center"> Pareceres @if($selected_month != 'todos os meses') <span style="font-weight:bold" >{{$selected_month}}</span> @endif</h5>
             @if($acordo_inviavel == 0 && $nao_compareceu == 0 && $acordo_realizado == 0 && $processo_judicializado == 0)
                 <p style="font-weight:bold">Nenhum histórico para {{$selected_month}} de {{$ano}}</p>
             @endif

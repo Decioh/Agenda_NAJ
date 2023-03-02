@@ -37,19 +37,36 @@
         </p>
     </div>
 </div>
+<button type="button" class="btn btn-danger delete-btn" data-toggle="modal" data-target="#exampleModalCenter">
+    Deletar assistido
+</button>
 </form>
+
+<!-- Modal -->
 <form action="{{ route('assistido.destroy', $assistido->id) }}" method="POST">
     @csrf
     @method('DELETE')
-    <button type="submit" class="btn btn-danger delete-btn">Deletar assistido</button>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Deletar assistido</h5>
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <p>
+                Você tem certeza que deseja deletar?<br>
+                Essa ação não poderá ser desfeita.
+            </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger delete-btn btn-sm">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </form>
-{{--<form action="{{ route('agenda.destroy', $assistido->id) }}" method="POST">
-    @csrf
-    @method('DELETE')
-
-    <button type="submit" class="btn btn-danger delete-btn">Cancelar agendamento</button>
-</form>--}}
-</form>
-
-
 @endsection

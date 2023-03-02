@@ -9,6 +9,10 @@
     <link rel="stylesheet" href={{asset('/estilo/style.css')}}><!--defer-->
     <!-- CSS bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- JS bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!--Script-->
     <script src={{asset('/js/scripts.js')}} defer></script>
     <!--Flatpickr.js-->
@@ -21,12 +25,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Abyssinica+SIL&family=Roboto:wght@300&display=swap" rel="stylesheet"> 
     <link rel="shortcut icon" href="../public/img/favicon.ico" type="image/x-icon">
-    
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    
-
     
 </head>
 <body>
@@ -34,6 +34,8 @@
         <a href="{{ route('mediacao.agendamentos') }}"><img src="{{asset('/img/DP_DF-preto.png')}}" alt="logo-defensoria" height="59px" width="225px"></a>
         <nav class = 'menu'>
         <a href="{{ route('mediacao.agendamentos') }}">Horários</a>
+
+        <a href="{{route('assistido.list')}}">Assistidos</a>
 
         <a href="{{ route('historico.index') }}">Histórico</a>
 
@@ -60,7 +62,7 @@
     <footer class="fixed-bottom">
         <p>Produzido para a<a href="http://www.defensoria.df.gov.br/" target="_blank">Defensoria Pública - DF</a></p>
     </footer>
-
+    <!--Ion Icons-->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <!-- flatpickr, Seleção de calendario nos formulários-->
@@ -85,9 +87,8 @@
     });
     </script>
     <!-- Compiled and minified JavaScript -->
-
-<script src="{{asset('js/chart.js')}}" ></script>
-<script src="{{asset('js/main.js')}}"></script>
+        <script src="{{asset('js/chart.js')}}" ></script>
+        <script src="{{asset('js/main.js')}}"></script>
 @stack('graficos')
 </body>
 </html>

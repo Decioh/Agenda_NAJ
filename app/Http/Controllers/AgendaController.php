@@ -33,7 +33,7 @@ class AgendaController extends Controller
     }
     public function destroy($id,$agenda_id){
 
-        AssistidoAgenda::where('agenda_id',$agenda_id)->where('assistido_id',$id)->delete();
+        AssistidoAgenda::where('agenda_id',$agenda_id)->delete();
 
         $start = Agenda::where('id',$agenda_id)->pluck('start');
 

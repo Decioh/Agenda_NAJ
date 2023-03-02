@@ -24,7 +24,7 @@ class HistoricoController extends Controller
                         $historicos[$i] = DB::table('historicos')->where('agenda_id', '=', $agenda_id)->first();
                         $i++;
                     }
-                $historicos = array_filter( $historicos);
+                $historicos = array_filter($historicos);
                 }
                 else if(count($agenda_ids)==0){
                     $historicos = 0;
@@ -116,7 +116,7 @@ class HistoricoController extends Controller
         ->orderBy('mes','asc')
         ->get();
         setlocale( LC_ALL, 'pt_BR', 'pt_BR.iso-8859-1', 'pt_BR.utf-8', 'portuguese' );
-        $month = array('Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'jul', 'Agosto', 'Set', 'Out', 'Nov', 'Dez');
+        $month = array('Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro');
         if($ano){ 
             foreach($atendimentos_mes as $atendimento){
                 if ($atendimento->year == $ano){
