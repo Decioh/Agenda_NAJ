@@ -187,6 +187,14 @@ class AgendaController extends Controller
     return back();
     }
 
+    public function add_parecer(){
+        
+        $agendas = Agenda::where( 'start', '<=', Carbon::now())
+        ->where('assistido_id','!=', null)->where('historico_id','=',null)
+        ->orderBy('start','asc')->orderBy('vag_h','desc')
+        ->get(); //passando todos as agendas futuras para '/meadiacao/agendamentos'    
+        return view('agendamentos_sem_parecer',['agendas' => $agendas]);
+    }
 }
 
 
