@@ -196,6 +196,11 @@ class AgendaController extends Controller
         
         foreach($agendas as $agenda)
             $assistidos[]= AssistidoAgenda::where('agenda_id', '=', $agenda->id)->get('nome_assistido');
+        
+        if(isset($assistidos))
+            return view('agendamentos_sem_parecer',['agendas' => $agendas, 'assistidos'=>$assistidos]); 
+        else
+            $assistidos = "nenhum";
         return view('agendamentos_sem_parecer',['agendas' => $agendas, 'assistidos'=>$assistidos]);
     }
 }
