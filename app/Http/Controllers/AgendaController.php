@@ -192,8 +192,11 @@ class AgendaController extends Controller
         $agendas = Agenda::where( 'start', '<=', Carbon::now())
         ->where('assistido_id','!=', null)->where('historico_id','=',null)
         ->orderBy('start','asc')->orderBy('vag_h','desc')
-        ->get(); //passando todos as agendas futuras para '/meadiacao/agendamentos'    
-        return view('agendamentos_sem_parecer',['agendas' => $agendas]);
+        ->get(); //passando todos as agendas futuras para '/meadiacao/agendamentos'
+        
+        foreach($agendas as $agenda)
+            $assistidos[]= AssistidoAgenda::where('agenda_id', '=', $agenda->id)->get('nome_assistido');
+        return view('agendamentos_sem_parecer',['agendas' => $agendas, 'assistidos'=>$assistidos]);
     }
 }
 

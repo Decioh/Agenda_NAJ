@@ -130,7 +130,7 @@ class HistoricoController extends Controller
                 $tot_p_mes = implode(',', $tot_mes);
             }
             else{
-                $meses = 'nenhum agendamento no Ano selecionado';
+                $meses = 'nenhum agendamento no ano selecionado';
                 $tot_p_mes = 0;
             }
         }
@@ -143,6 +143,10 @@ class HistoricoController extends Controller
             if(isset($mes)){
                 $meses = implode(',', $mes);
                 $tot_p_mes = implode(',', $tot_mes);
+            }
+            else{
+                $meses = 'nenhum';
+                $tot_p_mes = 0;
             }
         }
         /*Gráfico 2*/

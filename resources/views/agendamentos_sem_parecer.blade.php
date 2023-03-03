@@ -13,6 +13,7 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
+                <th scope="col">Informações</th>
                 <th scope="col">Dia</th>
                 <th scope="col">Agendamento</th>
             </tr>
@@ -21,8 +22,9 @@
     @foreach($agendas as $agenda)
         <tr>
             <th scope="row">{{$loop->iteration}}</th>
+            <td>{{$agenda->info}}</th>
             <td>{{$agenda->dia}} - {{date('d/m', strtotime($agenda->start))}}</td>
-            <td><a href="{{route('historico.create',$agenda->id)}}" class="btn btn-secondary btn-sm mt-1">Adicionar parecer</a>                      
+            <td> <a href="{{route('historico.info',$agenda->id)}}"class="btn btn-secondary btn-sm"> Info </a> <a href="{{route('historico.create',$agenda->id)}}" class="btn btn-warning btn-sm">Adicionar parecer</a></td>                      
             </tr>
     </tbody>
     @endforeach

@@ -16,10 +16,10 @@
     <a class="btn btn-warning mt-5" href="{{ route('assistido.list')}}">Pesquisar/Cadastrar assistido</a>
     </div>
 
-    <div class="col-md10 offset-md-1 dashboard-title-container" style="margin-right: 160px">
+    <div class="container-md xl ">
         <h2>Meus agendamentos</h2>
     </div>
-    <div class="col-md10 offset-md-1 dashboard-title-container pb-5" style="margin-right: 160px">
+<div class="container-md xl pb-5 ">
     @php
     $i = 1;
     @endphp
@@ -101,7 +101,7 @@
         @else
             <p>Ainda não existe um horario de atendimento.</p>
         @endif
-    </div>
+</div>
         <div class="mx-auto" >
          {{--$agendas->links()--}}
         </div>
