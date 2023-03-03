@@ -161,9 +161,10 @@ footer a:hover{
 /***********************/
 
 /* Bg gradient */
-.bg-gradient-green {background-image: linear-gradient(to right, #00c853 , #69f0ae);color: white;}
+.bg-gradient-green {background-image: linear-gradient(to right, #00c853 , #46c085);color: white;}
 .bg-gradient-blue {background-image: linear-gradient(to right, #0091ea , #40c4ff);color: white;}
 .bg-gradient-orange {background-image: linear-gradient(to right, #f57f17 , #fbc02d );color: white;}
+.bg-gradient-red {background-image: linear-gradient(to right, #f00c0c , #fc7676 );color: white;}
 
 
 

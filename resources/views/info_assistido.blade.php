@@ -18,6 +18,7 @@ $tel = preg_replace("/(\d{0})(\d{2})(\d{5})(\d{4})/", "\$1(\$2)\$3-\$4", $assist
     <span style="font-weight: bold;">CPF:</span> {{$cpf}}<br>
     <span style="font-weight: bold;">E-mail:</span> {{$assistido -> email}}<br>
     <span style="font-weight: bold;">Telefone:</span> {{$tel}}<br>
+    <span style="font-weight: bold;">Cadastrado por:</span><br>
 </p>
 <a href="{{ route('assistido.edit', $assistido-> id) }}"class="btn btn-warning btn"> Editar </a>
     
@@ -58,7 +59,33 @@ $tel = preg_replace("/(\d{0})(\d{2})(\d{5})(\d{4})/", "\$1(\$2)\$3-\$4", $assist
                         <button type="button" class="btn btn-danger delete-btn btn-sm mt-1" data-toggle="modal" data-target="#exampleModalCenter">Cancelar agendamento</button>          
                         <a href="{{route('historico.create',$agenda->id)}}" class="btn btn-secondary btn-sm mt-1">Adicionar parecer</a>
                 </div>
-        
+    
+                <form action="{{ route('agenda.destroy', ["id"=>$assistido->id,"agenda_id"=>$agenda->id]) }}" method="POST">
+                  @csrf
+                  @method('DELETE')
+              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Cancelar agendamento</h5>
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                          <p>
+                              Você tem certeza que deseja <span style="font-weight:bold">cancelar o agendamento</span>?<br>
+                              Essa ação não poderá ser desfeita.
+                          </p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Retornar</button>
+                        <button type="submit" class="btn btn-danger btn-sm">Cancelar agendamento</button> 
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
     @endif         
 @endif  
         </div>
@@ -71,30 +98,5 @@ $tel = preg_replace("/(\d{0})(\d{2})(\d{5})(\d{4})/", "\$1(\$2)\$3-\$4", $assist
 <p>Assistido sem agendamentos</p>
 @endif
 
-<form action="{{ route('agenda.destroy', ["id"=>$assistido->id,"agenda_id"=>$agenda->id]) }}" method="POST">
-    @csrf
-    @method('DELETE')
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Cancelar agendamento</h5>
-          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <p>
-                Você tem certeza que deseja <span style="font-weight:bold">cancelar o agendamento</span>?<br>
-                Essa ação não poderá ser desfeita.
-            </p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Retornar</button>
-          <button type="submit" class="btn btn-danger btn-sm">Cancelar agendamento</button> 
-        </div>
-      </div>
-    </div>
-  </div>
-</form>
+
 @endsection

@@ -40,8 +40,6 @@
         <a href="{{ route('historico.index') }}">Histórico</a>
 
         <a href="{{ route('historico.dashboard') }}">Estatísticas</a>
-        
-        <a href="{{ route('agendamentos.sem_parecer') }}">teste</a>
         @auth
         <div class= 'menu'>
         <form method="POST" name="logout" action="{{ route('logout') }}">

@@ -8,6 +8,7 @@ use App\Models\AssistidoAgenda;
 use App\Models\Historico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\facades\Auth;
 
 class AssistidoController extends Controller
 {
@@ -58,6 +59,7 @@ class AssistidoController extends Controller
             $assistido->cpf = $cpf;
             $assistido->email = $email;
             $assistido->telefone = $telefone;
+            $assistido->user_id = Auth::user()->id;
 
             $assistido->save();
             $id=$assistido->id;
@@ -124,6 +126,7 @@ class AssistidoController extends Controller
             $assistido->cpf = $req->cpf;
             $assistido->telefone = $req->telefone;
             $assistido->email = $req->email;
+            $assistido->user_id = Auth::user()->id;
 
             $assistido->save();
             $id = $req->agenda_id;

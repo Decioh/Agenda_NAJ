@@ -19,7 +19,7 @@
     <div class="container-md xl ">
         <h2>Meus agendamentos</h2>
     </div>
-<div class="container-md xl pb-5 ">
+<div class="container-md xl ">
     @php
     $i = 1;
     @endphp

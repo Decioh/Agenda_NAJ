@@ -16,7 +16,7 @@ class AgendaController extends Controller
     }
     public function index(){
 
-        $agendas = Agenda::where( 'start', '>', Carbon::yesterday())->orderBy('start','asc')->orderBy('vag_h','desc')->get(); //passando todos as agendas futuras para '/meadiacao/agendamentos'
+        $agendas = Agenda::where( 'start', '>', Carbon::today())->orderBy('start','asc')->orderBy('vag_h','desc')->get(); //passando todos as agendas futuras para '/meadiacao/agendamentos'
 
     return view('/mediacao/agendamentos',['agendas' => $agendas]);   
     }
@@ -122,7 +122,7 @@ class AgendaController extends Controller
 
     public function list($id){
         $id;
-        $agendas = Agenda::where( 'start', '>', Carbon::yesterday())->orderBy('start','asc')->orderBy('vag_h','desc')->paginate(350); //passando todos os eventos pra view 'agendar_assistido'
+        $agendas = Agenda::where( 'start', '>', Carbon::now())->orderBy('start','asc')->orderBy('vag_h','desc')->paginate(350); //passando todos os eventos pra view 'agendar_assistido'
     
     return view ('agendar_assistido', ['agendas' => $agendas,'assistido_id'=>$id]);
     }

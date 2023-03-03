@@ -30,8 +30,9 @@ class HistoricoController extends Controller
                     $historicos = 0;
                     $agendas = Agenda::all('*');
                     $assistidos = Assistido::all('*');
+                    $sem_parecer = Agenda::where('start','<', Carbon::now())->where('assistido_id','!=', null)->where('historico_id','=',null)->count();
 
-                return view ('historico',['historicos'=>$historicos,'assistidos'=>$assistidos,'agendas'=>$agendas,'search'=>$search])->with('msg', 'Não foi encontrado um Histórico com esse nome');
+                return view ('historico',['sem_parecer'=>$sem_parecer,'historicos'=>$historicos,'assistidos'=>$assistidos,'agendas'=>$agendas,'search'=>$search])->with('msg', 'Não foi encontrado um Histórico com esse nome');
                 }   
             }
             else{
@@ -40,7 +41,9 @@ class HistoricoController extends Controller
         $agendas = Agenda::all('*');
         $assistidos = Assistido::all('*');
 
-    return view ('historico',['historicos'=>$historicos,'assistidos'=>$assistidos,'agendas'=>$agendas]);
+        $sem_parecer = Agenda::where('start','<', Carbon::now())->where('assistido_id','!=', null)->where('historico_id','=',null)->count();
+
+    return view ('historico',['sem_parecer'=>$sem_parecer,'historicos'=>$historicos,'assistidos'=>$assistidos,'agendas'=>$agendas]);
     }
     public function create($agenda_id){
 
@@ -186,6 +189,7 @@ class HistoricoController extends Controller
         $nao_compareceu_p         = $nao_compareceu_p         ."%";
         $acordo_realizado_p       = $acordo_realizado_p       ."%";
         $processo_judicializado_p = $processo_judicializado_p ."%";
+
 
     return view('estatisticas',['month'=>$month, 'selected_month'=>$selected_month,'ano'=>$ano,'meses'=>$meses, 'tot_p_mes'=>$tot_p_mes ,'total'=>$total,'assistidos'=>$assistidos,
     'historicos'=>$historicos,'agendamentos'=>$agendamentos,'acordo_realizado'=>$acordo_realizado,'acordo_inviavel'=>$acordo_inviavel,

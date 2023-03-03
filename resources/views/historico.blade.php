@@ -10,6 +10,27 @@
     <p class="msg"> {{session('msg')}}</p>
   @endif
 </div>
+@if($sem_parecer==0)
+    <div class="row align-items-start">
+        <a style="text-decoration:none" href="{{ route('agendamentos.sem_parecer') }}">
+        <div class="card mx-auto mt-5" style="width: 25rem;">
+            <article class="bg-gradient-green rounded row d-flex ">
+                <p class="my-auto mx-auto">Nenhum agendamento antigo sem parecer!</p>  
+            </article>
+        </div>
+        </a>
+    </div>
+@else
+    <div class="row align-items-start">
+        <a style="text-decoration:none" href="{{ route('agendamentos.sem_parecer') }}">
+        <div class="card mx-auto mt-5" style="width: 20rem;">
+            <article class="bg-gradient-red rounded row d-flex ">
+                <p class="my-auto mx-auto">@if($sem_parecer ==1)Agendamento @else Agendamentos @endif antigo sem parecer: {{$sem_parecer}}</p>  
+            </article>
+        </div>
+        </a>
+    </div>
+@endif
 <div id="search-container" class="col-md-12 justify-content-center">
     <h2>Buscar Histórico</h2>
     <form action="{{route('historico.index')}}" method="GET">

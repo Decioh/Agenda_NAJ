@@ -21,6 +21,7 @@ class CreateAssistidosTable extends Migration
             $table  ->  char('email',45);
             $table  ->  char('telefone',11);
             $table  ->  timestamps();
+            $table  ->  foreignId('user_id')->constrained();
         });
     }
 
