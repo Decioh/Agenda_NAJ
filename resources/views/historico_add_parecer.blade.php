@@ -23,7 +23,7 @@
             <div class="my-1">{{($assistido_agendas->nome_assistido)}} </div>
         @endforeach
 
-<form action="{{ route('historico.store', $historico) }}" method="POST">
+<form action="{{ route('historico.store', $agenda->id) }}" method="POST">
 @csrf
 <div class="mx-auto"> <br>
     <label class="my-2" for="parecer">Parecer final:</label><br>

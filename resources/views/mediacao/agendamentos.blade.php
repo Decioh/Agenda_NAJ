@@ -24,8 +24,8 @@
     $i = 1;
     @endphp
     <p>
-        <button class="btn btn-success btn-sm"></button> - Agenda livre
-        <button class="btn btn-secondary btn-sm"></button> - Agenda ocupada
+        <button class="btn btn-success btn-sm" style="pointer-events: none"></button> - Agenda livre
+        <button class="btn btn-secondary btn-sm" style="pointer-events: none"></button> - Agenda ocupada
     </p>
         @if(count($agendas) > 0)
         <table class="table">

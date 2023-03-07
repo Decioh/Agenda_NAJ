@@ -22,6 +22,7 @@
             @foreach($assistidos as $assistido)
                 <p>{{$loop->iteration.'. '. $assistido->nome}} <a href="{{route('assistido.info', $assistido-> id)}}"class="btn btn-secondary btn-sm"> info </a></p>
             @endforeach
+            <p><span class="card-subtitle text-muted">Agendado por:</span> {{$user->name}}</p>
         </div>
     </div>
 @endforeach

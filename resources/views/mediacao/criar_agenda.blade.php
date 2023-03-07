@@ -3,8 +3,6 @@
 @section('title', 'Agendamentos')
 
 @section('content')
-<!--Esconder campo de texto-->
-
 
 @if ((Auth::user()->user_type) == 2)
     <h1>Usuario não autorizado</h1>
@@ -14,17 +12,14 @@
 
     <form action="{{ route('agenda.store') }}" method="POST">
         @csrf
-    
+  
     <div class="form-group">
         <legend>Criando horarios de atendimento:</legend>
-        <div class="form-group">
-         
-        
-        <label for="começo"><span style="font-weight: bold;">Começo:</span> <input type="datetime" class="form-control" id="começo" name="start" placeholder="começo"></label>
-        
-        <label for="fim" ><span style="font-weight: bold;">Final:</span> <input type="datetime" class="form-control" id="fim" name="fim" placeholder="fim"></label>
-        
-    </div> <br>
+
+        <div class="form-group">         
+            <label for="começo"><span style="font-weight: bold;">Começo:</span> <input type="datetime" class="form-control" id="começo" name="start" placeholder="começo"></label>
+            <label for="fim" ><span style="font-weight: bold;">Final:</span> <input type="datetime" class="form-control" id="fim" name="fim" placeholder="fim"></label> <br>
+        </div> <br>
     <div> <br>
         
     <div class="form-group">

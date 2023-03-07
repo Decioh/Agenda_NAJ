@@ -29,7 +29,7 @@
     </tbody>
     @endforeach
     @else
-        <p>Todos os Agendamentos antigos possuem desfecho! <ion-icon name="happy-outline"></ion-icon> </p>
+        <p>Todos os Agendamentos antigos possuem desfecho!</p>
     @endif
 </div>
     <div class="mx-auto" >

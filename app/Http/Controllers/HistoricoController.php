@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Agenda;
 use App\Models\Assistido;
 use App\Models\AssistidoAgenda;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
 use App\Models\Historico;
@@ -47,6 +48,14 @@ class HistoricoController extends Controller
     }
     public function create($agenda_id){
 
+    $agenda = Agenda::findOrFail($agenda_id);
+    $assistido_agendas = DB::table('assistido_agendas')->where('agenda_id',$agenda_id)->get('*');
+    $agendas_assistidos = DB::table('assistido_agendas')->where('agenda_id',$agenda_id)->get('*');
+
+    return view('historico_add_parecer',['agenda'=>$agenda,'assistido_agendas'=>$assistido_agendas,'agendas_assistidos'=>$agendas_assistidos]);
+    }
+   /* public function create($agenda_id){
+
         $agenda =  DB::table('agendas')->where('id',$agenda_id)->first('*');  //Pega as infos da agenda para passar na view
                                                       
             $historico = new Historico();
@@ -67,18 +76,34 @@ class HistoricoController extends Controller
         $agendas_assistidos = DB::table('assistido_agendas')->where('agenda_id',$agenda_id)->get('*');
 
     return view ('historico_add_parecer',['historico'=>$historico,'agenda'=>$agenda,'assistido_agendas'=>$assistido_agendas,'agendas_assistidos'=>$agendas_assistidos]);
-    }
-    public function store($historico, Request $req){
-
+    }*/
+    public function store($agenda_id, Request $req){
+        
         $info = $req->info;
         $parecer = $req->parecer;
         $faltante = $req->parte_faltante;
         if($parecer=='Parte não compareceu'){
             $parecer = $parecer.':'.$faltante;
         }
+        $agenda = Agenda::findOrFail($agenda_id);
 
-        DB::table('historicos')->where('id', $historico)
-            ->update(['parecer' => $parecer,'info' => $info]);
+        $historico = new Historico();
+        $historico->start = $agenda->start;
+        $historico->agenda_id = $agenda->id;
+        $historico->user_id = $agenda->user_id;
+        $historico->parecer = $parecer;
+        $historico->info = $info;
+
+    $historico->save();
+    
+    DB::table('agendas')->where('id',$agenda_id)
+        ->update(['status' => 3]);
+
+    DB::table('agendas')->where('id',$agenda_id)
+        ->update(['historico_id' => $historico->id]);
+
+    DB::table('historicos')->where('id', $historico)
+        ->update(['parecer' => $parecer,'info' => $info]);
 
         return redirect()->route('historico.index');
     }
@@ -86,18 +111,16 @@ class HistoricoController extends Controller
         $i=0;
         $historico = Historico::where('agenda_id',$agenda_id)->get();
         $agendas = Agenda::where('id',$agenda_id)->get();
+        $agenda = Agenda::findOrFail($agenda_id);
+        $user = User::findOrFail($agenda->user_id);
         $assistido_ids = AssistidoAgenda::where('agenda_id',$agenda_id)->pluck('assistido_id');
         foreach($assistido_ids as $assistido_id){
             $assistidos[$i] = Assistido::where('id',$assistido_id)->first();
             $i++;
         }
-    return view ('historico_info',['historico'=>$historico,'assistidos'=>$assistidos,'agendas'=>$agendas]);
+    return view ('historico_info',['historico'=>$historico,'assistidos'=>$assistidos,'user'=>$user,'agendas'=>$agendas]);
     }
-    function wrap_implode( $array, $before = '', $after = '', $separator = '' ){
-        if( ! $array )  return '';
-        return $before . implode("{$after}{$separator}{$before}", $array ) . $after;
-      }
-
+    
     public function dashboard(){
         $ano = Carbon::now()->format('Y');
         $assistidos = Assistido::all()->count();  
@@ -138,6 +161,7 @@ class HistoricoController extends Controller
             }
         }
         else{
+            $ano = Carbon::now()->format('Y');
             foreach($atendimentos_mes as $atendimento){
                 $year[] = "'".($atendimento->year."'");
                 $mes[] = "'".($month[($atendimento->mes-1)])." - ".($atendimento->year)."'";
@@ -152,29 +176,28 @@ class HistoricoController extends Controller
                 $tot_p_mes = 0;
             }
         }
-        /*Gráfico 2*/
+        /*Gráfico 
         if($ano){   /*Se tiver filtragem por ano*/
-            if($mes_filter){ /* Se tiver filtragem por ano e por mês*/
-            $selected_month = $month[(($mes_filter)-1)];
-            $acordo_realizado = Historico::whereYear('start',$ano)->whereMonth('start', $mes_filter)->where('parecer', '=', 'Acordo realizado')->count();
-            $acordo_inviavel = Historico::whereYear('start',$ano)->whereMonth('start', $mes_filter)->where('parecer', '=', 'Acordo inviável')->count();
-            $nao_compareceu = Historico::whereYear('start',$ano)->whereMonth('start', $mes_filter)->where('parecer', 'like', '%'.'Parte não compareceu'.'%')->count();
-            $processo_judicializado = Historico::whereYear('start',$ano)->whereMonth('start', $mes_filter)->where('parecer', '=', 'Processo judicializado')->count();
-
-            }
-            else{/*Filtragem apenas por ano*/
-            $acordo_realizado = Historico::whereYear('start',$ano)->where('parecer', '=', 'Acordo realizado')->count();
-            $acordo_inviavel = Historico::whereYear('start',$ano)->where('parecer', '=', 'Acordo inviável')->count();
-            $nao_compareceu = Historico::whereYear('start',$ano)->where('parecer', 'like', '%'.'Parte não compareceu'.'%')->count();
-            $processo_judicializado = Historico::whereYear('start',$ano)->where('parecer', '=', 'Processo judicializado')->count();
-            }
+        if($mes_filter){ /* Se tiver filtragem por ano e por mês*/
+        $selected_month = $month[(($mes_filter)-1)];
+        $acordo_realizado = Historico::whereYear('start',$ano)->whereMonth('start', $mes_filter)->where('parecer', '=', 'Acordo realizado')->count();
+        $acordo_inviavel = Historico::whereYear('start',$ano)->whereMonth('start', $mes_filter)->where('parecer', '=', 'Acordo inviável')->count();
+        $nao_compareceu = Historico::whereYear('start',$ano)->whereMonth('start', $mes_filter)->where('parecer', 'like', '%'.'Parte não compareceu'.'%')->count();
+        $processo_judicializado = Historico::whereYear('start',$ano)->whereMonth('start', $mes_filter)->where('parecer', '=', 'Processo judicializado')->count();
         }
-        else{/*Sem filtragem */
+        else{/*Filtragem apenas por ano*/
+        $acordo_realizado = Historico::whereYear('start',$ano)->where('parecer', '=', 'Acordo realizado')->count();
+        $acordo_inviavel = Historico::whereYear('start',$ano)->where('parecer', '=', 'Acordo inviável')->count();
+        $nao_compareceu = Historico::whereYear('start',$ano)->where('parecer', 'like', '%'.'Parte não compareceu'.'%')->count();
+        $processo_judicializado = Historico::whereYear('start',$ano)->where('parecer', '=', 'Processo judicializado')->count();
+        }
+        
+        /*}else{/*Sem filtragem 
             $acordo_realizado = Historico::where('parecer', '=', 'Acordo realizado')->count();
             $acordo_inviavel = Historico::where('parecer', '=', 'Acordo inviável')->count();
             $nao_compareceu = Historico::where('parecer', 'like', '%'.'Parte não compareceu'.'%')->count();
             $processo_judicializado = Historico::where('parecer', '=', 'Processo judicializado')->count();
-        }
+        }*/
 
         $total = $acordo_inviavel+$acordo_realizado+$nao_compareceu+$processo_judicializado;
 

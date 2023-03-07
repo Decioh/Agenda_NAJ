@@ -18,7 +18,7 @@ $tel = preg_replace("/(\d{0})(\d{2})(\d{5})(\d{4})/", "\$1(\$2)\$3-\$4", $assist
     <span style="font-weight: bold;">CPF:</span> {{$cpf}}<br>
     <span style="font-weight: bold;">E-mail:</span> {{$assistido -> email}}<br>
     <span style="font-weight: bold;">Telefone:</span> {{$tel}}<br>
-    <span style="font-weight: bold;">Cadastrado por:</span><br>
+    <span style="font-weight: bold;">Cadastrado por:</span> {{$user->name}}<br>
 </p>
 <a href="{{ route('assistido.edit', $assistido-> id) }}"class="btn btn-warning btn"> Editar </a>
     
