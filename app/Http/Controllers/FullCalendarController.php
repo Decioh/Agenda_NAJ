@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\models\Assistido;
 use App\Models\Agenda;
 use Illuminate\Http\Request;
 

@@ -59,7 +59,7 @@
     </header>
         @yield('content')
 
-    <footer class="fixed-bottom">
+    <footer class="fixed-bottom mt-3">
         <p>Produzido para a<a href="http://www.defensoria.df.gov.br/" target="_blank">Defensoria Pública - DF</a></p>
     </footer>
     <!--Ion Icons-->

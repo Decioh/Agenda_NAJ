@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use App\Models\Agenda;
 use App\Models\Assistido;
 use App\Models\AssistidoAgenda;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\facades\Auth;
@@ -16,7 +15,7 @@ class AgendaController extends Controller
     }
     public function index(){
 
-        $agendas = Agenda::where( 'start', '>', Carbon::today())->orderBy('start','asc')->orderBy('vag_h','desc')->get(); //passando todos as agendas futuras para '/meadiacao/agendamentos'
+        $agendas = Agenda::where( 'start', '>', Carbon::today())->orderBy('start','asc')->orderBy('vag_h','desc')->paginate(50); //passando todos as agendas futuras para '/meadiacao/agendamentos'
 
     return view('/mediacao/agendamentos',['agendas' => $agendas]);   
     }
@@ -33,23 +32,18 @@ class AgendaController extends Controller
     }
     public function destroy($id,$agenda_id){
 
-        AssistidoAgenda::where('agenda_id',$agenda_id)->delete();
-
-        $start = Agenda::where('id',$agenda_id)->pluck('start');
-
-        $start = Agenda::where('start',$start)->where('assistido_id',null)->pluck('start');
-
-        $count = $start->count()+1;
-
+        $start = Agenda::findOrFail($agenda_id);    //encontramos a agenda
+        dump($start);
+        $vag_h = Agenda::where('start',$start->start)->pluck('vag_h','id');  //pegamos as vagas/h de todos os agendamentos no mesmo horario
+        dump($vag_h);
+        $vag_h = $vag_h->min();     //Pegamos o menor valor de vag_h
+        //$count = $vag_h+1;
+        dd($vag_h);
         DB::table('agendas')->where('id',$agenda_id)
-            ->update(['assistido_id' => null,'info' => null, 'status' => 0,'vag_h' => $count]);
-        
-        /*DB::table('agendas')->where('assistido_id', $id)->where('id',$agenda_id)
-            ->update(['assistido_id' => null,'info' => null, 'status' => 0,'vag_h' => $count]);*/
+            ->update(['assistido_id' => null,'info' => null, 'status' => 0,'vag_h' => $vag_h]);
 
-            
-        
-    
+        AssistidoAgenda::where('agenda_id',$agenda_id)->delete();        
+
         return back()->with('msg', 'Agendamento cancelado!');
     }
 
@@ -75,9 +69,8 @@ class AgendaController extends Controller
         $dow = array('Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado');
         $diff = $fim - $start; //Vamos usar para delimitar os dias onde serão criadas as agendas;
         $diff = (($diff / 60) / 60) / 24; //Convertendo de segundos para dias;
-        $k = $vag_h; //Variável k, para criar k agendamentos para o mesmo horario;
-        for ($k > 0; $k > 0; $k--) {
-
+        //$k = $vag_h; //Variável k, para criar k agendamentos para o mesmo horario;
+        //for ($k > 0; $k > 0; $k--) {
             for ($j = 0; $j <= $diff; $j++) { //for para ir para o próximo dia
                 $start = date('Y-m-d H:i', strtotime("+$j days", strtotime($aux))); // aumentar $j dias, 0 dias, 1 dia, 2 dias...;
                 $start = strtotime($start); // Transforma $start em tempo Unix que pode ser manipulado;
@@ -114,8 +107,8 @@ class AgendaController extends Controller
 
 
                 }
-            }
-            $vag_h = $vag_h - 1;
+            //}
+            //$vag_h = $vag_h - 1;
             }
         return redirect('/')->with('msg', 'Agendamento criado com sucesso!');
     }
@@ -138,7 +131,12 @@ class AgendaController extends Controller
     public function criar($assistido_id, $agenda_id){
 
         $agenda = Agenda::find($agenda_id);
-        
+        if($agenda->vag_h>1){
+            $newAgenda = $agenda->replicate();
+            $newAgenda->created_at = Carbon::now();
+            $newAgenda->vag_h = $agenda->vag_h-1;
+            $newAgenda->save();
+        }
         $agenda->assistido_id = $assistido_id;
 
         if ((Auth::user()->user_type) == 2){// Se for mediador, o status vai como pendente(1);

@@ -19,7 +19,7 @@
     <div class="container-md xl ">
         <h2>Meus agendamentos</h2>
     </div>
-<div class="container-md xl ">
+<div class="container-md mb-5 xl ">
     @php
     $i = 1;
     @endphp
@@ -103,6 +103,6 @@
         @endif
 </div>
         <div class="mx-auto" >
-         {{--$agendas->links()--}}
+         {{$agendas->links()}}
         </div>
 @endsection

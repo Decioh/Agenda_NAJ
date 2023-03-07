@@ -1,4 +1,4 @@
-<@extends('layouts.main')
+@extends('layouts.main')
 
 @section('tile', 'Atualizando cadastro')
 
@@ -58,7 +58,11 @@
         <div class="modal-body">
             <p>
                 Você tem certeza que deseja deletar?<br>
-                Essa ação não poderá ser desfeita.
+                Essa ação não poderá ser desfeita.<br>
+                <span style="font-weight:bold">
+                    Todos os agendamentos envolvendo o assitido<br>
+                    serão excluídos.
+                </span>
             </p>
         </div>
         <div class="modal-footer">

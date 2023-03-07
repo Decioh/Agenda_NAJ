@@ -14,7 +14,7 @@ class AssistidoController extends Controller
 {
     public function index(){
 
-        $agendas = Agenda::orderBy('start', 'asc')->orderBy('vag_h', 'desc')->simplePaginate(51); //passando todos as agendas para a view '/agendar', e ordenando.
+        $agendas = Agenda::orderBy('start', 'asc')->orderBy('vag_h', 'desc')->simplePaginate(20); //passando todos as agendas para a view '/agendar', e ordenando.
 
     return view('/mediacao/agendamentos', ['agendas' => $agendas]);
     }
@@ -113,11 +113,31 @@ class AssistidoController extends Controller
     }
     public function destroy($id){
 
-        DB::table('agendas')->where('assistido_id', $id)
-        ->update(['assistido_id' => null,'Status' => 0]);
-        Assistido::destroy('id', $id);
+        $agenda_id = Agenda::where('assistido_id',$id)->count();
+        if($agenda_id != 0){ //Se existir ao menos uma agenda para o assistido:
+            $ids = Agenda::where('assistido_id',$id)->where('historico_id','=', null)->pluck('id');
+            $agenda_id = Agenda::where('assistido_id',$id)->pluck('id');
+            $count = Historico::where('agenda_id',$agenda_id)->count();  
+            if($count == 0){ //Se não existir agendamento em histórico, podemos deletar o agendamento
+                    AssistidoAgenda::where('agenda_id',$ids)->delete();
+                    $start = Agenda::where('id',$agenda_id)->pluck('start');
+                    $vagas = Agenda::where('start',$start)->where('assistido_id',null)->pluck('start');
+                    $vag_h = $vagas->count()+1;
 
-    return redirect('/')->with('msg', 'Assistido deletado!');
+                    DB::table('agendas')->where('id',$ids)
+                        ->update(['assistido_id' => null,'info' => null, 'status' => 0,'vag_h' => $vag_h]);//Liberar a vaga sem deletar a agenda;
+
+                    Assistido::destroy($id);
+                return redirect('/')->with('msg', 'Assistido deletado!');
+            }
+            else {
+            return redirect('/')->with('msg', 'Asssitido não pode ser deletado, pois consta atendimento em Histórico.');
+            }
+        }
+        else{ // Se o assistido não foi cadastrado em nenhuma agenda:
+            Assistido::destroy($id);
+        return redirect('/')->with('msg', 'Assistido deletado!');
+        }
     }
     public function store(Request $req){                                                                                                                                          
         

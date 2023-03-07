@@ -36,7 +36,7 @@ Route::get  ('/assistido/{id}', [AssistidoController::class, 'create'])->name('a
 Route::get ('/assistido/{id}/novo', [AssistidoController::class, 'store'])->name('assistido.store')->middleware('auth');
 Route::get  ('/assistido/{id}/edit', [AssistidoController::class, 'edit'])->name('assistido.edit')->middleware('auth');
 Route::post ('/assistido/{id}/update', [AssistidoController::class, 'update'])->name('assistido.update')->middleware('auth');
-Route::delete('/assistido/{id}', [AssistidoController::class, 'destroy'])->name('assistido.destroy')->middleware('auth');
+Route::delete('/assistido/{id}/{agenda_id}', [AssistidoController::class, 'destroy'])->name('assistido.destroy')->middleware('auth');
 Route::get  ('/assistido/{id}/info', [AssistidoController::class, 'info'])->name('assistido.info')->middleware('auth');
 
 

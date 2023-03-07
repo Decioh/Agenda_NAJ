@@ -59,7 +59,7 @@ $tel = preg_replace("/(\d{0})(\d{2})(\d{5})(\d{4})/", "\$1(\$2)\$3-\$4", $assist
                         <button type="button" class="btn btn-danger delete-btn btn-sm mt-1" data-toggle="modal" data-target="#exampleModalCenter">Cancelar agendamento</button>          
                         <a href="{{route('historico.create',$agenda->id)}}" class="btn btn-secondary btn-sm mt-1">Adicionar parecer</a>
                 </div>
-    
+              {{-- Modal --}}
                 <form action="{{ route('agenda.destroy', ["id"=>$assistido->id,"agenda_id"=>$agenda->id]) }}" method="POST">
                   @csrf
                   @method('DELETE')
