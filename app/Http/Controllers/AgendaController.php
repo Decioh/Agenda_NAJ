@@ -33,14 +33,23 @@ class AgendaController extends Controller
     public function destroy($id,$agenda_id){
 
         $start = Agenda::findOrFail($agenda_id);    //encontramos a agenda
-        dump($start);
-        $vag_h = Agenda::where('start',$start->start)->pluck('vag_h','id');  //pegamos as vagas/h de todos os agendamentos no mesmo horario
+        dump($agenda_id);
+        $new_agenda_id = Agenda::where('start',$start->start)->pluck('id');  //pegamos as vagas/h de todos os agendamentos no mesmo horario
+        dump($new_agenda_id);
+        $vag_h = Agenda::where('start',$start->start)->pluck('vag_h');
+        $vag_h = $vag_h->toArray();
+        end($vag_h);
+        $vag_h = prev($vag_h);
         dump($vag_h);
-        $vag_h = $vag_h->min();     //Pegamos o menor valor de vag_h
-        //$count = $vag_h+1;
-        dd($vag_h);
+        $new_agenda_id = $new_agenda_id->max();     
+        //dump($max);
+        //$new_agenda_id = $new_agenda_id->toArray();
+       // $new_agenda_id = end($new_agenda_id);
+        dd($new_agenda_id);
+
+        Agenda::destroy($new_agenda_id);
         DB::table('agendas')->where('id',$agenda_id)
-            ->update(['assistido_id' => null,'info' => null, 'status' => 0,'vag_h' => $vag_h]);
+            ->update(['assistido_id' => null,'info' => null, 'status' => 0, 'vag_h'=>$vag_h]);
 
         AssistidoAgenda::where('agenda_id',$agenda_id)->delete();        
 
