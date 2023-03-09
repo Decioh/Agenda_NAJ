@@ -41,7 +41,7 @@
         <option value="Ambas">Todas as partes</option>
     </select><br>
     <label class="my-2" for="pindo">Informações adicionais:</label><br>
-    <textarea  id="info" name="info"></textarea>
+    <textarea cols="25" rows="5"  id="info" name="info"></textarea>
 </div> <br>
 <input type="submit" class="btn btn-success" value="Finalizar mediação" >
 </form>

@@ -103,7 +103,6 @@ class AssistidoController extends Controller
             $agendas[$i] = Agenda::where('id',$agenda_id)->first();
             $i++;
         }
-        dump($agendas);
         $assistido_agenda = AssistidoAgenda::all();
         $assistidos = Assistido::all('*');
         if(isset($agendas))

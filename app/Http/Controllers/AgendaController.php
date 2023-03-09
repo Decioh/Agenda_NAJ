@@ -32,28 +32,26 @@ class AgendaController extends Controller
     }
     public function destroy($id,$agenda_id){
 
-        $start = Agenda::findOrFail($agenda_id);    //encontramos a agenda
-        dump($agenda_id);
-        $new_agenda_id = Agenda::where('start',$start->start)->pluck('id');  //pegamos as vagas/h de todos os agendamentos no mesmo horario
-        dump($new_agenda_id);
-        $vag_h = Agenda::where('start',$start->start)->pluck('vag_h');
-        $vag_h = $vag_h->toArray();
-        end($vag_h);
-        $vag_h = prev($vag_h);
-        dump($vag_h);
-        $new_agenda_id = $new_agenda_id->max();     
-        //dump($max);
-        //$new_agenda_id = $new_agenda_id->toArray();
-       // $new_agenda_id = end($new_agenda_id);
-        dd($new_agenda_id);
+        $agenda = Agenda::findOrFail($agenda_id);    //encontramos a agenda;
+        $new_agenda_id = Agenda::where('start',$agenda->start)->pluck('id');  //pegamos o id de todos os agendamentos com mesma data;
+        $agendas_livres = Agenda::where('start',$agenda->start)->where('status', '=', 0)->count(); // Para saber se todas as vagas estão preenchidas;
+        $agenda_livre = Agenda::where('start',$agenda->start)->where('status', '=', 0)->first(); // Id da agenda que estava livre, e deve ser deletada;
+        $ocupadas = Agenda::where('start',$agenda->start)->where('status', '>', 0)->count(); // Para saber quantas vagas estão preenchidas;
+        $vag_h = Agenda::where('start',$agenda->start)->pluck('vag_h'); // Pegamos todas as vagas para ver o maior valor;
+        $count = $vag_h->toArray();                                    // Variável para para armazenar o número de vagas já preenchidas;                                                // Último valor, para poder achar o penúltimo;
+        $vag_h = $agenda->vag_h_max - ($ocupadas-1);                                        // Pegamos as vagas da penultima vaga(Que tem o valor vag_h que precisamos se não for a última vaga);
+        if($agendas_livres == null){                              // Se Não existir mais uma vaga livre, apenas limpamos a vaga e colocamos vag_h = 1;
+            DB::table('agendas')->where('id',$agenda_id)
+            ->update(['assistido_id' => null,'info' => null, 'status' => 0, 'vag_h'=>1]);
+        }
+        else{  
+            Agenda::destroy($agenda_livre->id);
+            DB::table('agendas')->where('id',$agenda_id)
+                ->update(['assistido_id' => null,'info' => null, 'status' => 0, 'vag_h'=>$vag_h]);        
+        }
+        AssistidoAgenda::where('agenda_id',$agenda_id)->delete();
 
-        Agenda::destroy($new_agenda_id);
-        DB::table('agendas')->where('id',$agenda_id)
-            ->update(['assistido_id' => null,'info' => null, 'status' => 0, 'vag_h'=>$vag_h]);
-
-        AssistidoAgenda::where('agenda_id',$agenda_id)->delete();        
-
-        return back()->with('msg', 'Agendamento cancelado!');
+    return back()->with('msg', 'Agendamento cancelado!');
     }
 
     public function store(Request $request)
@@ -94,6 +92,7 @@ class AgendaController extends Controller
                             $agenda = new Agenda();
                             $agenda->start = $start;
                             $agenda->vag_h = $vag_h;
+                            $agenda->vag_h_max = $vag_h;
                             $agenda->end = $end;
                             $agenda->dia = $dia;
                             $agenda->user_id= Auth::user()->id;
@@ -107,6 +106,7 @@ class AgendaController extends Controller
                             $agenda->end = $end;
                             $agenda->dia = $dia;
                             $agenda->vag_h = $vag_h;
+                            $agenda->vag_h_max = $vag_h;
                             $agenda->user_id= Auth::user()->id;
                         }
                         $agenda->dur = $dur;

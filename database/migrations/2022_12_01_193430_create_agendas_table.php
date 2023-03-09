@@ -20,6 +20,7 @@ class CreateAgendasTable extends Migration
             $table  ->  string('dia');
             $table  ->  integer('dur')->nullable();
             $table  ->  integer('vag_h');
+            $table  ->  integer('vag_h_max')->nullable();
             $table  ->  text('info')->nullable();
             $table  ->  boolean('Status')->default('0');
             $table  ->  foreignId('historico_id')->nullable();

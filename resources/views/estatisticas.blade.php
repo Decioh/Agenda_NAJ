@@ -40,11 +40,8 @@
         </div>
         </a>
     </div>
-
-</div>
-    
-</div> <br>
-<div class="row mx-5 mb-5">
+</div><br>
+<div class="row mx-1 mb-5">
     <section class="graficos col 12 my-5" >            
       <div class="grafico card z-depth-4">
         <span class="d-inline-flex p-2">

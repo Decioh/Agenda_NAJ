@@ -12,13 +12,10 @@
         </div>
     </div>
 
-    <div class="col-md10 offset-md-1 dashboard-title-container" style="margin-right: 160px">
+    <div class="container-md xl ">
         <h2>Agendando assistido</h2>
-
-        {{--<a href="{{route('assistido.novo')}}" class="btn btn-secondary edit-btn">Cadastrar outro assistido</a>
     </div>
-        <p>Ou, continue e escolha um horário de atendimento...</p>--}}
-    <div class="col-md10 offset-md-1 dashboard-title-container pb-5" style="margin-right: 160px">
+    <div class="container-md mb-5 xl ">
     @php
     $i = 1;
     @endphp
@@ -45,7 +42,7 @@
                 <th scope="row">{{ $i }}</th>
                 <td>{{$agenda->dia}} - {{date('d/m', strtotime($agenda->start))}}</td>
                 <td> @if(($agenda -> assistido_id) == null)
-                    <a href="{{route('assistido.agendar', [$assistido_id, 'agenda_id'=> $agenda->id]) }}" class="btn btn-success edit-btn"> {{date('H:i', strtotime($agenda->start))}} </a>
+                    <a href="{{route('assistido.agendar', [$assistido_id, 'agenda_id'=> $agenda->id]) }}" class="btn btn-success edit-btn mt-2"> {{date('H:i', strtotime($agenda->start))}} </a>
                 @endif                
         @endif
         @if($day != date('d/m', strtotime($agenda -> start)))                           <!--Abrimos nova linha, caso seja um novo dia-->
@@ -59,7 +56,7 @@
         @endif
         @if($l_start != $agenda -> start || $l_assistido != $agenda->assistido_id)  <!--Para mostrar apenas um evento por horario-->
             @if(($agenda -> assistido_id) == null)
-                <a href="{{route('assistido.agendar', [$assistido_id, 'agenda_id'=> $agenda->id]) }}" class="btn btn-success edit-btn"> {{date('H:i', strtotime($agenda->start))}} </a>
+                <a href="{{route('assistido.agendar', [$assistido_id, 'agenda_id'=> $agenda->id]) }}" class="btn btn-success edit-btn mt-2"> {{date('H:i', strtotime($agenda->start))}} </a>
             @endif   
         @endif
         @php 
@@ -71,6 +68,7 @@
                 </td>
             </tr>
         </tbody>
+    </div>
     </div>
     @endif
         <div class="mx-auto" >
