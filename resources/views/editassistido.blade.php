@@ -8,7 +8,7 @@
     <div class="info-cadastro">
         <p class="card-date">Atualizando dados do Assistido {{$assistido->nome }}</p>
     </div>
-    <form action="{{ route('assistido.update',$assistido -> id) }}" method="POST">
+    <form action="{{ route('assistido.update',$assistido->id) }}" method="POST">
     @csrf
 <div class="cadastro"><br>
     <div class="cadastron">
@@ -43,7 +43,7 @@
 </form>
 
 <!-- Modal -->
-<form action="{{ route('assistido.destroy', $assistido->id) }}" method="POST">
+<form action="{{ route('assistido.destroy', [$assistido->id, $agenda_id]) }}" method="POST">
     @csrf
     @method('DELETE')
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

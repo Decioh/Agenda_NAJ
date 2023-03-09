@@ -70,9 +70,9 @@ class AssistidoController extends Controller
     public function edit($id){
 
         $assistido = Assistido::find($id);
-        $agenda = DB::table('agendas')->where('assistido_id',$id)->get();
+        $agenda_id = Agenda::where('assistido_id',$id)->get('id');
 
-    return view ('editassistido',['assistido'=>$assistido, 'agenda'=> $agenda]);
+    return view ('editassistido',['assistido'=>$assistido, 'agenda_id'=> $agenda_id]);
     }
 
     public function update(Request $req){
@@ -103,6 +103,7 @@ class AssistidoController extends Controller
             $agendas[$i] = Agenda::where('id',$agenda_id)->first();
             $i++;
         }
+        dump($agendas);
         $assistido_agenda = AssistidoAgenda::all();
         $assistidos = Assistido::all('*');
         if(isset($agendas))

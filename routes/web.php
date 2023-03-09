@@ -22,6 +22,7 @@ Route::post('/mediacao/criar_agenda/novo', [AgendaController::class, 'store'])->
 Route::delete('/mediacao/agendamentos/{id}/{agenda_id}', [AgendaController::class, 'destroy'])->name('agenda.destroy')->middleware('auth');
 Route::get  ('/mediacao/agendamentos/{id}/edit', [AgendaController::class, 'edit'])->name('agenda.edit')->middleware('auth');
 Route::get('/agendamentos/desfecho', [AgendaController::class, 'add_parecer'])->name('agendamentos.sem_parecer')->middleware('auth');
+
 /*Rotas para agendar assistido já cadastrado*/
 Route::get('/assistido/{id}/agendar/{agenda_id}',[AgendaController::class, 'criar'])->name('assistido.agendar')->middleware('auth');
 Route::get('/assistido/{id}/agendar',[AgendaController::class, 'list'])->name('agenda.list')->middleware('auth');

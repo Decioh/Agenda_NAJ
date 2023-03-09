@@ -3,13 +3,6 @@
 
 @section('title', 'Informações assistido')
 
-<script>
-var id = 1;
-function id_adjustment(id) {
-   id = document.getElementById("inputField").value;
-}
-</script>
-
 @section('content')    
 
 @php
@@ -27,7 +20,7 @@ $tel = preg_replace("/(\d{0})(\d{2})(\d{5})(\d{4})/", "\$1(\$2)\$3-\$4", $assist
     <span style="font-weight: bold;">Telefone:</span> {{$tel}}<br>
     <span style="font-weight: bold;">Cadastrado por:</span> {{$user->name}}<br>
 </p>
-<a href="{{ route('assistido.edit', $assistido-> id) }}"class="btn btn-warning btn"> Editar </a>
+<a href="{{ route('assistido.edit', $assistido->id) }}"class="btn btn-warning btn"> Editar </a>
     
 <h2>Conciliações </h2>
 
@@ -64,25 +57,13 @@ $tel = preg_replace("/(\d{0})(\d{2})(\d{5})(\d{4})/", "\$1(\$2)\$3-\$4", $assist
                             <a href="{{route('agenda.edit',$assistido_agendas->agenda_id)}}" class="btn btn-warning btn-sm">Confirmar agendamento</a>
                     @endif
                     <br>
-                        <button type="button" class="btn btn-danger delete-btn btn-sm mt-1" data-toggle="modal" data-target="#exampleModalCenter" id="delete-btn" onclick="id_adjustment({{$agenda->id}})">Cancelar agendamento</button>          
+                        <a href="#delete-{{$agenda->id}}" type="button" class="btn btn-danger delete-btn btn-sm mt-1" data-toggle="modal" id="delete-btn">Cancelar agendamento</a>          
                         <a href="{{route('historico.create',$agenda->id)}}" class="btn btn-secondary btn-sm mt-1">Adicionar parecer</a>
-                </div>
-                    @endif         
-@endif  
-        </div>
-      </div>
-    </div>
-        <br>
-    @endforeach
-@else
-
-<p>Assistido sem agendamentos</p>
-@endif
-{{-- Modal --}}
+                        {{-- Modal --}}
   <form action="{{ route('agenda.destroy', ["id"=>$assistido->id,"agenda_id"=>$agenda->id]) }}" method="POST">
     @csrf
     @method('DELETE')
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="delete-{{$agenda->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -105,4 +86,17 @@ $tel = preg_replace("/(\d{0})(\d{2})(\d{5})(\d{4})/", "\$1(\$2)\$3-\$4", $assist
     </div>
   </div>
 </form>
+                </div>
+                    @endif         
+@endif  
+        </div>
+      </div>
+    </div>
+        <br>
+    @endforeach
+@else
+
+<p>Assistido sem agendamentos</p>
+@endif
+
 @endsection

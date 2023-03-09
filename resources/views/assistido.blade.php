@@ -13,7 +13,7 @@
     </form>
 </div>
 
-<div class="listAssistidos">
+<div class="listAssistidos mb-5">
 <table class="table">
     <thead>
         <tr>
