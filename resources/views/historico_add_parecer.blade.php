@@ -4,7 +4,7 @@
 
 @section('content')
 
-<script>
+<script type="text/javascript">
     function show(i){
         if (i==1) document.getElementById("parte_faltante").style.display="block";
         else document.getElementById("parte_faltante").style.display="none";
@@ -27,16 +27,16 @@
 @csrf
 <div class="mx-auto"> <br>
     <label class="my-2" for="parecer">Parecer final:</label><br>
-    <select name="parecer" id="parecer">
+    <select name="parecer" id="parecer" class="my-2">
         <option value="Acordo inviável" onclick="show(0)" >Acordo inviável</option>
         <option value="Acordo realizado" onclick="show(0)">Acordo realizado</option>
         <option value="Processo judicializado" onclick="show(0)">Processo judicializado</option>
         <option value="Parte não compareceu" onclick="show(1)" selected>Parte não compareceu</option>
     </select><br>
-    <select name="parte_faltante" id="parte_faltante" class="custom-select-sm my-3" size="1">
+    <select name="parte_faltante" id="parte_faltante" class="mx-auto" size="1">
         <label class="my-2" for="pfinal">Qual parte faltou?</label><br>
     @foreach($agendas_assistidos as $agendas_assistidos)
-        <option value="{{$agendas_assistidos->nome_assistido}}">{{$agendas_assistidos->nome_assistido}}</option>        
+        <option value="{{$agendas_assistidos->nome_assistido}}">{{$agendas_assistidos->nome_assistido}}</option>
     @endforeach
         <option value="Ambas">Todas as partes</option>
     </select><br>
